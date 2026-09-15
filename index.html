@@ -53,14 +53,13 @@ th{background:#075e54;color:white;}
 .supplier-box{background:#f9fdfc;border:1px dashed #087f6d;border-radius:10px;padding:12px;margin-bottom:10px;}
 .cart-box{background:#fffbea;border:1px solid #ef8b00;border-radius:10px;padding:10px;margin-top:10px;}
 .hint{background:#fff8e1;border-left:4px solid #ef8b00;padding:8px 10px;border-radius:6px;font-size:13px;margin:8px 0;}
-
-/* রিপোর্ট ট্যাব */
+.empty-state{text-align:center;padding:30px 15px;color:#888;font-size:14px;}
+.empty-state .big{font-size:36px;margin-bottom:8px;}
 .report-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
 .report-tabs button{flex:1;min-width:100px;padding:12px 10px;font-weight:bold;font-size:14px;}
 .report-tabs button.active{background:#075e54;box-shadow:0 0 0 3px #b8ded6;}
 .report-range-info{background:#f1f8f6;border-left:4px solid #087f6d;padding:8px 12px;border-radius:6px;font-size:13.5px;color:#075e54;font-weight:bold;margin-bottom:12px;}
 
-/* চালান ডিজাইন */
 .invoice-paper{background:white;padding:18px;max-width:800px;margin:auto;font-size:13px;color:#111;}
 .inv-company-head{text-align:center;padding-bottom:8px;}
 .inv-company-head h1{margin:0 0 4px;font-size:22px;color:#075e54;font-weight:bold;}
@@ -81,6 +80,11 @@ th{background:#075e54;color:white;}
 .inv-signature{display:flex;justify-content:space-between;margin-top:55px;gap:20px;}
 .inv-signature > div{text-align:center;font-size:12.5px;flex:1;}
 .inv-signature > div::before{content:"";display:block;border-top:1px dashed #555;margin-bottom:4px;}
+
+.cust-info-row{background:#f7faf9;border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:12px;}
+.cust-info-row p{margin:4px 0;font-size:13.5px;}
+.cust-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.cust-actions button{padding:6px 10px;font-size:12.5px;}
 
 @media(max-width:700px){
 .row,.row3,.row4{grid-template-columns:1fr;}
@@ -107,7 +111,7 @@ body *{visibility:hidden;}
 
 <div class="container">
 
-<!-- ========== DASHBOARD ========== -->
+<!-- DASHBOARD -->
 <div id="dashboardSection">
   <div class="card">
     <h2>ড্যাশবোর্ড</h2>
@@ -140,7 +144,7 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== STOCK ========== -->
+<!-- STOCK -->
 <div id="stockSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -163,7 +167,7 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== PURCHASE ========== -->
+<!-- PURCHASE -->
 <div id="purchaseSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -253,7 +257,7 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== INVOICE ========== -->
+<!-- INVOICE -->
 <div id="invoiceSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -261,7 +265,6 @@ body *{visibility:hidden;}
 
     <div class="supplier-box">
       <h3>আমার প্রতিষ্ঠানের তথ্য (সেটিংস থেকে)</h3>
-      <p class="small">নিচের তথ্য সেটিংস থেকে আসছে। পরিবর্তন করতে সেটিংসে যান।</p>
       <div class="row3">
         <div><b>প্রতিষ্ঠানের নাম:</b> <span id="invMyName">—</span></div>
         <div><b>ঠিকানা:</b> <span id="invMyAddr">—</span></div>
@@ -338,7 +341,7 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== SALES ========== -->
+<!-- SALES -->
 <div id="salesSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -362,7 +365,33 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== REPORT (নতুন আপডেট) ========== -->
+<!-- CUSTOMER (নতুন আপডেট) -->
+<div id="customerSection" class="hidden">
+  <div class="card">
+    <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
+    <h2>গ্রাহক</h2>
+    <button onclick="openCustomerModal()">+ নতুন গ্রাহক</button>
+    <br><br>
+    <input id="customerSearch" placeholder="নাম/মোবাইল দিয়ে খুঁজুন" oninput="renderCustomers()">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>নাম / প্রতিষ্ঠান</th>
+            <th>মোবাইল</th>
+            <th>ঠিকানা</th>
+            <th>মোট বিক্রয়</th>
+            <th>বর্তমান বাকি</th>
+            <th>অ্যাকশন</th>
+          </tr>
+        </thead>
+        <tbody id="customerTable"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT -->
 <div id="reportSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -401,12 +430,12 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== BACKUP ========== -->
+<!-- BACKUP -->
 <div id="backupSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
     <h2>ব্যাকআপ ও পুনরুদ্ধার</h2>
-    <p>পুরো ডেটা JSON ফাইলে ডাউনলোড করুন, অথবা ব্যাকআপ কোড কপি করে সংরক্ষণ করুন। অ্যাপ ডিলিট হয়ে গেলেও এই ব্যাকআপ থেকে সব ফিরিয়ে আনা যাবে।</p>
+    <p>পুরো ডেটা JSON ফাইলে ডাউনলোড করুন, অথবা ব্যাকআপ কোড কপি করে সংরক্ষণ করুন।</p>
 
     <button onclick="downloadBackup()">📥 ব্যাকআপ ফাইল ডাউনলোড</button>
     <button class="blue" onclick="generateBackupCodeUI()">🔑 ব্যাকআপ কোড তৈরি করুন</button>
@@ -414,7 +443,7 @@ body *{visibility:hidden;}
     <button class="warning" onclick="restoreFromBackupCode()">♻️ কোড থেকে পুনরুদ্ধার</button>
 
     <br><br>
-    <label>ব্যাকআপ কোড (এখানে জেনারেট হবে)</label>
+    <label>ব্যাকআপ কোড</label>
     <textarea id="backupCodeBox" class="backup-code" readonly placeholder="এখানে ব্যাকআপ কোড দেখা যাবে..."></textarea>
 
     <hr>
@@ -424,11 +453,11 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== SETTINGS ========== -->
+<!-- SETTINGS -->
 <div id="settingsSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
-    <h2>আমার প্রতিষ্ঠানের তথ্য (চালানে দেখানো হবে)</h2>
+    <h2>আমার প্রতিষ্ঠানের তথ্য</h2>
     <label>প্রতিষ্ঠানের নাম</label>
     <input id="companyName" placeholder="যেমন: অনুভব এন্টারপ্রাইজ">
     <label>ঠিকানা</label>
@@ -441,7 +470,7 @@ body *{visibility:hidden;}
 
 </div>
 
-<!-- ========== PRODUCT MODAL ========== -->
+<!-- PRODUCT MODAL -->
 <div id="productModal" class="modal hidden">
   <div class="modal-box">
     <div class="modal-head">
@@ -464,21 +493,38 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== CUSTOMER MODAL ========== -->
+<!-- CUSTOMER MODAL (নতুন - এডিটও কাজ করবে) -->
 <div id="customerModal" class="modal hidden">
   <div class="modal-box">
     <div class="modal-head">
-      <h2>নতুন গ্রাহক</h2>
+      <h2 id="customerModalTitle">নতুন গ্রাহক</h2>
       <button class="danger" onclick="closeModal('customerModal')">X</button>
     </div>
-    <label>গ্রাহকের নাম</label><input id="customerName">
-    <label>মোবাইল</label><input id="customerPhone">
-    <label>ঠিকানা</label><textarea id="customerAddress"></textarea>
-    <button onclick="saveCustomer()">গ্রাহক সংরক্ষণ</button>
+    <label>গ্রাহকের নাম / প্রতিষ্ঠান *</label>
+    <input id="customerName" placeholder="যেমন: রহিম স্টোর">
+    <label>মোবাইল নম্বর</label>
+    <input id="customerPhone" placeholder="01XXXXXXXXX">
+    <label>ঠিকানা</label>
+    <textarea id="customerAddress" placeholder="গ্রাহকের ঠিকানা"></textarea>
+    <label>প্রারম্ভিক বাকি (ঐচ্ছিক)</label>
+    <input type="number" id="customerDue" value="0" min="0" step="0.01">
+    <button onclick="saveCustomer()">💾 সংরক্ষণ করুন</button>
+    <button class="secondary" onclick="closeModal('customerModal')">বাতিল</button>
   </div>
 </div>
 
-<!-- ========== DELIVERY MODAL ========== -->
+<!-- CUSTOMER DETAIL MODAL (নতুন) -->
+<div id="customerDetailModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>গ্রাহকের বিবরণ</h2>
+      <button class="danger" onclick="closeModal('customerDetailModal')">X</button>
+    </div>
+    <div id="customerDetailContent"></div>
+  </div>
+</div>
+
+<!-- DELIVERY MODAL -->
 <div id="deliveryModal" class="modal hidden">
   <div class="modal-box">
     <div class="modal-head">
@@ -501,7 +547,7 @@ body *{visibility:hidden;}
   </div>
 </div>
 
-<!-- ========== INVOICE VIEW MODAL ========== -->
+<!-- INVOICE VIEW MODAL -->
 <div id="invoiceViewModal" class="modal hidden">
   <div class="modal-box">
     <div class="no-print modal-head">
@@ -533,6 +579,7 @@ let currentInvoiceItems=[];
 let purchaseCart=[];
 let deliveryInvoiceId=null;
 let editingInvoiceId=null;
+let editingCustomerId=null;
 let currentReportPeriod='daily';
 
 /* ================= BASIC ================= */
@@ -1201,7 +1248,6 @@ function showInvoice(invoice,autoPrint){
 
   document.getElementById("printArea").innerHTML=`
     <div class="invoice-paper">
-
       <div class="inv-company-head">
         <h1>${escapeHtml(cName)}</h1>
         <div class="inv-line">${escapeHtml(cAddr)}</div>
@@ -1260,7 +1306,6 @@ function showInvoice(invoice,autoPrint){
         <div>গ্রাহকের স্বাক্ষর</div>
         <div>বিক্রেতার স্বাক্ষর</div>
       </div>
-
     </div>`;
 
   openModal("invoiceViewModal");
@@ -1301,48 +1346,191 @@ function renderSales(){
   });
 }
 
-/* ================= CUSTOMERS ================= */
-function openCustomerModal(){
-  ["customerName","customerPhone","customerAddress"].forEach(id=>document.getElementById(id).value="");
+/* ================= CUSTOMERS (নতুন সম্পূর্ণ) ================= */
+function openCustomerModal(editId){
+  editingCustomerId=editId||null;
+  if(editId){
+    const c=customers.find(x=>x.id===editId);
+    if(!c){alert("গ্রাহক পাওয়া যায়নি।");return;}
+    document.getElementById("customerModalTitle").textContent="গ্রাহক এডিট";
+    document.getElementById("customerName").value=c.name||"";
+    document.getElementById("customerPhone").value=c.phone||"";
+    document.getElementById("customerAddress").value=c.address||"";
+    document.getElementById("customerDue").value=Number(c.due||0);
+  }else{
+    document.getElementById("customerModalTitle").textContent="নতুন গ্রাহক";
+    document.getElementById("customerName").value="";
+    document.getElementById("customerPhone").value="";
+    document.getElementById("customerAddress").value="";
+    document.getElementById("customerDue").value=0;
+  }
   openModal("customerModal");
 }
+
 function saveCustomer(){
   const name=document.getElementById("customerName").value.trim();
   const phone=document.getElementById("customerPhone").value.trim();
   const address=document.getElementById("customerAddress").value.trim();
+  const due=Math.max(0,Number(document.getElementById("customerDue").value||0));
+
   if(!name){alert("গ্রাহকের নাম দিন।");return;}
-  const existing=getCustomerByPhone(phone);
-  if(existing){
-    existing.name=name;existing.address=address;
-    save(KEY_CUSTOMERS,customers);
+
+  if(editingCustomerId){
+    const c=customers.find(x=>x.id===editingCustomerId);
+    if(!c){alert("গ্রাহক পাওয়া যায়নি।");return;}
+    c.name=name;
+    c.phone=phone;
+    c.address=address;
+    c.due=due;
   }else{
-    customers.push({id:uid(),name,phone,address,due:0});
-    save(KEY_CUSTOMERS,customers);
+    if(phone){
+      const existing=getCustomerByPhone(phone);
+      if(existing){
+        existing.name=name;
+        existing.address=address;
+        save(KEY_CUSTOMERS,customers);
+        closeModal("customerModal");
+        editingCustomerId=null;
+        refreshAll();
+        alert("এই মোবাইল নম্বরের গ্রাহক আগে থেকেই ছিল — তথ্য আপডেট হয়েছে।");
+        return;
+      }
+    }
+    customers.push({id:uid(),name,phone,address,due:due});
   }
+  save(KEY_CUSTOMERS,customers);
   closeModal("customerModal");
+  editingCustomerId=null;
   refreshAll();
   alert("গ্রাহক সংরক্ষণ হয়েছে।");
 }
+
+function editCustomer(id){ openCustomerModal(id); }
+
+function deleteCustomer(id){
+  const c=customers.find(x=>x.id===id);
+  if(!c)return;
+  const hasInvoices=invoices.some(inv=>
+    (inv.buyerPhone && c.phone && inv.buyerPhone===c.phone) ||
+    (!inv.buyerPhone && !c.phone && inv.buyerName===c.name)
+  );
+  let msg='গ্রাহক "'+c.name+'" মুছে ফেলবেন?';
+  if(hasInvoices) msg+="\n\n⚠️ এই গ্রাহকের চালান আছে, তবুও মুছবেন?";
+  if(!confirm(msg))return;
+  customers=customers.filter(x=>x.id!==id);
+  save(KEY_CUSTOMERS,customers);
+  refreshAll();
+  alert("গ্রাহক মুছে ফেলা হয়েছে।");
+}
+
+function viewCustomer(id){
+  const c=customers.find(x=>x.id===id);
+  if(!c)return;
+
+  const myInvoices=invoices.filter(inv=>
+    (inv.buyerPhone && c.phone && inv.buyerPhone===c.phone) ||
+    (!inv.buyerPhone && !c.phone && inv.buyerName===c.name)
+  );
+
+  let totalSales=0,totalPaid=0,totalDue=0;
+  myInvoices.forEach(inv=>{
+    totalSales+=Number(inv.total||0);
+    totalPaid+=Number(inv.paid||0);
+    totalDue+=Number(inv.currentInvoiceDue??inv.due??0);
+  });
+
+  let invoiceRows="";
+  myInvoices.slice().reverse().forEach(inv=>{
+    invoiceRows+=`
+      <tr>
+        <td>${escapeHtml(inv.invoiceNo)}</td>
+        <td>${escapeHtml(inv.deliveryDate||inv.date)}</td>
+        <td>${money(inv.total)}</td>
+        <td>${money(inv.paid)}</td>
+        <td>${money(inv.currentInvoiceDue??inv.due??0)}</td>
+        <td>${inv.delivered?'<span class="status delivered">ডেলিভারি</span>':'<span class="status pending">অপেক্ষমাণ</span>'}</td>
+      </tr>`;
+  });
+
+  document.getElementById("customerDetailContent").innerHTML=`
+    <div class="cust-info-row">
+      <p><b>নাম / প্রতিষ্ঠান:</b> ${escapeHtml(c.name)}</p>
+      <p><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</p>
+      <p><b>ঠিকানা:</b> ${escapeHtml(c.address||"—")}</p>
+    </div>
+
+    <div class="stats" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat">মোট বিক্রয়<b>${money(totalSales)}</b></div>
+      <div class="stat">মোট নগদ<b>${money(totalPaid)}</b></div>
+      <div class="stat">বর্তমান বাকি<b class="${Number(c.due)>0?'red':'green'}">${money(c.due)}</b></div>
+    </div>
+
+    <h3 style="margin-top:15px;">চালানের তালিকা (${myInvoices.length}টি)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>চালান</th><th>তারিখ</th><th>মোট</th>
+            <th>নগদ</th><th>বাকি</th><th>অবস্থা</th>
+          </tr>
+        </thead>
+        <tbody>${invoiceRows||'<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">এই গ্রাহকের কোনো চালান নেই</td></tr>'}</tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:15px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="warning" onclick="closeModal('customerDetailModal');editCustomer('${c.id}')">✏️ এডিট</button>
+      ${Number(c.due||0)>0?`<button onclick="closeModal('customerDetailModal');collectDue('${c.id}')">💰 বাকি আদায়</button>`:''}
+    </div>
+  `;
+  openModal("customerDetailModal");
+}
+
 function renderCustomers(){
   const search=(document.getElementById("customerSearch")?.value||"").toLowerCase();
   const tbody=document.getElementById("customerTable");
   tbody.innerHTML="";
-  customers
-    .filter(c=>String(c.name||"").toLowerCase().includes(search)||String(c.phone||"").toLowerCase().includes(search))
-    .forEach(c=>{
-      tbody.innerHTML+=`
-        <tr>
-          <td>${escapeHtml(c.name)}</td>
-          <td>${escapeHtml(c.phone)}</td>
-          <td>${escapeHtml(c.address)}</td>
-          <td class="${Number(c.due||0)>0?"red":"green"}">${money(c.due)}</td>
-          <td>${
-            Number(c.due||0)>0
-              ?`<button onclick="collectDue('${c.id}')">বাকি আদায়</button>`
-              :`<span class="green">পরিশোধিত</span>`
-          }</td>
-        </tr>`;
-    });
+
+  const list=customers.filter(c=>
+    String(c.name||"").toLowerCase().includes(search)||
+    String(c.phone||"").toLowerCase().includes(search)
+  );
+
+  if(list.length===0){
+    tbody.innerHTML=`<tr><td colspan="6">
+      <div class="empty-state">
+        <div class="big">👤</div>
+        <p>${customers.length===0?'এখনো কোনো গ্রাহক যোগ করা হয়নি।<br>উপরে <b>"+ নতুন গ্রাহক"</b> বাটনে ক্লিক করুন।':'এই সার্চে কোনো গ্রাহক পাওয়া যায়নি।'}</p>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  list.forEach(c=>{
+    const myInvoices=invoices.filter(inv=>
+      (inv.buyerPhone && c.phone && inv.buyerPhone===c.phone) ||
+      (!inv.buyerPhone && !c.phone && inv.buyerName===c.name)
+    );
+    let totalSales=0;
+    myInvoices.forEach(inv=>totalSales+=Number(inv.total||0));
+
+    tbody.innerHTML+=`
+      <tr>
+        <td>${escapeHtml(c.name)}</td>
+        <td>${escapeHtml(c.phone||"—")}</td>
+        <td>${escapeHtml(c.address||"—")}</td>
+        <td>${money(totalSales)}</td>
+        <td class="${Number(c.due||0)>0?"red":"green"}">${money(c.due)}</td>
+        <td>
+          <div class="cust-actions">
+            <button class="blue" onclick="viewCustomer('${c.id}')">👁 দেখুন</button>
+            <button class="warning" onclick="editCustomer('${c.id}')">✏️ এডিট</button>
+            ${Number(c.due||0)>0?`<button onclick="collectDue('${c.id}')">💰 আদায়</button>`:''}
+            <button class="danger" onclick="deleteCustomer('${c.id}')">🗑</button>
+          </div>
+        </td>
+      </tr>`;
+  });
 }
 
 /* ================= DUE COLLECTION ================= */
@@ -1365,20 +1553,16 @@ function collectDue(customerId){
   alert("বাকি আদায় হয়েছে।\nআদায়: "+money(cash)+"\nঅবশিষ্ট বাকি: "+money(customer.due));
 }
 
-/* ================= REPORT (নতুন আপডেট) ================= */
+/* ================= REPORT ================= */
 function setReportPeriod(period){
   currentReportPeriod=period;
   const map={daily:'repBtnDaily',weekly:'repBtnWeekly',monthly:'repBtnMonthly',yearly:'repBtnYearly'};
   Object.keys(map).forEach(k=>{
     const btn=document.getElementById(map[k]);
     if(!btn)return;
-    btn.classList.remove('active','secondary');
     btn.classList.remove('active');
-    if(k===period){
-      btn.classList.add('active');
-    }else{
-      btn.classList.add('secondary');
-    }
+    if(k===period){btn.classList.add('active');btn.classList.remove('secondary');}
+    else{btn.classList.add('secondary');}
   });
   renderReports();
 }
@@ -1501,7 +1685,7 @@ function renderDashboard(){
 /* ================= BACKUP ================= */
 function generateBackupCode(){
   const backup={
-    version:"3A-7.0",
+    version:"3A-8.0",
     date:new Date().toISOString(),
     products,purchases,customers,invoices,settings,
     dueCollections:load(KEY_COLLECTIONS,[])
