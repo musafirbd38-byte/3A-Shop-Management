@@ -31,6 +31,8 @@ label{font-weight:bold;font-size:14px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .stat{background:#f1f8f6;padding:15px 8px;border-radius:10px;text-align:center}
 .stat b{display:block;color:#075e54;font-size:19px;margin-top:5px}
+.stat.clickable{cursor:pointer;transition:.2s}
+.stat.clickable:hover{background:#d7f5e9;transform:scale(1.02)}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:650px}
 th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:13px}
@@ -41,6 +43,7 @@ th{background:#075e54;color:white}
 .small{font-size:12px;color:#666}
 .green{color:#087f6d;font-weight:bold}
 .red{color:#c62828;font-weight:bold}
+.orange{color:#ef8b00;font-weight:bold}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;display:flex;align-items:center;justify-content:center;padding:10px}
 .modal-box{background:white;width:100%;max-width:750px;max-height:95vh;overflow:auto;border-radius:12px;padding:18px}
 .modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -51,6 +54,7 @@ th{background:#075e54;color:white}
 .pending{background:#fff0c2;color:#8a5b00}
 .delivered{background:#d7f5e9;color:#087f6d}
 .partial{background:#e3d5f5;color:#5b2190}
+.overdue{background:#ffd9d9;color:#a01a1a}
 .backup-code{width:100%;min-height:90px;font-family:monospace;font-size:12px;word-break:break-all;background:#f7f7f7}
 .supplier-box{background:#f9fdfc;border:1px dashed #087f6d;border-radius:10px;padding:12px;margin-bottom:10px}
 .cart-box{background:#fffbea;border:1px solid #ef8b00;border-radius:10px;padding:10px;margin-top:10px}
@@ -83,8 +87,8 @@ th{background:#075e54;color:white}
 .inv-signature>div::before{content:"";display:block;border-top:1px dashed #555;margin-bottom:4px}
 .cust-info-row{background:#f7faf9;border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:12px}
 .cust-info-row p{margin:4px 0;font-size:13.5px}
-.cust-actions{display:flex;gap:6px;flex-wrap:wrap}
-.cust-actions button{padding:6px 10px;font-size:12.5px}
+.cust-actions{display:flex;gap:5px;flex-wrap:wrap}
+.cust-actions button{padding:6px 8px;font-size:12px}
 .return-box{background:#fff5f5;border:2px solid #c62828;border-radius:10px;padding:12px;margin-top:10px}
 .return-box h4{margin:0 0 8px;color:#c62828;font-size:15px}
 .return-item{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed #ddd}
@@ -95,6 +99,13 @@ th{background:#075e54;color:white}
 .summary-filter button{padding:8px 12px;font-size:13px}
 .summary-filter button.active{background:#075e54;box-shadow:0 0 0 3px #b8ded6}
 .merge-box{background:#f3e5f5;border:2px solid #7b1fa2;border-radius:10px;padding:12px;margin-top:10px}
+.due-row{background:#fff;border:1px solid #ddd;border-radius:10px;padding:10px;margin-bottom:8px}
+.due-row .due-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.due-row .due-name{font-weight:bold;color:#075e54;font-size:15px}
+.due-row .due-amount{font-weight:bold;color:#c62828;font-size:16px}
+.due-row .due-detail{font-size:12.5px;color:#555;line-height:1.7}
+.due-row .due-detail b{color:#333}
+.due-alert{background:#fff0c2;border-left:4px solid #ef8b00;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13.5px;color:#8a5b00}
 @media(max-width:700px){
 .row,.row3,.row4{grid-template-columns:1fr}
 .stats{grid-template-columns:repeat(2,1fr)}
@@ -143,13 +154,12 @@ body *{visibility:hidden}
       <div class="stat">মোট বিক্রয়<b id="dashSales">৳0</b></div>
       <div class="stat">মোট লাভ<b id="dashProfit">৳0</b></div>
       <div class="stat">আজকের লাভ<b id="dashTodayProfit">৳0</b></div>
-      <div class="stat">মোট বাকি<b id="dashDue">৳0</b></div>
+      <div class="stat clickable" onclick="openDueListModal()" title="ক্লিক করুন — কোন দোকানে কত বাকি">মোট বাকি 👆<b id="dashDue">৳0</b></div>
       <div class="stat">মোট পণ্য<b id="dashProducts">0</b></div>
       <div class="stat">স্টকের মোট মূল্য<b id="dashStockValue">৳0</b></div>
     </div>
   </div>
 
-  <!-- ✅ চালানের পণ্য সামারি — এখন ড্যাশবোর্ডে -->
   <div class="card">
     <h2>চালানের পণ্য সামারি</h2>
     <p class="small">কোন সময়ে কোন পণ্য কত পরিমাণ অর্ডার হয়েছে।</p>
@@ -309,8 +319,14 @@ body *{visibility:hidden}
 
     <div class="supplier-box">
       <h3>গ্রাহকের তথ্য</h3>
+      <div class="hint">💡 নাম লিখতে থাকলে গ্রাহক লিস্ট থেকে অটো সাজেশন আসবে।</div>
       <div class="row3">
-        <div><label>গ্রাহকের নাম / প্রতিষ্ঠান</label><input id="buyerName" placeholder="নাম"></div>
+        <div>
+          <label>গ্রাহকের নাম / প্রতিষ্ঠান</label>
+          <input id="buyerName" placeholder="নাম" list="buyerNameList" autocomplete="off"
+                 oninput="onBuyerNameInput()">
+          <datalist id="buyerNameList"></datalist>
+        </div>
         <div><label>মোবাইল</label><input id="buyerPhone" placeholder="মোবাইল"></div>
         <div><label>চালানের তারিখ</label><input type="date" id="invoiceDate"></div>
       </div>
@@ -348,8 +364,6 @@ body *{visibility:hidden}
       </table>
     </div>
     <br>
-
-    <!-- ✅ শুধু মোট বিক্রয় — সম্ভাব্য লাভ বাদ -->
     <div class="card">
       <h3>চালানের মোট</h3>
       <div style="text-align:center;font-size:20px;color:#075e54;font-weight:bold;">
@@ -407,13 +421,14 @@ body *{visibility:hidden}
     <h2>গ্রাহক</h2>
     <button onclick="openCustomerModal()">+ নতুন গ্রাহক</button>
     <br><br>
-    <input id="customerSearch" placeholder="নাম/মোবাইল দিয়ে খুঁজুন" oninput="renderCustomers()">
+    <input id="customerSearch" placeholder="নাম/মোবাইল/রুট দিয়ে খুঁজুন" oninput="renderCustomers()">
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>নাম / প্রতিষ্ঠান</th>
             <th>মোবাইল</th>
+            <th>রুট</th>
             <th>ঠিকানা</th>
             <th>মোট বিক্রয়</th>
             <th>বর্তমান বাকি</th>
@@ -475,20 +490,16 @@ body *{visibility:hidden}
     <textarea id="backupCodeBox" class="backup-code" readonly placeholder="এখানে ব্যাকআপ কোড দেখা যাবে..."></textarea>
 
     <hr>
-    <h3>২) ব্যাকআপ থেকে পুনরুদ্ধার (পুরো ডেটা বদলে যাবে)</h3>
+    <h3>২) ব্যাকআপ থেকে পুনরুদ্ধার</h3>
     <input type="file" id="restoreFile" accept=".json">
     <button onclick="restoreBackup()">📂 ফাইল থেকে পুনরুদ্ধার</button>
     <button class="warning" onclick="restoreFromBackupCode()">♻️ কোড থেকে পুনরুদ্ধার</button>
 
     <div class="merge-box">
-      <h3 style="color:#5b2190;margin-top:0">৩) অন্য ডিভাইসের সাথে মার্জ (গ্রুপ ব্যবহারের জন্য)</h3>
-      <p class="small">
-        অন্য ডিভাইসের ব্যাকআপ কোড এখানে পেস্ট করে <b>মার্জ</b> করুন। আপনার বর্তমান ডেটা মুছবে না —
-        শুধু নতুন চালান/পণ্য/গ্রাহক যুক্ত হবে।
-      </p>
+      <h3 style="color:#5b2190;margin-top:0">৩) অন্য ডিভাইসের সাথে মার্জ</h3>
       <textarea id="mergeCodeBox" class="backup-code" placeholder="অন্য ডিভাইসের ব্যাকআপ কোড এখানে পেস্ট করুন..."></textarea>
       <br>
-      <button class="purple" onclick="mergeFromBackupCode()">🔀 মার্জ করুন (নতুন ডেটা যোগ হবে)</button>
+      <button class="purple" onclick="mergeFromBackupCode()">🔀 মার্জ করুন</button>
     </div>
   </div>
 </div>
@@ -544,6 +555,8 @@ body *{visibility:hidden}
     <input id="customerName" placeholder="যেমন: রহিম স্টোর">
     <label>মোবাইল নম্বর</label>
     <input id="customerPhone" placeholder="01XXXXXXXXX">
+    <label>রুট / এলাকা (ঐচ্ছিক)</label>
+    <input id="customerRoute" placeholder="যেমন: শেখপাড়া, মিরপুর">
     <label>ঠিকানা</label>
     <textarea id="customerAddress" placeholder="গ্রাহকের ঠিকানা"></textarea>
     <label>প্রারম্ভিক বাকি</label>
@@ -564,6 +577,28 @@ body *{visibility:hidden}
   </div>
 </div>
 
+<!-- DUE LIST MODAL (ড্যাশবোর্ডের "মোট বাকি" ক্লিকে খোলে) -->
+<div id="dueListModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>বাকির তালিকা (দোকান অনুযায়ী)</h2>
+      <button class="danger" onclick="closeModal('dueListModal')">X</button>
+    </div>
+    <div id="dueListContent"></div>
+  </div>
+</div>
+
+<!-- DUE PAYMENT MODAL (বাকি পরিশোধ) -->
+<div id="duePaymentModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>বাকি পরিশোধ</h2>
+      <button class="danger" onclick="closeModal('duePaymentModal')">X</button>
+    </div>
+    <div id="duePaymentContent"></div>
+  </div>
+</div>
+
 <!-- DELIVERY MODAL -->
 <div id="deliveryModal" class="modal hidden">
   <div class="modal-box">
@@ -580,7 +615,7 @@ body *{visibility:hidden}
 
       <div class="return-box">
         <h4>↩️ ফেরত পণ্য (ঐচ্ছিক)</h4>
-        <p class="small" style="margin:0 0 8px">গ্রাহক কোনো পণ্য ফেরত দিলে এখানে পরিমাণ লিখুন — সেটা স্টকে ফিরে যাবে ও বিল কমে যাবে।</p>
+        <p class="small" style="margin:0 0 8px">গ্রাহক কোনো পণ্য ফেরত দিলে পরিমাণ লিখুন।</p>
         <div id="returnItemsList"></div>
       </div>
 
@@ -588,6 +623,10 @@ body *{visibility:hidden}
       <input type="number" id="deliveryCash" min="0" step="0.01" oninput="calculateDeliveryPayment()">
       <p>বর্তমান চালানের বাকি: <b id="deliveryCurrentDue">৳0</b></p>
       <p>ডেলিভারির পর মোট বাকি: <b id="deliveryGrandDue">৳0</b></p>
+
+      <label style="margin-top:8px">বাকি পরিশোধের সম্ভাব্য তারিখ</label>
+      <input type="date" id="deliveryDueDate">
+
       <button onclick="confirmDelivery()">ডেলিভারি সম্পন্ন করুন</button>
     </div>
   </div>
@@ -611,12 +650,15 @@ body *{visibility:hidden}
 /* ================= STORAGE ================= */
 const KEY_PRODUCTS="3a_products",KEY_PURCHASES="3a_purchases",KEY_CUSTOMERS="3a_customers";
 const KEY_INVOICES="3a_invoices",KEY_SETTINGS="3a_settings",KEY_COLLECTIONS="3a_due_collections";
+const KEY_PAYMENTS="3a_payments";
 
 let products=load(KEY_PRODUCTS,[]);
 let purchases=load(KEY_PURCHASES,[]);
 let customers=load(KEY_CUSTOMERS,[]);
 let invoices=load(KEY_INVOICES,[]);
 let settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:""});
+let payments=load(KEY_PAYMENTS,[]); // [{id,customerId,invoiceId,customerName,amount,date,method,note}]
+
 let currentInvoiceItems=[];
 let purchaseCart=[];
 let deliveryInvoiceId=null;
@@ -626,6 +668,7 @@ let editingCustomerId=null;
 let currentReportPeriod='daily';
 let currentSummaryPeriod='today';
 let returnQuantities={};
+let currentDueCustomerId=null;
 
 /* ================= BASIC ================= */
 function load(k,f){try{const d=localStorage.getItem(k);return d?JSON.parse(d):f}catch(e){return f}}
@@ -719,7 +762,7 @@ function renderStock(){
   const tbody=document.getElementById("stockTable");
   tbody.innerHTML="";
   if(list.length===0){
-    tbody.innerHTML=`<tr><td colspan="11"><div class="empty-state"><div class="big">📦</div><p>কোনো পণ্য নেই। উপরে "+ নতুন পণ্য" চাপুন।</p></div></td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="11"><div class="empty-state"><div class="big">📦</div><p>কোনো পণ্য নেই।</p></div></td></tr>`;
     return;
   }
   list.forEach((p,i)=>{
@@ -737,7 +780,7 @@ function renderStock(){
         <td>${money(total)}</td>
         <td>${escapeHtml(p.note||"")}</td>
         <td>
-          <button class="blue" onclick="openProductModal('${p.id}')">✏️ এডিট</button>
+          <button class="blue" onclick="openProductModal('${p.id}')">✏️</button>
           <button class="danger" onclick="deleteProduct('${p.id}')">🗑</button>
         </td>
       </tr>`;
@@ -745,7 +788,7 @@ function renderStock(){
 }
 function deleteProduct(id){
   const used=invoices.some(inv=>inv.items.some(it=>it.productId===id));
-  if(used){alert("এই পণ্য চালানে ব্যবহৃত হয়েছে। মুছতে পারবেন না।");return}
+  if(used){alert("এই পণ্য চালানে ব্যবহৃত হয়েছে।");return}
   if(!confirm("পণ্যটি মুছে ফেলবেন?"))return;
   products=products.filter(p=>p.id!==id);
   save(KEY_PRODUCTS,products);
@@ -915,6 +958,22 @@ function onInvoiceProductSelect(){
   if(!qtyEl.value||Number(qtyEl.value)<=0)qtyEl.value="1";
   qtyEl.focus();
 }
+
+/* গ্রাহকের নাম লিখলে অটো ডেটা পপুলেট */
+function renderBuyerNameDatalist(){
+  const dl=document.getElementById("buyerNameList");
+  if(!dl)return;
+  dl.innerHTML=customers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.phone||"")} ${c.route?"| "+escapeHtml(c.route):""}</option>`).join("");
+}
+function onBuyerNameInput(){
+  const name=document.getElementById("buyerName").value.trim().toLowerCase();
+  if(!name)return;
+  const c=customers.find(x=>String(x.name||"").toLowerCase()===name);
+  if(c){
+    if(!document.getElementById("buyerPhone").value)document.getElementById("buyerPhone").value=c.phone||"";
+    if(!document.getElementById("buyerAddress").value)document.getElementById("buyerAddress").value=c.address||"";
+  }
+}
 function updateInvoiceCompanyInfo(){
   document.getElementById("invMyName").textContent=settings.companyName||"—";
   document.getElementById("invMyAddr").textContent=settings.companyAddress||"—";
@@ -934,6 +993,7 @@ function prepareNewInvoice(){
   const sel=document.getElementById("invoiceProduct");if(sel)sel.value="";
   renderInvoiceItems();
   updateInvoiceCompanyInfo();
+  renderBuyerNameDatalist();
 }
 function clearNewInvoice(show){prepareNewInvoice();if(show)alert("ফর্ম পরিষ্কার হয়েছে।")}
 function addInvoiceItemCore(productId,qty,salePrice,showAlert){
@@ -997,6 +1057,29 @@ function renderInvoiceItems(){
   });
   document.getElementById("newInvoiceTotal").textContent=money(total);
 }
+
+/* চালান সেভ করলে গ্রাহক অটো সেভ */
+function ensureCustomerExists(name,phone,address){
+  if(!name)return null;
+  name=String(name).trim();
+  phone=String(phone||"").trim();
+  // প্রথমে ফোন দিয়ে চেক
+  let c=null;
+  if(phone)c=customers.find(x=>String(x.phone||"").trim()===phone);
+  // ফোন না থাকলে নাম দিয়ে
+  if(!c)c=customers.find(x=>String(x.name||"").trim().toLowerCase()===name.toLowerCase());
+  if(c){
+    // তথ্য আপডেট (ফাঁকা থাকলে)
+    if(!c.phone && phone)c.phone=phone;
+    if(!c.address && address)c.address=address;
+    return c;
+  }
+  // নতুন গ্রাহক তৈরি
+  const nc={id:uid(),name,phone,address,route:"",due:0,createdAt:new Date().toISOString(),autoCreated:true};
+  customers.push(nc);
+  return nc;
+}
+
 function saveInvoice(){
   tryAddPendingItem();
   const buyerName=document.getElementById("buyerName").value.trim();
@@ -1010,6 +1093,10 @@ function saveInvoice(){
 
   let total=0,profit=0;
   currentInvoiceItems.forEach(it=>{total+=it.qty*it.salePrice;profit+=it.qty*(it.salePrice-it.buy)});
+
+  // ✅ গ্রাহক অটো সেভ
+  ensureCustomerExists(buyerName,buyerPhone,buyerAddress);
+  save(KEY_CUSTOMERS,customers);
 
   if(editingInvoiceId){
     const inv=invoices.find(i=>i.id===editingInvoiceId);
@@ -1027,7 +1114,7 @@ function saveInvoice(){
     prepareNewInvoice();
     refreshAll();
     showInvoice(updated,true);
-    alert("চালান আপডেট হয়েছে।");
+    alert("চালান আপডেট হয়েছে। গ্রাহকও সংরক্ষিত হয়েছে।");
     return;
   }
 
@@ -1046,7 +1133,7 @@ function saveInvoice(){
   prepareNewInvoice();
   refreshAll();
   showInvoice(newInv,true);
-  alert("চালান তৈরি হয়েছে।");
+  alert("চালান তৈরি হয়েছে। গ্রাহক অটো সংরক্ষিত হয়েছে।");
 }
 function editInvoice(id){
   const inv=invoices.find(i=>i.id===id);
@@ -1068,6 +1155,20 @@ function editInvoice(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function cancelInvoiceEdit(){if(!confirm("এডিট বাতিল করবেন?"))return;prepareNewInvoice()}
+
+/* গ্রাহক থেকে সরাসরি চালান তৈরি */
+function newInvoiceForCustomer(customerId){
+  const c=customers.find(x=>x.id===customerId);
+  if(!c){alert("গ্রাহক পাওয়া যায়নি।");return}
+  closeModal("customerDetailModal");
+  prepareNewInvoice();
+  document.getElementById("buyerName").value=c.name||"";
+  document.getElementById("buyerPhone").value=c.phone||"";
+  document.getElementById("buyerAddress").value=c.address||"";
+  showSection('invoiceSection');
+  window.scrollTo({top:0,behavior:'smooth'});
+  alert("গ্রাহক \""+c.name+"\" এর জন্য নতুন চালান ফর্ম খোলা হয়েছে।");
+}
 
 /* ================= INVOICE HISTORY ================= */
 function renderInvoiceHistory(){
@@ -1105,7 +1206,7 @@ function renderInvoiceHistory(){
     });
 }
 
-/* ================= INVOICE PRODUCT SUMMARY (ড্যাশবোর্ডে) ================= */
+/* ================= INVOICE PRODUCT SUMMARY ================= */
 function setSummaryPeriod(period){
   currentSummaryPeriod=period;
   const map={today:'sumBtnToday',week:'sumBtnWeek',month:'sumBtnMonth',all:'sumBtnAll'};
@@ -1174,10 +1275,21 @@ function renderInvoiceSummary(){
     </tr>`).join("");
 }
 
-/* ================= CUSTOMER DUE ================= */
+/* ================= CUSTOMER HELPERS ================= */
 function getCustomerByPhone(phone){
   if(!phone)return null;
   return customers.find(c=>String(c.phone||"").trim()===String(phone).trim())||null;
+}
+function getCustomerByName(name){
+  if(!name)return null;
+  return customers.find(c=>String(c.name||"").trim().toLowerCase()===String(name).trim().toLowerCase())||null;
+}
+function findCustomerForInvoice(inv){
+  if(inv.buyerPhone){
+    const c=getCustomerByPhone(inv.buyerPhone);
+    if(c)return c;
+  }
+  return getCustomerByName(inv.buyerName);
 }
 function getCustomerDue(phone){
   if(!phone)return 0;
@@ -1185,20 +1297,20 @@ function getCustomerDue(phone){
   return c?Number(c.due||0):0;
 }
 function updateCustomerAfterDelivery(invoice,currentDue){
-  let customer=getCustomerByPhone(invoice.buyerPhone);
+  let customer=findCustomerForInvoice(invoice);
   const newDue=Math.max(0,currentDue);
   if(customer){
-    customer.name=invoice.buyerName;
-    customer.address=invoice.buyerAddress;
+    customer.name=invoice.buyerName||customer.name;
+    customer.address=invoice.buyerAddress||customer.address;
     customer.due=newDue;
   }else{
-    customer={id:uid(),name:invoice.buyerName,phone:invoice.buyerPhone,address:invoice.buyerAddress,due:newDue,createdAt:new Date().toISOString()};
+    customer={id:uid(),name:invoice.buyerName,phone:invoice.buyerPhone,address:invoice.buyerAddress,due:newDue,route:"",createdAt:new Date().toISOString()};
     customers.push(customer);
   }
   save(KEY_CUSTOMERS,customers);
 }
 
-/* ================= DELIVERY (Return সহ) ================= */
+/* ================= DELIVERY ================= */
 function openDelivery(id){
   const invoice=invoices.find(inv=>inv.id===id);
   if(!invoice)return;
@@ -1207,7 +1319,8 @@ function openDelivery(id){
   returnQuantities={};
   invoice.items.forEach(it=>returnQuantities[it.id]=0);
 
-  const previousDue=getCustomerDue(invoice.buyerPhone);
+  const c=findCustomerForInvoice(invoice);
+  const previousDue=c?Number(c.due||0):0;
   const currentTotal=Number(invoice.total||0);
   const grandTotal=previousDue+currentTotal;
   document.getElementById("deliveryInvoiceNo").textContent=invoice.invoiceNo;
@@ -1215,6 +1328,7 @@ function openDelivery(id){
   document.getElementById("deliveryPreviousDue").textContent=money(previousDue);
   document.getElementById("deliveryGrandTotal").textContent=money(grandTotal);
   document.getElementById("deliveryCash").value=currentTotal;
+  document.getElementById("deliveryDueDate").value="";
 
   const returnList=document.getElementById("returnItemsList");
   returnList.innerHTML=invoice.items.map(it=>`
@@ -1260,7 +1374,8 @@ function calculateDeliveryPayment(){
   const t=getDeliveryTotals();
   if(!t)return;
   const {invoice,deliveredTotal}=t;
-  const previousDue=getCustomerDue(invoice.buyerPhone);
+  const c=findCustomerForInvoice(invoice);
+  const previousDue=c?Number(c.due||0):0;
   const grandTotal=previousDue+deliveredTotal;
 
   document.getElementById("deliveryCurrentTotal").textContent=money(deliveredTotal);
@@ -1294,7 +1409,8 @@ function confirmDelivery(){
       return;
     }
   }
-  const previousDue=getCustomerDue(invoice.buyerPhone);
+  const c=findCustomerForInvoice(invoice);
+  const previousDue=c?Number(c.due||0):0;
   let cash=Number(document.getElementById("deliveryCash").value||0);
   const grandTotal=previousDue+deliveredTotal;
   if(cash<0)cash=0;
@@ -1314,6 +1430,8 @@ function confirmDelivery(){
     item.deliveredQty=deliveredQty;
   });
 
+  const dueDateInput=document.getElementById("deliveryDueDate").value;
+
   invoice.paid=cash;
   invoice.previousDue=previousDue;
   invoice.due=currentInvoiceDue;
@@ -1322,11 +1440,28 @@ function confirmDelivery(){
   invoice.delivered=true;
   invoice.status=returnedCount>0?"partially-returned":"delivered";
   invoice.deliveryDate=today();
+  invoice.dueDate=dueDateInput||""; // পরিশোধের সম্ভাব্য তারিখ
   invoice.returnedTotal=returnedValue;
   invoice.deliveredTotal=deliveredTotal;
   invoice.deliveredProfit=deliveredProfit;
   invoice.total=deliveredTotal;
   invoice.profit=deliveredProfit;
+
+  // ✅ নগদ পেমেন্ট history সেভ
+  if(cash>0){
+    payments.push({
+      id:uid(),
+      customerId:c?c.id:"",
+      customerName:invoice.buyerName,
+      invoiceId:invoice.id,
+      invoiceNo:invoice.invoiceNo,
+      amount:cash,
+      date:today(),
+      method:"delivery",
+      note:"ডেলিভারির সময় নগদ গ্রহণ"
+    });
+    save(KEY_PAYMENTS,payments);
+  }
 
   save(KEY_PRODUCTS,products);
   save(KEY_INVOICES,invoices);
@@ -1342,9 +1477,8 @@ function confirmDelivery(){
     "নগদ: "+money(cash)+"\n"+
     "বর্তমান চালানের বাকি: "+money(currentInvoiceDue)+"\n"+
     "গ্রাহকের মোট বাকি: "+money(finalDue);
-  if(returnedCount>0){
-    msg+="\n\n↩️ ফেরত পণ্যের মূল্য: "+money(returnedValue)+"\n(স্টকে ফিরে গেছে)";
-  }
+  if(returnedCount>0)msg+="\n\n↩️ ফেরত পণ্যের মূল্য: "+money(returnedValue);
+  if(dueDateInput && finalDue>0)msg+="\n\n📅 বাকি পরিশোধের তারিখ: "+dueDateInput;
   alert(msg);
   showInvoice(invoice,false);
 }
@@ -1379,13 +1513,25 @@ function showInvoice(invoice,autoPrint){
 
   const delText=invoice.delivered?"ডেলিভারি সম্পন্ন":"ডেলিভারি বাকি";
 
+  // পেমেন্ট history
+  const myPayments=payments.filter(p=>p.invoiceId===invoice.id);
+  let payHistoryHtml="";
+  if(myPayments.length>0){
+    payHistoryHtml=`<div style="margin-top:8px;border-top:1px dashed #999;padding-top:6px;font-size:12px;">
+      <b>পেমেন্ট হিস্ট্রি:</b><br>
+      ${myPayments.map(p=>`• ${escapeHtml(p.date)} — ${money(p.amount)} <span style="color:#666">(${escapeHtml(p.note||p.method||"")})</span>`).join("<br>")}
+    </div>`;
+  }
+
   let paymentHtml="";
   if(invoice.delivered){
     paymentHtml=`
       <p><b>চালানের মোট:</b> ${money(invoice.total)}</p>
       <p><b>নগদ গ্রহণ:</b> ${money(invoice.paid)}</p>
       <p><b>এই চালানের বাকি:</b> ${money(invoice.currentInvoiceDue||invoice.due)}</p>
-      <p><b>গ্রাহকের মোট বাকি:</b> ${money(invoice.finalCustomerDue||0)}</p>`;
+      <p><b>গ্রাহকের মোট বাকি:</b> ${money(invoice.finalCustomerDue||0)}</p>
+      ${invoice.dueDate?`<p><b>📅 বাকি পরিশোধের তারিখ:</b> ${escapeHtml(invoice.dueDate)}</p>`:""}
+      ${payHistoryHtml}`;
     if(invoice.returnedTotal>0){
       paymentHtml+=`<p style="color:#c62828"><b>↩️ ফেরত পণ্যের মূল্য:</b> ${money(invoice.returnedTotal)}</p>`;
     }
@@ -1453,6 +1599,201 @@ function showInvoice(invoice,autoPrint){
   if(autoPrint)setTimeout(()=>{window.print()},400);
 }
 
+/* ================= DUE LIST MODAL (ড্যাশবোর্ডে ক্লিক) ================= */
+function openDueListModal(){
+  const list=customers.filter(c=>Number(c.due||0)>0).sort((a,b)=>Number(b.due||0)-Number(a.due||0));
+  const totalDue=list.reduce((s,c)=>s+Number(c.due||0),0);
+  const todayStr=today();
+
+  let overdueCount=0;
+  // প্রতিটি গ্রাহকের সব থেকে পুরনো বাকি চালানের dueDate বের করা
+  function getOldestDueDate(c){
+    const myInv=invoices.filter(inv=>
+      inv.delivered &&
+      (inv.finalCustomerDue||0)>0 &&
+      ((inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||
+       (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||
+       (inv.buyerName===c.name))
+    ).filter(inv=>inv.dueDate);
+    if(myInv.length===0)return "";
+    myInv.sort((a,b)=>(a.dueDate||"").localeCompare(b.dueDate||""));
+    return myInv[0].dueDate||"";
+  }
+
+  let rowsHtml="";
+  list.forEach(c=>{
+    const dueDate=getOldestDueDate(c);
+    const isOverdue=dueDate && dueDate<todayStr;
+    if(isOverdue)overdueCount++;
+    let dueDateHtml="";
+    if(dueDate){
+      dueDateHtml=isOverdue
+        ?`<div class="red">⚠️ পরিশোধের তারিখ: ${escapeHtml(dueDate)} (সময় পার হয়ে গেছে)</div>`
+        :`<div class="orange">📅 পরিশোধের তারিখ: ${escapeHtml(dueDate)}</div>`;
+    }
+    rowsHtml+=`
+      <div class="due-row">
+        <div class="due-head">
+          <div class="due-name">${escapeHtml(c.name)} ${c.route?'<span style="font-size:12px;color:#666">| '+escapeHtml(c.route)+'</span>':''}</div>
+          <div class="due-amount">${money(c.due)}</div>
+        </div>
+        <div class="due-detail">
+          <b>মোবাইল:</b> ${escapeHtml(c.phone||"—")} <br>
+          <b>ঠিকানা:</b> ${escapeHtml(c.address||"—")}
+          ${dueDateHtml}
+        </div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="blue" onclick="closeModal('dueListModal');viewCustomer('${c.id}')">👁 বিস্তারিত</button>
+          <button onclick="closeModal('dueListModal');openDuePayment('${c.id}')">💰 বাকি পরিশোধ</button>
+        </div>
+      </div>`;
+  });
+
+  if(list.length===0){
+    document.getElementById("dueListContent").innerHTML=`
+      <div class="empty-state">
+        <div class="big">✅</div>
+        <p>কোনো বাকি নেই। সব গ্রাহকের বাকি পরিশোধ হয়েছে।</p>
+      </div>`;
+    openModal("dueListModal");
+    return;
+  }
+
+  let alertHtml="";
+  if(overdueCount>0){
+    alertHtml=`<div class="due-alert">⚠️ ${overdueCount}টি গ্রাহকের বাকি পরিশোধের তারিখ পার হয়ে গেছে।</div>`;
+  }
+
+  document.getElementById("dueListContent").innerHTML=`
+    <div class="due-alert" style="background:#d7f5e9;border-left-color:#087f6d;color:#075e54;">
+      <b>মোট বাকি:</b> ${money(totalDue)} — মোট ${list.length}টি গ্রাহকের কাছে।
+    </div>
+    ${alertHtml}
+    ${rowsHtml}`;
+  openModal("dueListModal");
+}
+
+/* ================= DUE PAYMENT MODAL ================= */
+function openDuePayment(customerId){
+  const c=customers.find(x=>x.id===customerId);
+  if(!c){alert("গ্রাহক পাওয়া যায়নি।");return}
+  currentDueCustomerId=customerId;
+  const due=Number(c.due||0);
+  if(due<=0){alert("এই গ্রাহকের কোনো বাকি নেই।");return}
+
+  // গ্রাহকের সব ডেলিভারি চালান — যেগুলোতে বাকি আছে
+  const myInvoices=invoices.filter(inv=>
+    inv.delivered && (inv.currentInvoiceDue||0)>0 &&
+    ((inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||
+     (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||
+     (inv.buyerName===c.name))
+  );
+
+  let invoiceListHtml="";
+  if(myInvoices.length>0){
+    invoiceListHtml=`<div style="margin-top:10px;">
+      <b>চালানভিত্তিক বাকি:</b>
+      <div class="table-wrap" style="margin-top:6px;">
+        <table style="min-width:auto;">
+          <thead>
+            <tr><th>চালান</th><th>তারিখ</th><th>বাকি</th><th>পরিশোধের তারিখ</th></tr>
+          </thead>
+          <tbody>
+            ${myInvoices.map(inv=>`
+              <tr>
+                <td>${escapeHtml(inv.invoiceNo)}</td>
+                <td>${escapeHtml(inv.deliveryDate||inv.date)}</td>
+                <td class="red">${money(inv.currentInvoiceDue)}</td>
+                <td>${inv.dueDate?escapeHtml(inv.dueDate):"—"}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById("duePaymentContent").innerHTML=`
+    <div class="cust-info-row">
+      <p><b>গ্রাহক:</b> ${escapeHtml(c.name)}</p>
+      <p><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</p>
+      <p><b>বর্তমান বাকি:</b> <span class="red" style="font-size:18px;">${money(due)}</span></p>
+    </div>
+    ${invoiceListHtml}
+    <hr>
+    <label>পরিশোধের পরিমাণ</label>
+    <input type="number" id="payAmount" min="0" max="${due}" step="0.01" value="${due}">
+    <label>পরিশোধের তারিখ</label>
+    <input type="date" id="payDate" value="${today()}">
+    <label>নোট (ঐচ্ছিক)</label>
+    <input id="payNote" placeholder="যেমন: হাতে নগদ">
+    <button onclick="confirmDuePayment()">✅ পরিশোধ সংরক্ষণ করুন</button>
+    <button class="secondary" onclick="closeModal('duePaymentModal')">বাতিল</button>
+  `;
+  openModal("duePaymentModal");
+}
+function confirmDuePayment(){
+  const c=customers.find(x=>x.id===currentDueCustomerId);
+  if(!c){alert("গ্রাহক পাওয়া যায়নি।");return}
+  const due=Number(c.due||0);
+  let amount=Number(document.getElementById("payAmount").value||0);
+  const payDate=document.getElementById("payDate").value||today();
+  const note=document.getElementById("payNote").value.trim();
+
+  if(amount<=0){alert("সঠিক পরিমাণ দিন।");return}
+  if(amount>due){
+    if(!confirm("বাকির চেয়ে বেশি টাকা দেওয়া হচ্ছে। বাকি পরিমাণে সীমাবদ্ধ করা হবে।"))return;
+    amount=due;
+  }
+
+  // বাকি থেকে কমাও — পুরনো চালানগুলো থেকে ধারাবাহিকভাবে কমানো
+  const myInvoices=invoices.filter(inv=>
+    inv.delivered && (inv.currentInvoiceDue||0)>0 &&
+    ((inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||
+     (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||
+     (inv.buyerName===c.name))
+  ).sort((a,b)=>(a.deliveryDate||a.date||"").localeCompare(b.deliveryDate||b.date||""));
+
+  let remaining=amount;
+  myInvoices.forEach(inv=>{
+    if(remaining<=0)return;
+    const invDue=Number(inv.currentInvoiceDue||0);
+    if(invDue<=0)return;
+    const pay=Math.min(remaining,invDue);
+    inv.currentInvoiceDue=invDue-pay;
+    inv.due=inv.currentInvoiceDue;
+    inv.paid=Number(inv.paid||0)+pay;
+    if(!inv.paymentHistory)inv.paymentHistory=[];
+    inv.paymentHistory.push({date:payDate,amount:pay,note});
+    remaining-=pay;
+  });
+
+  c.due=Math.max(0,due-amount);
+
+  // payments history
+  payments.push({
+    id:uid(),
+    customerId:c.id,
+    customerName:c.name,
+    invoiceId:"",
+    invoiceNo:"",
+    amount:amount,
+    date:payDate,
+    method:"due-collection",
+    note:note||"বাকি পরিশোধ"
+  });
+
+  save(KEY_CUSTOMERS,customers);
+  save(KEY_INVOICES,invoices);
+  save(KEY_PAYMENTS,payments);
+
+  closeModal("duePaymentModal");
+  currentDueCustomerId=null;
+  refreshAll();
+  alert("✅ পরিশোধ সংরক্ষণ হয়েছে।\n\n"+
+    "পরিশোধ: "+money(amount)+"\n"+
+    "অবশিষ্ট বাকি: "+money(c.due));
+}
+
 /* ================= SALES ================= */
 function getDeliveredInvoices(){return invoices.filter(inv=>inv.delivered)}
 function renderSales(){
@@ -1493,12 +1834,14 @@ function openCustomerModal(editId){
     document.getElementById("customerModalTitle").textContent="গ্রাহক এডিট";
     document.getElementById("customerName").value=c.name||"";
     document.getElementById("customerPhone").value=c.phone||"";
+    document.getElementById("customerRoute").value=c.route||"";
     document.getElementById("customerAddress").value=c.address||"";
     document.getElementById("customerDue").value=Number(c.due||0);
   }else{
     document.getElementById("customerModalTitle").textContent="নতুন গ্রাহক";
     document.getElementById("customerName").value="";
     document.getElementById("customerPhone").value="";
+    document.getElementById("customerRoute").value="";
     document.getElementById("customerAddress").value="";
     document.getElementById("customerDue").value=0;
   }
@@ -1507,6 +1850,7 @@ function openCustomerModal(editId){
 function saveCustomer(){
   const name=document.getElementById("customerName").value.trim();
   const phone=document.getElementById("customerPhone").value.trim();
+  const route=document.getElementById("customerRoute").value.trim();
   const address=document.getElementById("customerAddress").value.trim();
   const due=Math.max(0,Number(document.getElementById("customerDue").value||0));
   if(!name){alert("গ্রাহকের নাম দিন।");return}
@@ -1514,13 +1858,13 @@ function saveCustomer(){
   if(editingCustomerId){
     const c=customers.find(x=>x.id===editingCustomerId);
     if(!c){alert("গ্রাহক পাওয়া যায়নি।");return}
-    c.name=name;c.phone=phone;c.address=address;c.due=due;
+    c.name=name;c.phone=phone;c.route=route;c.address=address;c.due=due;
     c.updatedAt=new Date().toISOString();
   }else{
     if(phone){
       const existing=getCustomerByPhone(phone);
       if(existing){
-        existing.name=name;existing.address=address;
+        existing.name=name;existing.route=route;existing.address=address;
         save(KEY_CUSTOMERS,customers);
         closeModal("customerModal");
         editingCustomerId=null;
@@ -1529,7 +1873,7 @@ function saveCustomer(){
         return;
       }
     }
-    customers.push({id:uid(),name,phone,address,due:due,createdAt:new Date().toISOString()});
+    customers.push({id:uid(),name,phone,route,address,due:due,createdAt:new Date().toISOString()});
   }
   save(KEY_CUSTOMERS,customers);
   closeModal("customerModal");
@@ -1552,10 +1896,13 @@ function viewCustomer(id){
   if(!c)return;
   const myInvoices=invoices.filter(inv=>
     (inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||
-    (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)
+    (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||
+    (inv.buyerName===c.name)
   );
   let totalSales=0,totalPaid=0;
   myInvoices.forEach(inv=>{totalSales+=Number(inv.total||0);totalPaid+=Number(inv.paid||0)});
+
+  const myPayments=payments.filter(p=>p.customerId===c.id).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
 
   let invoiceRows="";
   myInvoices.slice().reverse().forEach(inv=>{
@@ -1570,16 +1917,32 @@ function viewCustomer(id){
       </tr>`;
   });
 
+  let paymentRows="";
+  myPayments.forEach(p=>{
+    paymentRows+=`
+      <tr>
+        <td>${escapeHtml(p.date)}</td>
+        <td>${money(p.amount)}</td>
+        <td>${escapeHtml(p.note||p.method||"")}</td>
+      </tr>`;
+  });
+
   document.getElementById("customerDetailContent").innerHTML=`
     <div class="cust-info-row">
       <p><b>নাম / প্রতিষ্ঠান:</b> ${escapeHtml(c.name)}</p>
       <p><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</p>
+      <p><b>রুট / এলাকা:</b> ${escapeHtml(c.route||"—")}</p>
       <p><b>ঠিকানা:</b> ${escapeHtml(c.address||"—")}</p>
     </div>
     <div class="stats" style="grid-template-columns:repeat(3,1fr)">
       <div class="stat">মোট বিক্রয়<b>${money(totalSales)}</b></div>
       <div class="stat">মোট নগদ<b>${money(totalPaid)}</b></div>
       <div class="stat">বর্তমান বাকি<b class="${Number(c.due)>0?'red':'green'}">${money(c.due)}</b></div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="newInvoiceForCustomer('${c.id}')">📝 নতুন চালান</button>
+      <button class="warning" onclick="closeModal('customerDetailModal');editCustomer('${c.id}')">✏️ এডিট</button>
+      ${Number(c.due||0)>0?`<button onclick="closeModal('customerDetailModal');openDuePayment('${c.id}')">💰 বাকি পরিশোধ</button>`:''}
     </div>
     <h3 style="margin-top:15px">চালানের তালিকা (${myInvoices.length}টি)</h3>
     <div class="table-wrap">
@@ -1590,10 +1953,17 @@ function viewCustomer(id){
         <tbody>${invoiceRows||'<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">এই গ্রাহকের কোনো চালান নেই</td></tr>'}</tbody>
       </table>
     </div>
-    <div style="margin-top:15px;display:flex;gap:8px;flex-wrap:wrap">
-      <button class="warning" onclick="closeModal('customerDetailModal');editCustomer('${c.id}')">✏️ এডিট</button>
-      ${Number(c.due||0)>0?`<button onclick="closeModal('customerDetailModal');collectDue('${c.id}')">💰 বাকি আদায়</button>`:''}
-    </div>`;
+    ${myPayments.length>0?`
+    <h3 style="margin-top:15px">পেমেন্ট হিস্ট্রি (${myPayments.length}টি)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>তারিখ</th><th>পরিমাণ</th><th>নোট</th></tr>
+        </thead>
+        <tbody>${paymentRows}</tbody>
+      </table>
+    </div>`:''}
+  `;
   openModal("customerDetailModal");
 }
 function renderCustomers(){
@@ -1601,13 +1971,15 @@ function renderCustomers(){
   const tbody=document.getElementById("customerTable");
   tbody.innerHTML="";
   const list=customers.filter(c=>
-    String(c.name||"").toLowerCase().includes(search)||String(c.phone||"").toLowerCase().includes(search)
+    String(c.name||"").toLowerCase().includes(search)||
+    String(c.phone||"").toLowerCase().includes(search)||
+    String(c.route||"").toLowerCase().includes(search)
   );
   if(list.length===0){
-    tbody.innerHTML=`<tr><td colspan="6">
+    tbody.innerHTML=`<tr><td colspan="7">
       <div class="empty-state">
         <div class="big">👤</div>
-        <p>${customers.length===0?'এখনো কোনো গ্রাহক যোগ করা হয়নি।<br>উপরে <b>"+ নতুন গ্রাহক"</b> চাপুন।':'এই সার্চে কোনো গ্রাহক পাওয়া যায়নি।'}</p>
+        <p>${customers.length===0?'এখনো কোনো গ্রাহক নেই।':'এই সার্চে কোনো গ্রাহক পাওয়া যায়নি।'}</p>
       </div>
     </td></tr>`;
     return;
@@ -1615,7 +1987,8 @@ function renderCustomers(){
   list.forEach(c=>{
     const myInvoices=invoices.filter(inv=>
       (inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||
-      (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)
+      (!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||
+      (inv.buyerName===c.name)
     );
     let totalSales=0;
     myInvoices.forEach(inv=>totalSales+=Number(inv.total||0));
@@ -1623,14 +1996,16 @@ function renderCustomers(){
       <tr>
         <td>${escapeHtml(c.name)}</td>
         <td>${escapeHtml(c.phone||"—")}</td>
+        <td>${escapeHtml(c.route||"—")}</td>
         <td>${escapeHtml(c.address||"—")}</td>
         <td>${money(totalSales)}</td>
         <td class="${Number(c.due||0)>0?"red":"green"}">${money(c.due)}</td>
         <td>
           <div class="cust-actions">
-            <button class="blue" onclick="viewCustomer('${c.id}')">👁 দেখুন</button>
-            <button class="warning" onclick="editCustomer('${c.id}')">✏️ এডিট</button>
-            ${Number(c.due||0)>0?`<button onclick="collectDue('${c.id}')">💰 আদায়</button>`:''}
+            <button class="blue" onclick="viewCustomer('${c.id}')">👁</button>
+            <button onclick="newInvoiceForCustomer('${c.id}')">📝 চালান</button>
+            ${Number(c.due||0)>0?`<button class="warning" onclick="openDuePayment('${c.id}')">💰</button>`:''}
+            <button class="secondary" onclick="editCustomer('${c.id}')">✏️</button>
             <button class="danger" onclick="deleteCustomer('${c.id}')">🗑</button>
           </div>
         </td>
@@ -1638,25 +2013,8 @@ function renderCustomers(){
   });
 }
 
-/* ================= DUE COLLECTION ================= */
-function collectDue(customerId){
-  const customer=customers.find(c=>c.id===customerId);
-  if(!customer)return;
-  const currentDue=Number(customer.due||0);
-  if(currentDue<=0){alert("এই গ্রাহকের কোনো বাকি নেই।");return}
-  const input=prompt("গ্রাহকের বর্তমান বাকি: "+money(currentDue)+"\n\nকত টাকা নগদ আদায় করবেন?");
-  if(input===null)return;
-  let cash=Number(input);
-  if(!Number.isFinite(cash)||cash<0){alert("সঠিক টাকা লিখুন।");return}
-  if(cash>currentDue)cash=currentDue;
-  customer.due=Math.max(0,currentDue-cash);
-  save(KEY_CUSTOMERS,customers);
-  const collections=load(KEY_COLLECTIONS,[]);
-  collections.push({id:uid(),customerId,customerName:customer.name,phone:customer.phone,date:today(),amount:cash,remaining:customer.due});
-  save(KEY_COLLECTIONS,collections);
-  refreshAll();
-  alert("বাকি আদায় হয়েছে।\nআদায়: "+money(cash)+"\nঅবশিষ্ট বাকি: "+money(customer.due));
-}
+/* ================= DUE COLLECTION (পুরনো ফাংশন) ================= */
+function collectDue(customerId){openDuePayment(customerId)}
 
 /* ================= REPORT ================= */
 function setReportPeriod(period){
@@ -1768,9 +2126,9 @@ function renderDashboard(){
 /* ================= BACKUP + MERGE ================= */
 function generateBackupCode(){
   const backup={
-    version:"3A-10.0",
+    version:"3A-11.0",
     date:new Date().toISOString(),
-    products,purchases,customers,invoices,settings,
+    products,purchases,customers,invoices,settings,payments,
     dueCollections:load(KEY_COLLECTIONS,[])
   };
   const json=JSON.stringify(backup,null,2);
@@ -1805,11 +2163,13 @@ function applyData(data,replaceAll){
     purchases=Array.isArray(data.purchases)?data.purchases:[];
     customers=Array.isArray(data.customers)?data.customers:[];
     invoices=Array.isArray(data.invoices)?data.invoices:[];
+    payments=Array.isArray(data.payments)?data.payments:[];
     settings=data.settings||{companyName:"",companyAddress:"",companyPhone:""};
     save(KEY_PRODUCTS,products);
     save(KEY_PURCHASES,purchases);
     save(KEY_CUSTOMERS,customers);
     save(KEY_INVOICES,invoices);
+    save(KEY_PAYMENTS,payments);
     save(KEY_SETTINGS,settings);
     if(Array.isArray(data.dueCollections))save(KEY_COLLECTIONS,data.dueCollections);
   }
@@ -1844,11 +2204,11 @@ function restoreBackup(){
 function mergeFromBackupCode(){
   const code=document.getElementById("mergeCodeBox").value.trim();
   if(!code){alert("মার্জ কোড পেস্ট করুন।");return}
-  if(!confirm("অন্য ডিভাইসের ডেটা এই ডিভাইসে যোগ করা হবে (আপনার বর্তমান ডেটা মুছবে না)। চালিয়ে যাবেন?"))return;
+  if(!confirm("অন্য ডিভাইসের ডেটা এই ডিভাইসে যোগ করা হবে। চালিয়ে যাবেন?"))return;
   try{
     const json=decodeURIComponent(escape(atob(code)));
     const data=JSON.parse(json);
-    let added={products:0,purchases:0,customers:0,invoices:0};
+    let added={products:0,purchases:0,customers:0,invoices:0,payments:0};
 
     const prodIds=new Set(products.map(p=>p.id));
     (data.products||[]).forEach(p=>{if(!prodIds.has(p.id)){products.push(p);added.products++}});
@@ -1858,26 +2218,25 @@ function mergeFromBackupCode(){
     (data.invoices||[]).forEach(i=>{if(!invIds.has(i.id)){invoices.push(i);added.invoices++}});
     const purIds=new Set(purchases.map(p=>p.id));
     (data.purchases||[]).forEach(p=>{if(!purIds.has(p.id)){purchases.push(p);added.purchases++}});
+    const payIds=new Set(payments.map(p=>p.id));
+    (data.payments||[]).forEach(p=>{if(!payIds.has(p.id)){payments.push(p);added.payments++}});
 
     save(KEY_PRODUCTS,products);
     save(KEY_PURCHASES,purchases);
     save(KEY_CUSTOMERS,customers);
     save(KEY_INVOICES,invoices);
+    save(KEY_PAYMENTS,payments);
 
     document.getElementById("mergeCodeBox").value="";
     refreshAll();
-    alert("মার্জ সফল হয়েছে!\n\n"+
-      "নতুন পণ্য: "+added.products+"\n"+
-      "নতুন গ্রাহক: "+added.customers+"\n"+
-      "নতুন চালান: "+added.invoices+"\n"+
-      "নতুন ক্রয়: "+added.purchases);
+    alert("মার্জ সফল!\n\nনতুন পণ্য: "+added.products+"\nনতুন গ্রাহক: "+added.customers+"\nনতুন চালান: "+added.invoices+"\nনতুন ক্রয়: "+added.purchases+"\nনতুন পেমেন্ট: "+added.payments);
   }catch(err){console.error(err);alert("কোডটি সঠিক নয়।")}
 }
 
 /* ================= AUTO-SYNC ================= */
 window.addEventListener('storage',function(e){
   if(!e.key)return;
-  if([KEY_PRODUCTS,KEY_PURCHASES,KEY_CUSTOMERS,KEY_INVOICES,KEY_SETTINGS,KEY_COLLECTIONS].includes(e.key)){
+  if([KEY_PRODUCTS,KEY_PURCHASES,KEY_CUSTOMERS,KEY_INVOICES,KEY_SETTINGS,KEY_COLLECTIONS,KEY_PAYMENTS].includes(e.key)){
     refreshAll();
   }
 });
@@ -1888,6 +2247,7 @@ function refreshAll(){
   purchases=load(KEY_PURCHASES,[]);
   customers=load(KEY_CUSTOMERS,[]);
   invoices=load(KEY_INVOICES,[]);
+  payments=load(KEY_PAYMENTS,[]);
   settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:""});
 
   renderStock();
@@ -1901,6 +2261,7 @@ function refreshAll(){
   renderCustomers();
   renderReports();
   renderDashboard();
+  renderBuyerNameDatalist();
   loadSettingsForm();
   updateInvoiceCompanyInfo();
 
