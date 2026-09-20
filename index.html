@@ -169,7 +169,6 @@ body *{visibility:hidden}
       <button onclick="showSection('salesSection')">বিক্রয়</button>
       <button onclick="showSection('customerSection')">গ্রাহক</button>
       <button onclick="showSection('reportSection')">রিপোর্ট</button>
-      <!-- ✅ ব্যাকআপ → সারসংক্ষেপ -->
       <button onclick="openBusinessSummaryModal()">📊 সারসংক্ষেপ</button>
       <button onclick="showSection('settingsSection')">সেটিংস</button>
     </div>
@@ -612,7 +611,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== SETTINGS (ব্যাকআপ সহ) ========== -->
+<!-- ========== SETTINGS (ব্যাকআপ সহ, কি ছাড়া) ========== -->
 <div id="settingsSection" class="hidden">
   <div class="card">
     <button onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
@@ -627,17 +626,8 @@ body *{visibility:hidden}
   </div>
 
   <div class="card">
-    <h2>🔐 ব্যাকআপ কি</h2>
-    <p class="small">ব্যাকআপ নিতে একটি গোপন কি দিন। এই কি দিয়ে ব্যাকআপ ফাইল ও কোড তৈরি হবে, এবং এই কি দিয়েই পুনরুদ্ধার করতে হবে।</p>
-
-    <label>ব্যাকআপ কি (পাসওয়ার্ড)</label>
-    <input type="password" id="backupKey" placeholder="যেমন: 1234 / myShop2024">
-
-    <button onclick="saveBackupKey()">💾 কি সংরক্ষণ করুন</button>
-  </div>
-
-  <div class="card">
     <h2>📥 ব্যাকআপ নেওয়া</h2>
+    <p class="small">ব্যাকআপ কোড তৈরি করে কপি করে রাখুন। পরে এই কোড পেস্ট করলে সব ডেটা ফিরে আসবে।</p>
     <button onclick="downloadBackup()">📥 ব্যাকআপ ফাইল ডাউনলোড</button>
     <button class="blue" onclick="generateBackupCodeUI()">🔑 ব্যাকআপ কোড তৈরি করুন</button>
     <button class="secondary" onclick="copyBackupCode()">📋 কোড কপি করুন</button>
@@ -838,7 +828,6 @@ body *{visibility:hidden}
 const KEY_PRODUCTS="3a_products",KEY_PURCHASES="3a_purchases",KEY_CUSTOMERS="3a_customers";
 const KEY_INVOICES="3a_invoices",KEY_SETTINGS="3a_settings",KEY_COLLECTIONS="3a_due_collections";
 const KEY_PAYMENTS="3a_payments";
-const KEY_BACKUP_KEY="3a_backup_key";
 
 let products=load(KEY_PRODUCTS,[]);
 let purchases=load(KEY_PURCHASES,[]);
@@ -846,7 +835,6 @@ let customers=load(KEY_CUSTOMERS,[]);
 let invoices=load(KEY_INVOICES,[]);
 let settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:""});
 let payments=load(KEY_PAYMENTS,[]);
-let backupKey=load(KEY_BACKUP_KEY,"");
 
 let currentInvoiceItems=[];
 let purchaseCart=[];
@@ -883,8 +871,6 @@ function loadSettingsForm(){
   document.getElementById("companyName").value=settings.companyName||"";
   document.getElementById("companyAddress").value=settings.companyAddress||"";
   document.getElementById("companyPhone").value=settings.companyPhone||"";
-  const bkEl=document.getElementById("backupKey");
-  if(bkEl)bkEl.value=backupKey||"";
 }
 function saveSettings(){
   settings={
@@ -895,13 +881,6 @@ function saveSettings(){
   save(KEY_SETTINGS,settings);
   alert("প্রতিষ্ঠানের তথ্য সংরক্ষণ হয়েছে।");
   refreshAll();
-}
-function saveBackupKey(){
-  const k=document.getElementById("backupKey").value.trim();
-  if(!k){alert("কি খালি রাখা যাবে না।");return}
-  backupKey=k;
-  save(KEY_BACKUP_KEY,backupKey);
-  alert("✅ ব্যাকআপ কি সংরক্ষণ হয়েছে।\n\nএই কি মনে রাখুন। এই কি ছাড়া ব্যাকআপ থেকে পুনরুদ্ধার করতে পারবেন না।");
 }
 
 /* ================= BUSINESS SUMMARY MODAL ================= */
@@ -2765,63 +2744,37 @@ function renderReports(){
   }
 }
 
-/* ================= BACKUP + MERGE ================= */
-function checkBackupKey(){
-  if(!backupKey){
-    alert("⚠️ আগে সেটিংসে গিয়ে ব্যাকআপ কি সেট করুন।");
-    return false;
-  }
-  return true;
-}
+/* ================= BACKUP + MERGE (কি ছাড়া) ================= */
 function generateBackupCode(){
   const backup={
-    version:"3A-16.0",
+    version:"3A-17.0",
     date:new Date().toISOString(),
     products,purchases,customers,invoices,settings,payments,
     dueCollections:load(KEY_COLLECTIONS,[])
   };
   const json=JSON.stringify(backup);
-  const encrypted=simpleEncrypt(json,backupKey);
-  const code=btoa(unescape(encodeURIComponent(encrypted)));
+  const code=btoa(unescape(encodeURIComponent(json)));
   return{json,code};
 }
-function simpleEncrypt(text,key){
-  if(!key)return text;
-  let out="";
-  for(let i=0;i<text.length;i++){
-    out+=String.fromCharCode(text.charCodeAt(i)^key.charCodeAt(i%key.length));
-  }
-  return out;
-}
-function simpleDecrypt(text,key){
-  if(!key)return text;
-  let out="";
-  for(let i=0;i<text.length;i++){
-    out+=String.fromCharCode(text.charCodeAt(i)^key.charCodeAt(i%key.length));
-  }
-  return out;
-}
 function generateBackupCodeUI(){
-  if(!checkBackupKey())return;
   const {code}=generateBackupCode();
   document.getElementById("backupCodeBox").value=code;
-  alert("✅ ব্যাকআপ কোড তৈরি হয়েছে (আপনার কি দিয়ে সুরক্ষিত)।");
+  alert("✅ ব্যাকআপ কোড তৈরি হয়েছে।\n\nনিচের বক্স থেকে কপি করে নিরাপদে সংরক্ষণ করুন।");
 }
 function copyBackupCode(){
   const box=document.getElementById("backupCodeBox");
   if(!box.value){alert("প্রথমে 'ব্যাকআপ কোড তৈরি করুন' চাপুন।");return}
   box.select();box.setSelectionRange(0,999999);
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(box.value).then(()=>alert("কোড কপি হয়েছে।")).catch(()=>{document.execCommand("copy");alert("কোড কপি হয়েছে।")});
-  }else{document.execCommand("copy");alert("কোড কপি হয়েছে।")}
+    navigator.clipboard.writeText(box.value).then(()=>alert("✅ কোড কপি হয়েছে।")).catch(()=>{document.execCommand("copy");alert("✅ কোড কপি হয়েছে।")});
+  }else{document.execCommand("copy");alert("✅ কোড কপি হয়েছে।")}
 }
 function downloadBackup(){
-  if(!checkBackupKey())return;
-  const {code}=generateBackupCode();
-  const blob=new Blob([code],{type:"text/plain"});
+  const {json}=generateBackupCode();
+  const blob=new Blob([json],{type:"application/json"});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
-  a.href=url;a.download="3A-Shop-Backup-"+today()+".txt";
+  a.href=url;a.download="3A-Shop-Backup-"+today()+".json";
   document.body.appendChild(a);a.click();a.remove();
   URL.revokeObjectURL(url);
   alert("✅ ব্যাকআপ ফাইল ডাউনলোড হয়েছে।");
@@ -2842,53 +2795,45 @@ function applyData(data){
   if(Array.isArray(data.dueCollections))save(KEY_COLLECTIONS,data.dueCollections);
 }
 function restoreFromBackupCode(){
-  if(!checkBackupKey())return;
   const code=prompt("ব্যাকআপ কোড পেস্ট করুন:");
   if(!code)return;
   if(!confirm("বর্তমান ডেটার পরিবর্তে ব্যাকআপ ডেটা বসানো হবে। চালিয়ে যাবেন?"))return;
   try{
-    const decrypted=decodeURIComponent(escape(atob(code.trim())));
-    const json=simpleDecrypt(decrypted,backupKey);
+    const json=decodeURIComponent(escape(atob(code.trim())));
     const data=JSON.parse(json);
     applyData(data);
     refreshAll();
     alert("✅ ব্যাকআপ কোড থেকে সফলভাবে পুনরুদ্ধার হয়েছে।");
-  }catch(err){console.error(err);alert("❌ ব্যাকআপ কোড বা কি সঠিক নয়।")}
+  }catch(err){console.error(err);alert("❌ ব্যাকআপ কোডটি সঠিক নয়।")}
 }
 function restoreBackup(){
-  if(!checkBackupKey())return;
   const file=document.getElementById("restoreFile").files[0];
   if(!file){alert("ব্যাকআপ ফাইল নির্বাচন করুন।");return}
   if(!confirm("বর্তমান ডেটার পরিবর্তে ব্যাকআপ ডেটা বসানো হবে। চালিয়ে যাবেন?"))return;
   const reader=new FileReader();
   reader.onload=function(e){
     try{
-      let content=e.target.result.trim();
+      const content=e.target.result.trim();
+      let data;
       if(content.startsWith("{")){
-        const data=JSON.parse(content);
-        applyData(data);
-        refreshAll();
-        alert("✅ ব্যাকআপ সফলভাবে পুনরুদ্ধার হয়েছে (পুরনো ফরম্যাট)।");
-        return;
+        data=JSON.parse(content);
+      }else{
+        const json=decodeURIComponent(escape(atob(content)));
+        data=JSON.parse(json);
       }
-      const decrypted=decodeURIComponent(escape(atob(content)));
-      const json=simpleDecrypt(decrypted,backupKey);
-      const data=JSON.parse(json);
       applyData(data);
       refreshAll();
       alert("✅ ব্যাকআপ সফলভাবে পুনরুদ্ধার হয়েছে।");
-    }catch(err){console.error(err);alert("❌ ব্যাকআপ ফাইল বা কি সঠিক নয়।")}
+    }catch(err){console.error(err);alert("❌ ব্যাকআপ ফাইল সঠিক নয়।")}
   };
   reader.readAsText(file);
 }
 function mergeFromBackupCode(){
-  if(!checkBackupKey())return;
   const code=document.getElementById("mergeCodeBox").value.trim();
   if(!code){alert("মার্জ কোড পেস্ট করুন।");return}
   if(!confirm("অন্য ডিভাইসের ডেটা এই ডিভাইসে যোগ করা হবে। চালিয়ে যাবেন?"))return;
   try{
-    const decrypted=decodeURIComponent(escape(atob(code)));
-    const json=simpleDecrypt(decrypted,backupKey);
+    const json=decodeURIComponent(escape(atob(code)));
     const data=JSON.parse(json);
     let added={products:0,purchases:0,customers:0,invoices:0,payments:0};
 
@@ -2912,13 +2857,13 @@ function mergeFromBackupCode(){
     document.getElementById("mergeCodeBox").value="";
     refreshAll();
     alert("✅ মার্জ সফল!\n\nনতুন পণ্য: "+added.products+"\nনতুন গ্রাহক: "+added.customers+"\nনতুন চালান: "+added.invoices+"\nনতুন ক্রয়: "+added.purchases+"\nনতুন পেমেন্ট: "+added.payments);
-  }catch(err){console.error(err);alert("❌ কোড বা কি সঠিক নয়।")}
+  }catch(err){console.error(err);alert("❌ কোডটি সঠিক নয়।")}
 }
 
 /* ================= AUTO-SYNC ================= */
 window.addEventListener('storage',function(e){
   if(!e.key)return;
-  if([KEY_PRODUCTS,KEY_PURCHASES,KEY_CUSTOMERS,KEY_INVOICES,KEY_SETTINGS,KEY_COLLECTIONS,KEY_PAYMENTS,KEY_BACKUP_KEY].includes(e.key)){
+  if([KEY_PRODUCTS,KEY_PURCHASES,KEY_CUSTOMERS,KEY_INVOICES,KEY_SETTINGS,KEY_COLLECTIONS,KEY_PAYMENTS].includes(e.key)){
     refreshAll();
   }
 });
@@ -2931,7 +2876,6 @@ function refreshAll(){
   invoices=load(KEY_INVOICES,[]);
   payments=load(KEY_PAYMENTS,[]);
   settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:""});
-  backupKey=load(KEY_BACKUP_KEY,"");
 
   renderStock();
   renderPurchaseProductSelect();
