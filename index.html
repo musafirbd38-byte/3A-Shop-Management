@@ -168,13 +168,11 @@ th{background:#075e54;color:white}
 .deleted-row .dr-days{background:#fff0c2;color:#8a5b00;padding:3px 10px;border-radius:10px;font-size:11.5px;font-weight:bold}
 .pdf-save-box{background:#e8f5e9;border:2px solid #0d9f4c;border-radius:10px;padding:12px;margin-top:10px}
 .pdf-action-btn{width:100%;padding:12px;font-size:14px;font-weight:bold;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px}
-/* Password field with show toggle */
 .pwd-wrap{position:relative}
 .pwd-wrap input{padding-right:52px;margin:0}
 .pwd-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#f1f8f6;color:#075e54;padding:6px 10px;border-radius:6px;font-size:16px;border:1px solid #ddd;width:auto;margin:0;cursor:pointer;height:34px;line-height:1;font-weight:bold}
 .pwd-toggle:hover{background:#e0f2f1}
 .pwd-label{margin-top:12px}
-/* Login Modal */
 .login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#075e54,#064e46);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-card{background:white;border-radius:16px;padding:24px;max-width:400px;width:100%;max-height:95vh;overflow:auto}
 .login-logo{text-align:center;font-size:48px;margin-bottom:6px}
@@ -183,8 +181,9 @@ th{background:#075e54;color:white}
 .login-card button{width:100%;padding:13px;font-size:15px;font-weight:bold;margin-top:12px}
 .login-error{background:#ffe0e0;color:#c62828;padding:10px;border-radius:8px;font-size:13px;text-align:center;margin-top:10px;display:none}
 .admin-logged{background:#d7f5e9;color:#087f6d;border:2px solid #087f6d;padding:12px;border-radius:10px;margin-bottom:12px;font-size:14px;text-align:center;font-weight:bold}
-.admin-guest{background:#fff0c2;color:#8a5b00;border:2px solid #ef8b00;padding:12px;border-radius:10px;margin-bottom:12px;font-size:14px;text-align:center;font-weight:bold}
 .warning-box{background:#fff8e1;border-left:4px solid #ef8b00;padding:10px;border-radius:6px;color:#8a5b00;font-size:13px;margin:10px 0}
+/* 🔥 নতুন রিস্টোর UI */
+.restore-box-large{width:100%;min-height:150px;font-family:monospace;font-size:12.5px;padding:12px;border:2px solid #087f6d;border-radius:10px;background:#f7fdfb;resize:vertical;word-break:break-all}
 @media(max-width:700px){
 .row,.row3,.row4{grid-template-columns:1fr}
 .stats{grid-template-columns:repeat(2,1fr)}
@@ -210,7 +209,7 @@ body *{visibility:hidden}
 </head>
 <body>
 
-<!-- ============ LOGIN OVERLAY (শুধু পাসওয়ার্ড সেট থাকলে দেখাবে) ============ -->
+<!-- LOGIN OVERLAY -->
 <div id="loginOverlay" class="login-overlay hidden">
   <div class="login-card">
     <div class="login-logo">🔐</div>
@@ -224,7 +223,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ============ FORGOT PASSWORD OVERLAY ============ -->
+<!-- FORGOT OVERLAY -->
 <div id="forgotOverlay" class="login-overlay hidden">
   <div class="login-card">
     <div class="login-logo">🔑</div>
@@ -252,7 +251,7 @@ body *{visibility:hidden}
 <header><h1>3A Shop Management</h1></header>
 <div class="container">
 
-<!-- ========== DASHBOARD ========== -->
+<!-- DASHBOARD -->
 <div id="dashboardSection">
   <div id="lowStockAlertCard" class="alert-card hidden">
     <button class="dismiss-x" onclick="dismissLowStockAlert()">✕ সরান</button>
@@ -288,7 +287,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== WAREHOUSE PICKER ========== -->
+<!-- WAREHOUSE PICKER -->
 <div id="warehousePickerSection" class="hidden">
   <div class="card">
     <h2 id="whPickerTitle">দোকান নির্বাচন</h2>
@@ -298,7 +297,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== STOCK ========== -->
+<!-- STOCK -->
 <div id="stockSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="stockWhName">—</b></div>
@@ -324,7 +323,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== PURCHASE ========== -->
+<!-- PURCHASE -->
 <div id="purchaseSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="purchaseWhName">—</b></div>
@@ -373,7 +372,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== INVOICE ========== -->
+<!-- INVOICE -->
 <div id="invoiceSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="invoiceWhName">—</b></div>
@@ -466,7 +465,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== SALES ========== -->
+<!-- SALES -->
 <div id="salesSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="salesWhName">—</b></div>
@@ -498,7 +497,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== CUSTOMER ========== -->
+<!-- CUSTOMER -->
 <div id="customerSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="customerWhName">—</b></div>
@@ -542,7 +541,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== CASHBOOK ========== -->
+<!-- CASHBOOK -->
 <div id="cashbookSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="cashbookWhName">—</b></div>
@@ -568,7 +567,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== EXPENSE ========== -->
+<!-- EXPENSE -->
 <div id="expenseSection" class="hidden">
   <div class="card">
     <h2>🧾 খরচ এন্ট্রি</h2>
@@ -600,7 +599,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== REPORT ========== -->
+<!-- REPORT -->
 <div id="reportSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="reportWhName">—</b></div>
@@ -683,7 +682,7 @@ body *{visibility:hidden}
   <button class="back-btn-bottom" onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
 </div>
 
-<!-- ========== WAREHOUSE ========== -->
+<!-- WAREHOUSE -->
 <div id="warehouseSection" class="hidden">
   <div class="card">
     <h2>🏭 দোকান / ওয়্যারহাউস</h2>
@@ -694,7 +693,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== ADJUST ========== -->
+<!-- ADJUST -->
 <div id="stockAdjustSection" class="hidden">
   <div class="current-wh-bar">
     <div>🏭 দোকান: <b id="adjustWhName">—</b></div>
@@ -727,7 +726,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== TRANSFER ========== -->
+<!-- TRANSFER -->
 <div id="transferSection" class="hidden">
   <div class="card">
     <h2>🔀 স্টক ট্রান্সফার</h2>
@@ -752,7 +751,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== RECYCLE BIN ========== -->
+<!-- RECYCLE BIN -->
 <div id="deletedSection" class="hidden">
   <div class="card">
     <h2>🗑️ রিসাইকেল বিন (১৫ দিন)</h2>
@@ -772,7 +771,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== AUDIT ========== -->
+<!-- AUDIT -->
 <div id="auditSection" class="hidden">
   <div class="card">
     <h2>📜 অডিট লগ</h2>
@@ -793,7 +792,7 @@ body *{visibility:hidden}
   </div>
 </div>
 
-<!-- ========== SETTINGS ========== -->
+<!-- SETTINGS -->
 <div id="settingsSection" class="hidden">
   <div class="card">
     <h2>🔐 অ্যাডমিন পাসওয়ার্ড</h2>
@@ -881,24 +880,54 @@ body *{visibility:hidden}
       <button class="blue" onclick="exportCSV('expenses')">🧾 খরচ</button>
     </div>
   </div>
+
+  <!-- 🔥 ব্যাকআপ কার্ড -->
   <div class="card">
-    <h2>📥 ব্যাকআপ</h2>
-    <button class="nopin-btn" onclick="backupNoPin('code')">🔑 কোড তৈরি</button>
-    <button class="nopin-btn" onclick="backupNoPin('file')">📥 ফাইল ডাউনলোড</button>
-    <textarea id="backupCodeBox" class="backup-code" readonly placeholder="ব্যাকআপ কোড..." style="margin-top:8px;"></textarea>
-    <button class="blue" onclick="copyBackupCode()" style="width:100%;padding:12px;margin-top:6px;">📋 কপি</button>
-    <hr>
-    <h3>♻️ পুনরুদ্ধার</h3>
-    <button class="warning" onclick="restoreFromBackupCode()">কোড থেকে</button>
-    <input type="file" id="restoreFile" accept=".txt,.json">
-    <button onclick="restoreBackup()">ফাইল থেকে</button>
+    <h2>📥 ব্যাকআপ নেওয়া</h2>
+    <p class="small">ব্যাকআপ কোড তৈরি করুন বা ফাইল ডাউনলোড করুন</p>
+    <div class="row">
+      <div><button class="nopin-btn" style="width:100%;padding:12px;" onclick="backupNoPin('code')">🔑 কোড তৈরি</button></div>
+      <div><button class="nopin-btn" style="width:100%;padding:12px;" onclick="backupNoPin('file')">📥 ফাইল ডাউনলোড</button></div>
+    </div>
+    <label>ব্যাকআপ কোড</label>
+    <textarea id="backupCodeBox" class="backup-code" readonly placeholder="এখানে ব্যাকআপ কোড আসবে..."></textarea>
+    <div class="row">
+      <div><button class="blue" style="width:100%;padding:12px;font-weight:bold;" onclick="copyBackupCode()">📋 কপি</button></div>
+      <div><button class="green" style="width:100%;padding:12px;font-weight:bold;" onclick="shareBackupCode()">📤 শেয়ার</button></div>
+    </div>
   </div>
+
+  <!-- 🔥 সহজ রিস্টোর/মার্জ কার্ড -->
+  <div class="card">
+    <h2>♻️ ডেটা পুনরুদ্ধার / মার্জ</h2>
+    <p class="small">নিচের বক্সে ব্যাকআপ কোড পেস্ট করে যেকোনো একটি বাটনে চাপুন</p>
+    <label>ব্যাকআপ কোড পেস্ট করুন</label>
+    <textarea id="restoreInputBox" class="restore-box-large" placeholder="এখানে ব্যাকআপ কোড পেস্ট করুন (Ctrl+V / Paste)"></textarea>
+    <div class="row" style="margin-top:8px;">
+      <div><button class="purple" style="width:100%;padding:14px;font-size:15px;font-weight:bold;" onclick="doRestoreFromPasted()">♻️ রিস্টোর (সব বদলাবে)</button></div>
+      <div><button class="blue" style="width:100%;padding:14px;font-size:15px;font-weight:bold;" onclick="doMergeFromPasted()">🔀 মার্জ (যোগ হবে)</button></div>
+    </div>
+    <div class="row" style="margin-top:6px;">
+      <div><button class="secondary" style="width:100%;padding:10px;" onclick="clearRestoreBox()">🗑 ক্লিয়ার</button></div>
+      <div><button class="secondary" style="width:100%;padding:10px;" onclick="pasteFromClipboardToRestore()">📥 ক্লিপবোর্ড থেকে পেস্ট</button></div>
+    </div>
+    <hr style="margin:14px 0;border:0;border-top:1px dashed #bbb;">
+    <h3 style="margin:0 0 8px;">📂 ফাইল থেকে</h3>
+    <label>ফাইল সিলেক্ট করুন (.json / .txt)</label>
+    <input type="file" id="restoreFile" accept=".txt,.json,.3ab" style="padding:12px;background:#f7faf9;border:2px dashed #087f6d;">
+    <div class="row">
+      <div><button class="purple" style="width:100%;padding:12px;font-weight:bold;" onclick="doRestoreFromFile()">♻️ রিস্টোর</button></div>
+      <div><button class="blue" style="width:100%;padding:12px;font-weight:bold;" onclick="doMergeFromFile()">🔀 মার্জ</button></div>
+    </div>
+    <div id="restoreStatus" class="backup-status hidden"></div>
+  </div>
+
   <button class="back-btn-bottom" onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
 </div>
 
 </div>
 
-<!-- ========== MODALS ========== -->
+<!-- MODALS -->
 <div id="productModal" class="modal hidden"><div class="modal-box">
   <div class="modal-head"><h2 id="productModalTitle">পণ্য</h2><button class="danger" onclick="closeModal('productModal')">X</button></div>
   <label>কোড</label><input id="productCode">
@@ -1021,11 +1050,7 @@ body *{visibility:hidden}
 
 <script>
 /* ============================================================
-   3A SHOP — FINAL LOGIC
-   - Password is optional
-   - Settings এ password set করা যায় (👁️ দেখুন সহ)
-   - Password সেট থাকলে login-এ চাইবে (কোনো 👁️ নেই)
-   - Login না করেও সব কাজ (Guest mode)
+   3A SHOP — FINAL
    ============================================================ */
 const __memStore={};
 function load(k,f){try{const d=localStorage.getItem(k);if(d!==null&&d!==undefined)return JSON.parse(d)}catch(e){}return __memStore[k]!==undefined?__memStore[k]:f}
@@ -2722,7 +2747,6 @@ function guestLogin(){
   renderAdminStatus();
   alert("✅ এখন অ্যাডমিন মোডে।");
 }
-/* Login overlay (শুধু পাসওয়ার্ড সেট থাকলে এবং লগইন না করলে) */
 function showLoginOverlay(){
   document.getElementById("loginOverlay").classList.remove("hidden");
   document.getElementById("loginPassword").value="";
@@ -2789,39 +2813,313 @@ function exportCSV(t){
   }catch(e){alert("❌")}
 }
 
-/* ---- BACKUP ---- */
-function buildBackupObject(){return{version:"3A-7.0",date:nowISO(),products,purchases,customers,invoices,settings,payments,expenses,warehouses,adjustments,transfers,auditLogs,deletedItems}}
+/* ============ BACKUP / RESTORE ============ */
+function buildBackupObject(){
+  return{
+    version:"3A-7.0",date:nowISO(),
+    products,purchases,customers,invoices,settings,payments,expenses,
+    warehouses,adjustments,transfers,auditLogs,deletedItems
+  };
+}
 function backupNoPin(type){
   if(type==='code'){
     try{
-      const b=buildBackupObject();const j=JSON.stringify(b);const b64=btoa(unescape(encodeURIComponent(j)));
+      const b=buildBackupObject();
+      const j=JSON.stringify(b);
+      const b64=btoa(unescape(encodeURIComponent(j)));
       const code="3A0"+b64;
       document.getElementById("backupCodeBox").value=code;
-      if(navigator.clipboard)navigator.clipboard.writeText(code).then(()=>alert("✅ কোড তৈরি ও কপি।")).catch(()=>alert("✅ তৈরি।"));
-      else alert("✅ তৈরি।");
-    }catch(e){alert("❌")}
-  }else{
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(code).then(()=>{
+          showRestoreStatus("✅ কোড তৈরি ও কপি হয়েছে।<br>এখন কোথাও সেভ করে রাখুন।",false);
+        }).catch(()=>{
+          showRestoreStatus("✅ কোড তৈরি হয়েছে। নিচের বক্স থেকে কপি করুন।",false);
+        });
+      }else{
+        showRestoreStatus("✅ কোড তৈরি হয়েছে। নিচের বক্স থেকে কপি করুন।",false);
+      }
+    }catch(e){
+      console.error(e);
+      alert("❌ কোড তৈরি ব্যর্থ।");
+    }
+  }else if(type==='file'){
     try{
-      const b=buildBackupObject();const j=JSON.stringify(b,null,2);
+      const b=buildBackupObject();
+      const j=JSON.stringify(b,null,2);
       const blob=new Blob([j],{type:"application/json"});
-      const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="3A-Backup-"+today()+".json";a.click();
-      alert("✅ ডাউনলোড।");
-    }catch(e){alert("❌")}
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download="3A-Backup-"+today()+".json";
+      document.body.appendChild(a);a.click();
+      setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},2000);
+      showRestoreStatus("✅ ফাইল ডাউনলোড শুরু হয়েছে।",false);
+    }catch(e){
+      console.error(e);
+      alert("❌ ফাইল তৈরি ব্যর্থ।");
+    }
   }
 }
-function copyBackupCode(){const b=document.getElementById("backupCodeBox");if(!b.value){alert("তৈরি করুন।");return}b.select();b.setSelectionRange(0,999999);if(navigator.clipboard)navigator.clipboard.writeText(b.value).then(()=>alert("✅ কপি।"));else alert("⚠️ ম্যানুয়াল।")}
-function restoreFromBackupCode(){
-  const c=prompt("ব্যাকআপ কোড:");if(!c)return;
-  if(!confirm("বর্তমান ডেটা বদলে যাবে?"))return;
-  try{let code=c.trim();if(code.startsWith("3A0"))code=code.slice(3);const j=decodeURIComponent(escape(atob(code)));const d=JSON.parse(j);applyData(d);alert("✅ সফল।")}catch(e){console.error(e);alert("❌ কোড পড়া যাচ্ছে না।")}
+function copyBackupCode(){
+  const b=document.getElementById("backupCodeBox");
+  if(!b||!b.value){alert("আগে কোড তৈরি করুন।");return}
+  b.select();
+  b.setSelectionRange(0,999999);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(b.value).then(()=>{
+      showRestoreStatus("✅ কোড কপি হয়েছে।",false);
+    }).catch(()=>{
+      try{document.execCommand("copy");showRestoreStatus("✅ কোড কপি হয়েছে।",false)}
+      catch(e){alert("⚠️ ম্যানুয়াল কপি করুন।")}
+    });
+  }else{
+    try{document.execCommand("copy");showRestoreStatus("✅ কোড কপি হয়েছে।",false)}
+    catch(e){alert("⚠️ ম্যানুয়াল কপি করুন।")}
+  }
 }
-function restoreBackup(){
-  const f=document.getElementById("restoreFile").files[0];
-  if(!f){alert("ফাইল নির্বাচন।");return}
-  if(!confirm("ডেটা বদলে যাবে?"))return;
-  const r=new FileReader();
-  r.onload=function(e){try{const d=JSON.parse(e.target.result);applyData(d);alert("✅ সফল।")}catch(err){alert("❌")}};
-  r.readAsText(f);
+function shareBackupCode(){
+  const b=document.getElementById("backupCodeBox");
+  if(!b||!b.value){alert("আগে কোড তৈরি করুন।");return}
+  const code=b.value;
+  if(navigator.share){
+    navigator.share({title:"3A Shop ব্যাকআপ",text:"3A Shop ব্যাকআপ কোড:\n\n"+code}).catch(()=>{});
+    return;
+  }
+  const wa=confirm("WhatsApp-এ পাঠাবেন?\n\n• OK = WhatsApp খুলবে\n• Cancel = কপি হবে");
+  if(wa){
+    window.open("https://wa.me/?text="+encodeURIComponent("3A Shop ব্যাকআপ কোড:\n\n"+code),"_blank");
+  }else{
+    copyBackupCode();
+  }
+}
+function clearRestoreBox(){
+  const box=document.getElementById("restoreInputBox");
+  if(box)box.value="";
+}
+async function pasteFromClipboardToRestore(){
+  try{
+    if(navigator.clipboard&&navigator.clipboard.readText){
+      const txt=await navigator.clipboard.readText();
+      if(!txt){alert("ক্লিপবোর্ড খালি।");return}
+      const box=document.getElementById("restoreInputBox");
+      if(box)box.value=txt.trim();
+      showRestoreStatus("✅ ক্লিপবোর্ড থেকে পেস্ট হয়েছে।",false);
+    }else{
+      alert("ব্রাউজার ক্লিপবোর্ড পড়তে পারছে না। ম্যানুয়ালি পেস্ট করুন (লং প্রেস → Paste)।");
+    }
+  }catch(e){
+    console.error(e);
+    alert("⚠️ ক্লিপবোর্ড পড়া যায়নি। ম্যানুয়ালি পেস্ট করুন।");
+  }
+}
+function showRestoreStatus(msg,err){
+  const el=document.getElementById("restoreStatus");
+  if(!el)return;
+  el.classList.remove("hidden");
+  el.style.background=err?"#ffe0e0":"#f1f8f6";
+  el.style.borderLeftColor=err?"#c62828":"#087f6d";
+  el.style.color=err?"#a01a1a":"#075e54";
+  el.innerHTML=msg;
+  setTimeout(()=>{el.classList.add("hidden")},err?15000:8000);
+}
+function parseBackupCode(code){
+  code=String(code||"").trim();
+  if(!code)return{error:"কোড খালি।"};
+  if(code.startsWith("3A0")){
+    try{
+      const payload=code.slice(3).replace(/\s+/g,"");
+      const j=decodeURIComponent(escape(atob(payload)));
+      const d=JSON.parse(j);
+      return{data:d};
+    }catch(e){
+      try{
+        const j=decodeURIComponent(escape(atob(code)));
+        const d=JSON.parse(j);
+        return{data:d};
+      }catch(e2){
+        return{error:"❌ 3A0 কোড পড়া যাচ্ছে না।"};
+      }
+    }
+  }
+  try{
+    const j=decodeURIComponent(escape(atob(code.replace(/\s+/g,""))));
+    const d=JSON.parse(j);
+    return{data:d};
+  }catch(e){}
+  if(code.startsWith("{")){
+    try{
+      const d=JSON.parse(code);
+      return{data:d};
+    }catch(e){}
+  }
+  return{error:"❌ কোড পড়া যাচ্ছে না। সঠিক ব্যাকআপ কোড দিন।"};
+}
+function validateBackupData(d){
+  if(!d||typeof d!=="object")return false;
+  const keys=["products","purchases","customers","invoices","payments","expenses","warehouses","adjustments","transfers","settings"];
+  return keys.some(k=>k in d);
+}
+function doRestoreFromPasted(){
+  const box=document.getElementById("restoreInputBox");
+  if(!box||!box.value.trim()){
+    alert("আগে কোড পেস্ট করুন।");
+    box&&box.focus();
+    return;
+  }
+  const code=box.value.trim();
+  const r=parseBackupCode(code);
+  if(r.error){showRestoreStatus(r.error,true);return}
+  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+  if(!confirm("⚠️ সতর্কতা\n\nবর্তমান সব ডেটা মুছে ব্যাকআপের ডেটা বসবে।\n\nআপনি নিশ্চিত?"))return;
+  try{
+    applyData(r.data);
+    box.value="";
+    showRestoreStatus("✅ সফলভাবে রিস্টোর হয়েছে!<br>সব ডেটা পুনরুদ্ধার হয়েছে।",false);
+    logAudit("restore","backup","","কোড থেকে রিস্টোর");
+  }catch(e){
+    console.error(e);
+    showRestoreStatus("❌ রিস্টোর ব্যর্থ: "+e.message,true);
+  }
+}
+function doMergeFromPasted(){
+  const box=document.getElementById("restoreInputBox");
+  if(!box||!box.value.trim()){
+    alert("আগে কোড পেস্ট করুন।");
+    box&&box.focus();
+    return;
+  }
+  const code=box.value.trim();
+  const r=parseBackupCode(code);
+  if(r.error){showRestoreStatus(r.error,true);return}
+  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+  if(!confirm("🔀 মার্জ\n\nবর্তমান ডেটা থাকবে + নতুন ডেটা যোগ হবে।\n\n(একই ID থাকলে পুরনো থাকবে)\n\nআপনি নিশ্চিত?"))return;
+  try{
+    const added=mergeBackupData(r.data);
+    box.value="";
+    const summary=`✅ মার্জ সফল!<br><br>
+      🆕 নতুন পণ্য: <b>${added.products}</b><br>
+      🆕 নতুন গ্রাহক: <b>${added.customers}</b><br>
+      🆕 নতুন চালান: <b>${added.invoices}</b><br>
+      🆕 নতুন ক্রয়: <b>${added.purchases}</b><br>
+      🆕 নতুন পেমেন্ট: <b>${added.payments}</b><br>
+      🆕 নতুন খরচ: <b>${added.expenses}</b><br>
+      🆕 নতুন দোকান: <b>${added.warehouses}</b>`;
+    showRestoreStatus(summary,false);
+    logAudit("merge","backup","","কোড থেকে মার্জ");
+  }catch(e){
+    console.error(e);
+    showRestoreStatus("❌ মার্জ ব্যর্থ: "+e.message,true);
+  }
+}
+function doRestoreFromFile(){
+  const f=document.getElementById("restoreFile")?.files[0];
+  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
+  if(!confirm("⚠️ সব ডেটা বদলে যাবে।\n\nআপনি নিশ্চিত?"))return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const txt=String(e.target.result||"").trim();
+      let d;
+      if(txt.startsWith("{")){
+        d=JSON.parse(txt);
+      }else{
+        const r=parseBackupCode(txt);
+        if(r.error){showRestoreStatus(r.error,true);return}
+        d=r.data;
+      }
+      if(!validateBackupData(d)){showRestoreStatus("❌ ফাইলের ডেটা সঠিক নয়।",true);return}
+      applyData(d);
+      showRestoreStatus("✅ ফাইল থেকে সফলভাবে রিস্টোর হয়েছে।",false);
+      logAudit("restore","backup","","ফাইল থেকে রিস্টোর");
+    }catch(err){
+      console.error(err);
+      showRestoreStatus("❌ ফাইল পড়া ব্যর্থ: "+err.message,true);
+    }
+  };
+  reader.readAsText(f);
+}
+function doMergeFromFile(){
+  const f=document.getElementById("restoreFile")?.files[0];
+  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
+  if(!confirm("🔀 ফাইলের ডেটা যোগ হবে (মার্জ)।\n\nআপনি নিশ্চিত?"))return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const txt=String(e.target.result||"").trim();
+      let d;
+      if(txt.startsWith("{")){
+        d=JSON.parse(txt);
+      }else{
+        const r=parseBackupCode(txt);
+        if(r.error){showRestoreStatus(r.error,true);return}
+        d=r.data;
+      }
+      if(!validateBackupData(d)){showRestoreStatus("❌ ফাইলের ডেটা সঠিক নয়।",true);return}
+      const added=mergeBackupData(d);
+      const summary=`✅ মার্জ সফল!<br><br>
+        🆕 পণ্য: <b>${added.products}</b> | গ্রাহক: <b>${added.customers}</b> | চালান: <b>${added.invoices}</b><br>
+        🆕 ক্রয়: <b>${added.purchases}</b> | পেমেন্ট: <b>${added.payments}</b> | খরচ: <b>${added.expenses}</b> | দোকান: <b>${added.warehouses}</b>`;
+      showRestoreStatus(summary,false);
+      logAudit("merge","backup","","ফাইল থেকে মার্জ");
+    }catch(err){
+      console.error(err);
+      showRestoreStatus("❌ মার্জ ব্যর্থ: "+err.message,true);
+    }
+  };
+  reader.readAsText(f);
+}
+function mergeBackupData(d){
+  const added={products:0,purchases:0,customers:0,invoices:0,payments:0,expenses:0,warehouses:0,adjustments:0,transfers:0,deletedItems:0};
+  function mergeArray(currentArr,newArr,idField="id"){
+    const existing=new Set(currentArr.map(x=>x[idField]));
+    let cnt=0;
+    (newArr||[]).forEach(item=>{
+      if(!item||!item[idField])return;
+      if(!existing.has(item[idField])){
+        currentArr.push(item);
+        existing.add(item[idField]);
+        cnt++;
+      }
+    });
+    return cnt;
+  }
+  const existingProdKeys=new Set(products.map(p=>String(p.id)));
+  const existingProdNameSize=new Set(products.map(p=>String(p.name||"").trim()+"|"+String(p.size||"").trim()));
+  (d.products||[]).forEach(p=>{
+    if(!p||!p.id)return;
+    const key=String(p.name||"").trim()+"|"+String(p.size||"").trim();
+    if(existingProdKeys.has(String(p.id)))return;
+    if(existingProdNameSize.has(key))return;
+    products.push(p);
+    existingProdKeys.add(String(p.id));
+    existingProdNameSize.add(key);
+    added.products++;
+  });
+  added.customers=mergeArray(customers,d.customers||[]);
+  added.invoices=mergeArray(invoices,d.invoices||[]);
+  added.purchases=mergeArray(purchases,d.purchases||[]);
+  added.payments=mergeArray(payments,d.payments||[]);
+  added.expenses=mergeArray(expenses,d.expenses||[]);
+  added.warehouses=mergeArray(warehouses,d.warehouses||[]);
+  added.adjustments=mergeArray(adjustments,d.adjustments||[]);
+  added.transfers=mergeArray(transfers,d.transfers||[]);
+  added.deletedItems=mergeArray(deletedItems,d.deletedItems||[]);
+  save(KEY_PRODUCTS,products);save(KEY_PURCHASES,purchases);save(KEY_CUSTOMERS,customers);save(KEY_INVOICES,invoices);
+  save(KEY_PAYMENTS,payments);save(KEY_EXPENSES,expenses);save(KEY_WAREHOUSES,warehouses);
+  save(KEY_ADJUSTMENTS,adjustments);save(KEY_TRANSFERS,transfers);save(KEY_DELETED,deletedItems);
+  if(d.settings){
+    const keepPass=settings.adminPassword,keepQ=settings.securityQuestion,keepA=settings.securityAnswer;
+    if(!settings.companyName&&d.settings.companyName)settings.companyName=d.settings.companyName;
+    if(!settings.companyAddress&&d.settings.companyAddress)settings.companyAddress=d.settings.companyAddress;
+    if(!settings.companyPhone&&d.settings.companyPhone)settings.companyPhone=d.settings.companyPhone;
+    settings.adminPassword=keepPass;
+    settings.securityQuestion=keepQ;
+    settings.securityAnswer=keepA;
+    save(KEY_SETTINGS,settings);
+  }
+  migrateData();
+  refreshAll();
+  return added;
 }
 function applyData(d){
   if(Array.isArray(d.products))products=d.products;
@@ -2886,9 +3184,6 @@ function refreshAll(){
 /* ---- INIT ---- */
 function initApp(){
   try{migrateData()}catch(e){}
-  // AUTH LOGIC:
-  // - settings.adminPassword খালি থাকলে → সরাসরি খোলো (Guest mode, সব কাজ)
-  // - settings.adminPassword সেট থাকলে → লগইন না করলে overlay দেখাও
   if(settings.adminPassword && !currentUser){
     showLoginOverlay();
   }else{
