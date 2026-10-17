@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#075e54">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="3A Shop">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23075e54' width='100' height='100' rx='20'/><text x='50' y='68' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>3A</text></svg>">
 <title>3A Shop Management</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -72,7 +68,6 @@ th{background:#075e54;color:white}
 .report-tabs button{flex:1;min-width:100px;padding:12px 10px;font-weight:bold;font-size:14px}
 .report-tabs button.active{background:#075e54;box-shadow:0 0 0 3px #b8ded6}
 .report-range-info{background:#f1f8f6;border-left:4px solid #087f6d;padding:8px 12px;border-radius:6px;font-size:13.5px;color:#075e54;font-weight:bold;margin-bottom:12px}
-/* ====== INVOICE PAPER (PDF-like layout everywhere) ====== */
 .invoice-paper{background:white;padding:20px;max-width:800px;margin:auto;font-size:13px;color:#111;font-family:Arial,"Noto Sans Bengali",sans-serif;position:relative}
 .inv-head{text-align:center;padding-bottom:10px;border-bottom:2px solid #075e54;margin-bottom:10px}
 .inv-head h1{margin:0 0 4px;font-size:24px;color:#075e54;font-weight:bold}
@@ -99,7 +94,6 @@ th{background:#075e54;color:white}
 .inv-signature{display:flex;justify-content:space-between;margin-top:50px;gap:20px}
 .inv-signature>div{text-align:center;font-size:12px;flex:1}
 .inv-signature>div::before{content:"";display:block;border-top:1px dashed #555;margin-bottom:4px}
-/* 🔥 CRITICAL FIX: Force PDF-like layout everywhere (mobile/app/pdf) */
 #printArea .invoice-paper{width:100%;max-width:800px;min-width:0}
 #printArea .inv-top-box{display:flex!important;flex-direction:row!important;justify-content:space-between!important;gap:12px!important;flex-wrap:nowrap!important}
 #printArea .inv-box{flex:1!important;min-width:0}
@@ -111,7 +105,6 @@ th{background:#075e54;color:white}
 #printArea .inv-summary,#printArea .inv-summary-full{padding:8px 10px!important}
 #printArea .inv-payment-history table{min-width:auto!important}
 #printArea .inv-signature{margin-top:50px!important}
-/* App view container override — no more mobile collapse */
 #invoiceViewModal .modal-box{max-width:820px}
 #invoiceViewModal #printArea{width:100%;overflow-x:auto}
 .cust-info-row{background:#f7faf9;border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:12px}
@@ -146,8 +139,6 @@ th{background:#075e54;color:white}
 .tab-bar button{flex:1;background:transparent;color:#075e54;font-weight:bold;padding:10px 8px;border-radius:6px;font-size:13.5px;min-width:100px}
 .tab-bar button.active{background:#075e54;color:white}
 .back-btn-bottom{width:100%;background:#075e54;padding:14px;font-size:15px;font-weight:bold;margin-top:14px}
-.batch-row{background:#fffbea;padding:6px 8px;border-bottom:1px dashed #ddd;font-size:12.5px}
-.batch-pill{display:inline-block;padding:2px 6px;border-radius:10px;font-size:11px;background:#f1f8f6;color:#075e54;margin-right:4px}
 .route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .route-card{background:linear-gradient(135deg,#f1f8f6,#d7f5e9);border:2px solid #087f6d;border-radius:10px;padding:14px;cursor:pointer;text-align:center}
 .route-card .rc-icon{font-size:26px;margin-bottom:4px}
@@ -197,8 +188,8 @@ th{background:#075e54;color:white}
 .pwd-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#f1f8f6;color:#075e54;padding:6px 10px;border-radius:6px;font-size:16px;border:1px solid #ddd;width:auto;margin:0;cursor:pointer;height:34px;line-height:1;font-weight:bold}
 .pwd-toggle:hover{background:#e0f2f1}
 .pwd-label{margin-top:12px}
-.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#075e54,#064e46);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-card{background:white;border-radius:16px;padding:24px;max-width:400px;width:100%;max-height:95vh;overflow:auto}
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#075e54,#064e46);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.login-card{background:white;border-radius:16px;padding:24px;max-width:420px;width:100%;max-height:95vh;overflow:auto}
 .login-logo{text-align:center;font-size:48px;margin-bottom:6px}
 .login-title{text-align:center;color:#075e54;font-size:20px;font-weight:bold;margin:0 0 4px}
 .login-sub{text-align:center;color:#666;font-size:13px;margin-bottom:18px}
@@ -207,7 +198,12 @@ th{background:#075e54;color:white}
 .admin-logged{background:#d7f5e9;color:#087f6d;border:2px solid #087f6d;padding:12px;border-radius:10px;margin-bottom:12px;font-size:14px;text-align:center;font-weight:bold}
 .warning-box{background:#fff8e1;border-left:4px solid #ef8b00;padding:10px;border-radius:6px;color:#8a5b00;font-size:13px;margin:10px 0}
 .restore-box-large{width:100%;min-height:150px;font-family:monospace;font-size:12.5px;padding:12px;border:2px solid #087f6d;border-radius:10px;background:#f7fdfb;resize:vertical;word-break:break-all}
-.pay-history-item{background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:12.5px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.guest-banner{background:#ff8f00;color:white;padding:10px;text-align:center;font-weight:bold;font-size:14px;border-radius:10px;margin-bottom:12px}
+.rec-code-box{background:#e8f5e9;border:3px solid #0d9f4c;border-radius:12px;padding:16px;text-align:center;margin:14px 0}
+.rec-code-box .rc-label{font-size:13px;color:#555;font-weight:bold;margin-bottom:8px}
+.rec-code-box .rc-code{font-family:monospace;font-size:20px;font-weight:bold;color:#0d9f4c;letter-spacing:2px;background:white;padding:12px;border-radius:8px;border:2px dashed #0d9f4c;word-break:break-all}
+.sec-q-box{background:#f1f8f6;border:1px solid #087f6d;border-radius:8px;padding:12px;margin-bottom:10px}
+.sec-q-box label{display:block;font-size:13px;color:#075e54;margin-bottom:4px}
 @media(max-width:700px){
 .row,.row3,.row4{grid-template-columns:1fr}
 .stats{grid-template-columns:repeat(2,1fr)}
@@ -220,8 +216,6 @@ th{background:#075e54;color:white}
 .route-grid{grid-template-columns:repeat(2,1fr)}
 .cash-flow-row{grid-template-columns:1fr}
 .wh-picker{grid-template-columns:1fr}
-/* 🔥 DO NOT collapse inv-top-box — keep side by side even on mobile */
-/* (removed: .inv-top-box{flex-direction:column} ) */
 }
 @media print{
 body{background:white}
@@ -239,12 +233,17 @@ body *{visibility:hidden}
   <div class="login-card">
     <div class="login-logo">🔐</div>
     <h2 class="login-title">3A Shop Management</h2>
-    <p class="login-sub">প্রবেশ করতে পাসওয়ার্ড দিন</p>
-    <label>পাসওয়ার্ড</label>
-    <input id="loginPassword" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    <p class="login-sub">লগইন করুন</p>
+    <label>ইউজার আইডি</label>
+    <input id="loginUserId" autocomplete="username">
+    <label class="pwd-label">পাসওয়ার্ড</label>
+    <div class="pwd-wrap">
+      <input id="loginPassword" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="pwd-toggle" type="button" onclick="togglePwd('loginPassword',this)">👁️</button>
+    </div>
     <div id="loginError" class="login-error"></div>
     <button class="green" onclick="doLogin()">🔓 প্রবেশ করুন</button>
-    <button class="secondary" onclick="showForgotPassword()" style="margin-top:6px;">❓ পাসওয়ার্ড ভুলে গেছেন?</button>
+    <button class="warning" onclick="showForgotForm()" style="margin-top:6px;">❓ পাসওয়ার্ড/আইডি ভুলে গেছি?</button>
   </div>
 </div>
 
@@ -253,28 +252,46 @@ body *{visibility:hidden}
   <div class="login-card">
     <div class="login-logo">🔑</div>
     <h2 class="login-title">পাসওয়ার্ড রিকভারি</h2>
-    <p class="login-sub">সিকিউরিটি প্রশ্নের উত্তর দিন</p>
-    <div style="background:#f1f8f6;border-left:4px solid #087f6d;padding:10px;border-radius:6px;font-size:13.5px;color:#075e54;margin-bottom:10px;"><b>প্রশ্ন:</b> <span id="forgotQuestion"></span></div>
-    <label>উত্তর</label>
-    <input id="forgotAnswer" autocomplete="off">
-    <label class="pwd-label">নতুন পাসওয়ার্ড</label>
-    <div class="pwd-wrap">
-      <input id="forgotNewPass" type="password" autocomplete="new-password">
-      <button class="pwd-toggle" type="button" onclick="togglePwd('forgotNewPass',this)">👁️</button>
-    </div>
-    <label class="pwd-label">নতুন পাসওয়ার্ড আবার</label>
-    <div class="pwd-wrap">
-      <input id="forgotNewPass2" type="password" autocomplete="new-password">
-      <button class="pwd-toggle" type="button" onclick="togglePwd('forgotNewPass2',this)">👁️</button>
-    </div>
+    <p class="login-sub">৩টি প্রশ্নের মধ্যে ২টি সঠিক উত্তর দিন</p>
+    <div id="forgotQuestionsBox"></div>
     <div id="forgotError" class="login-error"></div>
-    <button class="green" onclick="recoverPassword()">🔓 পাসওয়ার্ড রিসেট</button>
+    <button class="green" onclick="verifySecurityAnswers()">✅ যাচাই করুন</button>
+    <hr style="margin:14px 0;border:0;border-top:1px dashed #bbb;">
+    <p class="small" style="text-align:center;">অথবা রিকভারি কোড দিয়ে</p>
+    <input id="forgotRecCode" placeholder="3A-REC-XXXX-XXXX" style="text-align:center;font-family:monospace;">
+    <button class="purple" onclick="verifyRecoveryCode()">🔐 কোড যাচাই</button>
     <button class="secondary" onclick="hideForgot()" style="margin-top:6px;">← ফিরে যান</button>
+  </div>
+</div>
+
+<!-- RESET PASSWORD OVERLAY -->
+<div id="resetOverlay" class="login-overlay hidden">
+  <div class="login-card">
+    <div class="login-logo">🔓</div>
+    <h2 class="login-title">নতুন পাসওয়ার্ড সেট</h2>
+    <p class="login-sub">পাসওয়ার্ড/আইডি রিসেট করুন</p>
+    <label>নতুন ইউজার আইডি</label>
+    <input id="resetUserId">
+    <label class="pwd-label">নতুন পাসওয়ার্ড (কমপক্ষে ৪ অক্ষর)</label>
+    <div class="pwd-wrap">
+      <input id="resetPassword" type="password">
+      <button class="pwd-toggle" type="button" onclick="togglePwd('resetPassword',this)">👁️</button>
+    </div>
+    <label class="pwd-label">পাসওয়ার্ড আবার</label>
+    <div class="pwd-wrap">
+      <input id="resetPassword2" type="password">
+      <button class="pwd-toggle" type="button" onclick="togglePwd('resetPassword2',this)">👁️</button>
+    </div>
+    <div id="resetError" class="login-error"></div>
+    <button class="green" onclick="doResetPassword()">💾 রিসেট করুন</button>
+    <button class="secondary" onclick="hideReset()" style="margin-top:6px;">← বাতিল</button>
   </div>
 </div>
 
 <header><h1>3A Shop Management</h1></header>
 <div class="container">
+
+<div id="guestBanner" class="guest-banner hidden">👤 Guest মোড — সব ফিচার কাজ করছে</div>
 
 <div id="dashboardSection">
   <div id="lowStockAlertCard" class="alert-card hidden">
@@ -290,7 +307,7 @@ body *{visibility:hidden}
   </div>
   <div class="card" style="padding:12px;">
     <h2 style="margin-bottom:12px;">ড্যাশবোর্ড</h2>
-    <div class="dashboard-grid">
+    <div class="dashboard-grid" id="dashboardGrid">
       <button class="db-green" onclick="showSection('dashboardSection')"><span class="db-icon">🏠</span><span class="db-label">ড্যাশবোর্ড</span></button>
       <button class="db-teal" onclick="openWarehousePicker('stock')"><span class="db-icon">📦</span><span class="db-label">স্টক</span></button>
       <button class="db-blue" onclick="openWarehousePicker('purchase')"><span class="db-icon">🛒</span><span class="db-label">পণ্য ক্রয়</span></button>
@@ -448,6 +465,7 @@ body *{visibility:hidden}
           <div style="display:flex;justify-content:space-between;"><span>ডেলিভারি:</span><b id="invDeliveryShow" style="color:#ef8b00;">+ ৳0</b></div>
           <hr style="margin:6px 0;">
           <div style="display:flex;justify-content:space-between;font-size:20px;color:#075e54;"><b>সর্বমোট:</b><b id="newInvoiceTotal">৳0</b></div>
+          <div style="font-size:12px;color:#666;margin-top:4px;">💡 ছাড় বাকিতে যোগ হবে না — ছাড় শুধু মোট থেকে বিয়োগ হয়</div>
         </div>
       </div>
       <button id="saveInvoiceBtn" onclick="saveInvoice()">💾 চালান তৈরি</button>
@@ -500,7 +518,6 @@ body *{visibility:hidden}
   <div id="invTabPaymentsContent" class="hidden">
     <div class="card">
       <h2>💰 পেমেন্ট হিস্ট্রি</h2>
-      <p class="small">কোন চালানের বাকি টাকা কবে আদায় হয়েছে</p>
       <div class="summary-filter">
         <button id="payBtnToday" class="active" onclick="setPaymentView('today')">আজ</button>
         <button id="payBtnWeek" class="secondary" onclick="setPaymentView('week')">৭ দিন</button>
@@ -523,9 +540,9 @@ body *{visibility:hidden}
     <h2>বিক্রয়</h2>
     <div class="stats">
       <div class="stat highlight clickable" onclick="openDetailModal('salesToday','আজকের বিক্রয়')">আজকের বিক্রয় 👆<b id="salesTodaySales">৳0</b></div>
-      <div class="stat highlight clickable" onclick="openDetailModal('salesToday','আজকের লাভ')">আজকের লাভ 👆<b id="salesTodayProfit">৳0</b></div>
+      <div class="stat highlight clickable admin-only" onclick="openDetailModal('salesToday','আজকের লাভ')">আজকের লাভ 👆<b id="salesTodayProfit">৳0</b></div>
       <div class="stat clickable" onclick="openDetailModal('allDelivered','মোট বিক্রয়')">মোট বিক্রয় 👆<b id="salesTotal">৳0</b></div>
-      <div class="stat clickable" onclick="openProfitModal()">মোট লাভ 👆<b id="salesProfit">৳0</b></div>
+      <div class="stat clickable admin-only" onclick="openProfitModal()">মোট লাভ 👆<b id="salesProfit">৳0</b></div>
     </div>
     <div class="stats" style="margin-top:10px;grid-template-columns:repeat(2,1fr)">
       <div class="stat clickable" onclick="openDetailModal('payments','মোট নগদ')">মোট নগদ 👆<b id="salesCash">৳0</b></div>
@@ -536,11 +553,11 @@ body *{visibility:hidden}
   <div class="card">
     <h3>আজকের বিস্তারিত</h3>
     <div id="salesTodayInfo" class="report-range-info">—</div>
-    <div class="table-wrap"><table><thead><tr><th>চালান</th><th>গ্রাহক</th><th>বিক্রয়</th><th>নগদ</th><th>বাকি</th><th>লাভ</th></tr></thead><tbody id="salesTodayTable"></tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>চালান</th><th>গ্রাহক</th><th>বিক্রয়</th><th>নগদ</th><th>বাকি</th><th class="admin-only">লাভ</th></tr></thead><tbody id="salesTodayTable"></tbody></table></div>
   </div>
   <div class="card">
     <h3>সব ডেলিভারি</h3>
-    <div class="table-wrap"><table><thead><tr><th>চালান</th><th>তারিখ</th><th>গ্রাহক</th><th>বিক্রয়</th><th>নগদ</th><th>বাকি</th><th>লাভ</th></tr></thead><tbody id="salesTable"></tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>চালান</th><th>তারিখ</th><th>গ্রাহক</th><th>বিক্রয়</th><th>নগদ</th><th>বাকি</th><th class="admin-only">লাভ</th></tr></thead><tbody id="salesTable"></tbody></table></div>
     <button class="back-btn-bottom" onclick="showSection('dashboardSection')">← ড্যাশবোর্ড</button>
   </div>
 </div>
@@ -616,13 +633,12 @@ body *{visibility:hidden}
 <div id="expenseSection" class="hidden">
   <div class="card">
     <h2>🧾 খরচ এন্ট্রি</h2>
-    <p class="small">নিজের মতো খরচের নাম লিখুন — যেকোনো নাম হতে পারে</p>
     <div class="row">
       <div><label>তারিখ</label><input type="date" id="expDate"></div>
       <div><label>পরিমাণ (৳)</label><input type="number" id="expAmount" min="0" step="0.01"></div>
     </div>
-    <label>খরচের নাম * (নিজে লিখুন)</label>
-    <input id="expCategory" list="expenseCategoryList" autocomplete="off" placeholder="যেমন: দোকান ভাড়া, বিদ্যুৎ বিল, চায়ের খরচ...">
+    <label>খরচের নাম *</label>
+    <input id="expCategory" list="expenseCategoryList" autocomplete="off" placeholder="যেমন: দোকান ভাড়া, বিদ্যুৎ বিল...">
     <datalist id="expenseCategoryList"></datalist>
     <label>পেমেন্ট মাধ্যম</label>
     <select id="expMethod"><option>নগদ</option><option>বিকাশ</option><option>নগদ (Nagad)</option><option>ব্যাংক</option><option>অন্যান্য</option></select>
@@ -746,8 +762,8 @@ body *{visibility:hidden}
     <label>পণ্য</label><select id="adjProduct" onchange="updateAdjCurrentStock()"></select>
     <label>ধরন</label>
     <div>
-      <button class="adjust-type-btn active-inc" id="adjBtnInc" onclick="setAdjustType('inc')">➕ বাড়ান</button>
-      <button class="adjust-type-btn" id="adjBtnDec" onclick="setAdjustType('dec')">➖ কমান</button>
+      <button class="active-inc" id="adjBtnInc" onclick="setAdjustType('inc')">➕ বাড়ান</button>
+      <button id="adjBtnDec" onclick="setAdjustType('dec')">➖ কমান</button>
     </div>
     <div class="row"><div><label>পরিমাণ</label><input type="number" id="adjQty" min="0" step="0.01"></div><div><label>কারণ</label><select id="adjReason"><option>গণনায় ভুল</option><option>হারিয়ে গেছে</option><option>নষ্ট হয়েছে</option><option>চুরি হয়েছে</option><option>পুরনো স্টক বাতিল</option><option>রিটার্ন থেকে যোগ</option><option>অন্যান্য</option></select></div></div>
     <label>নোট</label><input id="adjNote">
@@ -795,7 +811,6 @@ body *{visibility:hidden}
 <div id="deletedSection" class="hidden">
   <div class="card">
     <h2>🗑️ রিসাইকেল বিন (১৫ দিন)</h2>
-    <p class="small">ডিলিট করা সব কিছু ১৫ দিন পর্যন্ত এখানে থাকবে।</p>
     <div class="summary-filter">
       <button class="active" onclick="setDeletedFilter('all',this)">সব</button>
       <button class="secondary" onclick="setDeletedFilter('product',this)">📦 পণ্য</button>
@@ -815,7 +830,7 @@ body *{visibility:hidden}
   <div class="card">
     <h2>📜 অডিট লগ</h2>
     <div class="row3">
-      <div><label>এনটিটি</label><select id="auditActionFilter" onchange="renderAuditLog()"><option value="">সব</option><option value="product">পণ্য</option><option value="invoice">চালান</option><option value="purchase">ক্রয়</option><option value="customer">গ্রাহক</option><option value="expense">খরচ</option><option value="stock">স্টক</option></select></div>
+      <div><label>এনটিটি</label><select id="auditActionFilter" onchange="renderAuditLog()"><option value="">সব</option><option value="product">পণ্য</option><option value="invoice">চালান</option><option value="purchase">ক্রয়</option><option value="customer">গ্রাহক</option><option value="expense">খরচ</option><option value="stock">স্টক</option><option value="user">ইউজার</option></select></div>
       <div><label>সার্চ</label><input id="auditSearch" placeholder="খুঁজুন" oninput="renderAuditLog()"></div>
       <div><label>&nbsp;</label><button class="secondary" onclick="document.getElementById('auditSearch').value='';renderAuditLog()">রিসেট</button></div>
     </div>
@@ -833,68 +848,45 @@ body *{visibility:hidden}
 
 <div id="settingsSection" class="hidden">
   <div class="card">
-    <h2>🔐 অ্যাডমিন পাসওয়ার্ড</h2>
+    <h2>👑 অ্যাডমিন সেটআপ</h2>
     <div id="adminStatusBox"></div>
     <div id="adminSetupForm" class="hidden">
-      <p class="small">প্রথমবার পাসওয়ার্ড সেট করলে পরবর্তীতে অ্যাপ খুললে পাসওয়ার্ড চাইবে।</p>
-      <div class="warning-box">💡 <b>টিপস:</b> পাসওয়ার্ড সেট করা বাধ্যতামূলক নয়। না করলে অ্যাপ সবসময় সরাসরি খুলবে।</div>
-      <label class="pwd-label">পাসওয়ার্ড (কমপক্ষে ৪ অক্ষর)</label>
+      <div class="warning-box">💡 অ্যাডমিন তৈরি করলে পরবর্তীবার অ্যাপ খুললে লগইন স্ক্রিন আসবে। Guest মোডে ডেটা দেখা যাবে না।</div>
+      <label>ইউজার আইডি *</label>
+      <input id="setupUserId" autocomplete="off">
+      <label class="pwd-label">পাসওয়ার্ড (কমপক্ষে ৪ অক্ষর) *</label>
       <div class="pwd-wrap">
-        <input id="setupPassword" type="password" autocomplete="new-password">
+        <input id="setupPassword" type="password">
         <button class="pwd-toggle" type="button" onclick="togglePwd('setupPassword',this)">👁️</button>
       </div>
-      <label class="pwd-label">পাসওয়ার্ড আবার</label>
+      <label class="pwd-label">পাসওয়ার্ড আবার *</label>
       <div class="pwd-wrap">
-        <input id="setupPassword2" type="password" autocomplete="new-password">
+        <input id="setupPassword2" type="password">
         <button class="pwd-toggle" type="button" onclick="togglePwd('setupPassword2',this)">👁️</button>
       </div>
       <hr style="margin:14px 0;border:0;border-top:1px dashed #bbb;">
-      <p class="small" style="background:#fff8e1;border-left:4px solid #ef8b00;padding:8px 10px;border-radius:6px;color:#8a5b00;font-weight:bold;">⚠️ পাসওয়ার্ড ভুলে গেলে নিচের প্রশ্নের উত্তরে রিকভার করা যাবে</p>
-      <label>সিকিউরিটি প্রশ্ন</label>
-      <select id="setupQuestion">
-        <option>আপনার মায়ের নাম কী?</option>
-        <option>আপনার জন্মস্থান কোথায়?</option>
-        <option>আপনার প্রথম স্কুলের নাম কী?</option>
-        <option>আপনার প্রিয় শিক্ষকের নাম কী?</option>
-        <option>আপনার প্রথম পোষা প্রাণীর নাম কী?</option>
-        <option>আপনার প্রিয় খাবারের নাম কী?</option>
-      </select>
-      <label>উত্তর</label>
-      <input id="setupAnswer" autocomplete="off">
+      <p class="small" style="background:#fff8e1;border-left:4px solid #ef8b00;padding:8px 10px;border-radius:6px;color:#8a5b00;font-weight:bold;">⚠️ পাসওয়ার্ড/আইডি ভুলে গেলে ৩টি প্রশ্নের মধ্যে ২টি সঠিক উত্তর দিলে রিকভারি করা যাবে</p>
+      <div id="setupQuestions"></div>
       <div id="setupError" class="login-error"></div>
-      <button class="green" onclick="saveAdminSetup()">💾 পাসওয়ার্ড সেট করুন</button>
+      <button class="green" onclick="createAdmin()">✅ অ্যাডমিন তৈরি করুন</button>
     </div>
     <div id="adminLoggedForm" class="hidden">
       <p class="small">✅ অ্যাডমিন লগইন অবস্থায় আছেন</p>
-      <button class="warning" onclick="document.getElementById('changePasswordForm').classList.toggle('hidden')">🔑 পাসওয়ার্ড পরিবর্তন</button>
-      <button class="danger" onclick="doAdminLogout()" style="margin-top:6px;">🚪 লগআউট (Guest মোডে যান)</button>
-      <div id="changePasswordForm" class="hidden" style="margin-top:12px;">
-        <label class="pwd-label">পুরনো পাসওয়ার্ড</label>
-        <div class="pwd-wrap">
-          <input type="password" id="cpOld">
-          <button class="pwd-toggle" type="button" onclick="togglePwd('cpOld',this)">👁️</button>
-        </div>
-        <label class="pwd-label">নতুন পাসওয়ার্ড</label>
-        <div class="pwd-wrap">
-          <input type="password" id="cpNew">
-          <button class="pwd-toggle" type="button" onclick="togglePwd('cpNew',this)">👁️</button>
-        </div>
-        <label class="pwd-label">নতুন আবার</label>
-        <div class="pwd-wrap">
-          <input type="password" id="cpNew2">
-          <button class="pwd-toggle" type="button" onclick="togglePwd('cpNew2',this)">👁️</button>
-        </div>
-        <button onclick="changeAdminPassword()" style="margin-top:8px;">💾 পরিবর্তন</button>
-      </div>
-      <button class="danger" onclick="removePassword()" style="margin-top:10px;">🗑 পাসওয়ার্ড মুছে ফেলুন</button>
+      <button class="warning" onclick="openChangePasswordModal()">🔑 নিজের আইডি/পাসওয়ার্ড পরিবর্তন</button>
+      <button class="danger" onclick="disableAdminMode()" style="margin-top:6px;">🔒 অ্যাডমিন মোড বন্ধ করুন (Guest মোডে ফিরুন)</button>
     </div>
-    <div id="adminGuestForm" class="hidden">
-      <p class="small">👤 আপনি Guest মোডে আছেন। অ্যাডমিন মোডে যেতে পাসওয়ার্ড দিন।</p>
-      <label class="pwd-label">পাসওয়ার্ড</label>
-      <input id="guestLoginPassword" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')guestLogin()">
-      <div id="guestLoginError" class="login-error"></div>
-      <button class="green" onclick="guestLogin()">🔓 অ্যাডমিন হোন</button>
-    </div>
+  </div>
+  <div class="card">
+    <h2>👥 কর্মচারী ম্যানেজমেন্ট</h2>
+    <div id="userListBox"></div>
+    <button class="green" onclick="openUserModal()" style="margin-top:10px;">+ নতুন কর্মচারী</button>
+  </div>
+  <div class="card">
+    <h2>🔐 রিকভারি কোড</h2>
+    <p class="small">পাসওয়ার্ড ভুলে গেলে এই কোড দিয়ে রিসেট করা যাবে। নিরাপদে লিখে রাখুন।</p>
+    <div id="recoveryCodeBox"></div>
+    <button class="blue" onclick="showRecoveryCode()" style="margin-top:8px;">👁️ কোড দেখুন</button>
+    <button class="green" onclick="copyRecoveryCode()" style="margin-top:8px;">📋 কপি</button>
   </div>
   <div class="card">
     <h2>প্রতিষ্ঠানের তথ্য</h2>
@@ -921,8 +913,8 @@ body *{visibility:hidden}
   <div class="card">
     <h2>📥 ব্যাকআপ নেওয়া</h2>
     <div class="row">
-      <div><button class="nopin-btn" style="width:100%;padding:12px;" onclick="backupNoPin('code')">🔑 কোড তৈরি</button></div>
-      <div><button class="nopin-btn" style="width:100%;padding:12px;" onclick="backupNoPin('file')">📥 ফাইল ডাউনলোড</button></div>
+      <div><button style="width:100%;padding:12px;" onclick="backupNoPin('code')">🔑 কোড তৈরি</button></div>
+      <div><button style="width:100%;padding:12px;" onclick="backupNoPin('file')">📥 ফাইল ডাউনলোড</button></div>
     </div>
     <label>ব্যাকআপ কোড</label>
     <textarea id="backupCodeBox" class="backup-code" readonly placeholder="এখানে ব্যাকআপ কোড আসবে..."></textarea>
@@ -933,19 +925,13 @@ body *{visibility:hidden}
   </div>
   <div class="card">
     <h2>♻️ ডেটা পুনরুদ্ধার / মার্জ</h2>
-    <p class="small">নিচের বক্সে ব্যাকআপ কোড পেস্ট করে যেকোনো একটি বাটনে চাপুন</p>
     <label>ব্যাকআপ কোড পেস্ট করুন</label>
-    <textarea id="restoreInputBox" class="restore-box-large" placeholder="এখানে ব্যাকআপ কোড পেস্ট করুন (Ctrl+V / Paste)"></textarea>
+    <textarea id="restoreInputBox" class="restore-box-large" placeholder="এখানে ব্যাকআপ কোড পেস্ট করুন"></textarea>
     <div class="row" style="margin-top:8px;">
       <div><button class="purple" style="width:100%;padding:14px;font-size:15px;font-weight:bold;" onclick="doRestoreFromPasted()">♻️ রিস্টোর</button></div>
       <div><button class="blue" style="width:100%;padding:14px;font-size:15px;font-weight:bold;" onclick="doMergeFromPasted()">🔀 মার্জ</button></div>
     </div>
-    <div class="row" style="margin-top:6px;">
-      <div><button class="secondary" style="width:100%;padding:10px;" onclick="clearRestoreBox()">🗑 ক্লিয়ার</button></div>
-      <div><button class="secondary" style="width:100%;padding:10px;" onclick="pasteFromClipboardToRestore()">📥 ক্লিপবোর্ড পেস্ট</button></div>
-    </div>
-    <hr style="margin:14px 0;border:0;border-top:1px dashed #bbb;">
-    <h3 style="margin:0 0 8px;">📂 ফাইল থেকে</h3>
+    <h3 style="margin:14px 0 8px;">📂 ফাইল থেকে</h3>
     <input type="file" id="restoreFile" accept=".txt,.json,.3ab" style="padding:12px;background:#f7faf9;border:2px dashed #087f6d;">
     <div class="row">
       <div><button class="purple" style="width:100%;padding:12px;font-weight:bold;" onclick="doRestoreFromFile()">♻️ রিস্টোর</button></div>
@@ -1014,7 +1000,6 @@ body *{visibility:hidden}
   <div class="row"><div><label>শুরু</label><input type="date" id="pfFrom"></div><div><label>শেষ</label><input type="date" id="pfTo"></div></div>
   <button onclick="calculateCustomProfit()">📊 হিসাব</button>
   <div id="profitCustomResult" style="margin-top:12px"></div>
-  <div id="profitBreakdown" style="margin-top:15px"></div>
 </div></div>
 
 <div id="detailModal" class="modal hidden"><div class="modal-box">
@@ -1039,6 +1024,12 @@ body *{visibility:hidden}
     <p>বর্তমান: <span class="big-money" id="deliveryCurrentTotal">৳0</span></p>
     <p>আগের বাকি: <span class="big-money" id="deliveryPreviousDue">৳0</span></p>
     <hr><p>মোট: <span class="big-money" id="deliveryGrandTotal">৳0</span></p>
+    <div class="expense-box">
+      <h4>💰 ডেলিভারিতে ছাড়</h4>
+      <label>ছাড় (৳)</label>
+      <input type="number" id="deliveryDiscount" min="0" step="0.01" value="0" oninput="calculateDeliveryPayment()">
+      <p class="small">💡 ছাড় মোট থেকে বিয়োগ হবে, বাকিতে যোগ হবে না</p>
+    </div>
     <div class="return-box"><h4>↩️ ফেরত</h4><div id="returnItemsList"></div></div>
     <label style="margin-top:10px">নগদ</label>
     <input type="number" id="deliveryCash" min="0" step="0.01" oninput="calculateDeliveryPayment()">
@@ -1079,9 +1070,48 @@ body *{visibility:hidden}
   <button onclick="saveWarehouse()">💾</button>
 </div></div>
 
+<div id="userModal" class="modal hidden"><div class="modal-box">
+  <div class="modal-head"><h2 id="userModalTitle">কর্মচারী</h2><button class="danger" onclick="closeModal('userModal')">X</button></div>
+  <label>নাম *</label><input id="uName">
+  <label>ইউজার আইডি *</label><input id="uUserId" autocomplete="off">
+  <label>পাসওয়ার্ড *</label>
+  <div class="pwd-wrap">
+    <input id="uPassword" type="password">
+    <button class="pwd-toggle" type="button" onclick="togglePwd('uPassword',this)">👁️</button>
+  </div>
+  <label>দোকান অ্যাক্সেস</label>
+  <div id="uWhList" style="background:#f1f8f6;padding:10px;border-radius:8px;"></div>
+  <div id="uError" class="login-error"></div>
+  <button onclick="saveUser()">💾 সংরক্ষণ</button>
+</div></div>
+
+<div id="changePwdModal" class="modal hidden"><div class="modal-box">
+  <div class="modal-head"><h2>নিজের আইডি/পাসওয়ার্ড পরিবর্তন</h2><button class="danger" onclick="closeModal('changePwdModal')">X</button></div>
+  <label>পুরনো পাসওয়ার্ড *</label>
+  <div class="pwd-wrap">
+    <input id="cpOld" type="password">
+    <button class="pwd-toggle" type="button" onclick="togglePwd('cpOld',this)">👁️</button>
+  </div>
+  <label class="pwd-label">নতুন ইউজার আইডি (ঐচ্ছিক)</label>
+  <input id="cpNewUserId" autocomplete="off" placeholder="খালি রাখলে অপরিবর্তিত থাকবে">
+  <label class="pwd-label">নতুন পাসওয়ার্ড (কমপক্ষে ৪ অক্ষর)</label>
+  <div class="pwd-wrap">
+    <input id="cpNew" type="password">
+    <button class="pwd-toggle" type="button" onclick="togglePwd('cpNew',this)">👁️</button>
+  </div>
+  <label class="pwd-label">নতুন পাসওয়ার্ড আবার</label>
+  <div class="pwd-wrap">
+    <input id="cpNew2" type="password">
+    <button class="pwd-toggle" type="button" onclick="togglePwd('cpNew2',this)">👁️</button>
+  </div>
+  <div id="cpError" class="login-error"></div>
+  <button class="green" onclick="changeAdminCredentials()">💾 সংরক্ষণ</button>
+</div></div>
+
 <script>
 /* ============================================================
-   3A SHOP — COMPLETE JS
+   3A SHOP — COMPLETE JS (v11.0)
+   Admin setup, Guest mode, Security questions, Recovery code
    ============================================================ */
 const __memStore={};
 function load(k,f){try{const d=localStorage.getItem(k);if(d!==null&&d!==undefined)return JSON.parse(d)}catch(e){}return __memStore[k]!==undefined?__memStore[k]:f}
@@ -1092,13 +1122,14 @@ const KEY_INVOICES="3a_invoices",KEY_SETTINGS="3a_settings",KEY_PAYMENTS="3a_pay
 const KEY_EXPENSES="3a_expenses",KEY_AUDIT="3a_audit_log";
 const KEY_WAREHOUSES="3a_warehouses",KEY_ADJUSTMENTS="3a_stock_adjustments";
 const KEY_TRANSFERS="3a_transfers",KEY_DELETED="3a_deleted",KEY_LOWSTOCK_DISMISS="3a_lowstock_dismiss";
-const KEY_SESSION="3a_session";
+const KEY_SESSION="3a_session",KEY_USERS="3a_users";
+const KEY_ADMIN="3a_admin_v2";
 
 let products=load(KEY_PRODUCTS,[]);
 let purchases=load(KEY_PURCHASES,[]);
 let customers=load(KEY_CUSTOMERS,[]);
 let invoices=load(KEY_INVOICES,[]);
-let settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:"",adminPassword:"",securityQuestion:"",securityAnswer:""});
+let settings=load(KEY_SETTINGS,{companyName:"",companyAddress:"",companyPhone:""});
 let payments=load(KEY_PAYMENTS,[]);
 let expenses=load(KEY_EXPENSES,[]);
 let auditLogs=load(KEY_AUDIT,[]);
@@ -1106,6 +1137,8 @@ let warehouses=load(KEY_WAREHOUSES,[]);
 let adjustments=load(KEY_ADJUSTMENTS,[]);
 let transfers=load(KEY_TRANSFERS,[]);
 let deletedItems=load(KEY_DELETED,[]);
+let users=load(KEY_USERS,[]);
+let adminAccount=load(KEY_ADMIN,null);
 let lowStockDismissed=load(KEY_LOWSTOCK_DISMISS,{date:"",dismissed:false});
 let currentUser=load(KEY_SESSION,null);
 
@@ -1116,6 +1149,7 @@ let editingInvoiceId=null;
 let editingProductId=null;
 let editingCustomerId=null;
 let editingWarehouseId=null;
+let editingUserId=null;
 let currentReportPeriod='daily';
 let currentSummaryPeriod='today';
 let currentInvoiceListView='today';
@@ -1133,6 +1167,21 @@ let adjustType='inc';
 let activeWarehouseId="";
 let pendingAction="";
 let deferredInstallPrompt=null;
+let guestMode=false;
+let recoveryVerified=false;
+
+const SEC_QUESTIONS=[
+  "আপনার মায়ের নাম কী?",
+  "আপনার প্রথম স্কুলের নাম কী?",
+  "আপনার জন্মস্থান (গ্রাম/শহর) কোথায়?",
+  "আপনার ছেলের/মেয়ের জন্মতারিখ? (YYYY-MM-DD)",
+  "আপনার প্রিয় শিক্ষকের নাম কী?",
+  "আপনার প্রথম পোষা প্রাণীর নাম কী?",
+  "আপনার বিয়ের তারিখ? (YYYY-MM-DD)",
+  "আপনার প্রথম চাকরির প্রতিষ্ঠানের নাম কী?",
+  "আপনার বাবার নাম কী?",
+  "আপনার গ্রামের নাম কী?"
+];
 
 function money(n){return "৳"+Number(n||0).toLocaleString("bn-BD",{maximumFractionDigits:2})}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
@@ -1140,22 +1189,40 @@ function today(){return new Date().toISOString().slice(0,10)}
 function escapeHtml(t){return String(t??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 function nowISO(){return new Date().toISOString()}
 function togglePwd(id,btn){const el=document.getElementById(id);if(!el)return;if(el.type==="password"){el.type="text";btn.textContent="🙈"}else{el.type="password";btn.textContent="👁️"}}
+function normAnswer(s){return String(s||"").trim().toLowerCase().replace(/\s+/g," ")}
 
-function numberToBanglaWords(num){
-  num=Math.round(Number(num||0));
-  if(num===0)return "শূন্য টাকা মাত্র";
-  const ones=["","এক","দুই","তিন","চার","পাঁচ","ছয়","সাত","আট","নয়","দশ","এগারো","বারো","তেরো","চৌদ্দ","পনেরো","ষোলো","সতেরো","আঠারো","ঊনিশ"];
-  const tens=["","","বিশ","ত্রিশ","চল্লিশ","পঞ্চাশ","ষাট","সত্তর","আশি","নব্বই"];
-  function tw(n){if(n===0)return "";if(n<20)return ones[n];if(n<100)return tens[Math.floor(n/10)]+(n%10?" "+ones[n%10]:"");if(n<1000)return ones[Math.floor(n/100)]+"শত"+(n%100?" "+tw(n%100):"");if(n<100000)return tw(Math.floor(n/1000))+" হাজার"+(n%1000?" "+tw(n%1000):"");if(n<10000000)return tw(Math.floor(n/100000))+" লক্ষ"+(n%100000?" "+tw(n%100000):"");return tw(Math.floor(n/10000000))+" কোটি"+(n%10000000?" "+tw(n%10000000):"")}
-  return tw(num)+" টাকা মাত্র";
+/* ===== ROLE ===== */
+function isAdmin(){return currentUser&&currentUser.role==="admin"}
+function isEmployee(){return currentUser&&currentUser.role==="employee"}
+function canSeeProfit(){return isAdmin()||guestMode}
+function getUserWarehouses(){
+  if(isAdmin()||guestMode)return warehouses.map(w=>w.id);
+  if(isEmployee()&&currentUser.warehouseIds)return currentUser.warehouseIds;
+  return [];
+}
+function canAccessWarehouse(wid){
+  if(guestMode)return true;
+  return getUserWarehouses().includes(wid);
+}
+function applyRoleUI(){
+  // 🔥 Fix: Guest mode allows all, Admin allows all, Employee restricts
+  const hideAdminItems = isEmployee();
+  document.querySelectorAll(".admin-only").forEach(el=>{el.style.display=hideAdminItems?"none":""});
+  const banner=document.getElementById("guestBanner");
+  if(banner)banner.classList.toggle("hidden",!guestMode);
 }
 
+/* ===== MIGRATION ===== */
 function migrateData(){
   if(!Array.isArray(warehouses)||warehouses.length===0){
     warehouses=[{id:"main",name:"প্রধান দোকান",address:"",manager:"",phone:"",isDefault:true,createdAt:nowISO()}];
     save(KEY_WAREHOUSES,warehouses);
   }
-  if(!activeWarehouseId)activeWarehouseId=(warehouses.find(w=>w.isDefault)||warehouses[0]).id;
+  if(!activeWarehouseId){
+    const allowed=getUserWarehouses();
+    if(allowed.length>0)activeWarehouseId=allowed[0];
+    else activeWarehouseId=(warehouses.find(w=>w.isDefault)||warehouses[0]).id;
+  }
   const defWh=warehouses.find(w=>w.isDefault)||warehouses[0];
   let ch=false;
   products.forEach(p=>{if(!p.stockByWarehouse){p.stockByWarehouse={};p.stockByWarehouse[defWh.id]=Number(p.stock||0);ch=true}});
@@ -1164,76 +1231,339 @@ function migrateData(){
   purchases.forEach(pu=>{if(!pu.warehouseId)pu.warehouseId=defWh.id});
 }
 
-function softDelete(type,id,dataObj){deletedItems.push({id:uid(),type,originalId:id,data:dataObj,deletedAt:nowISO()});save(KEY_DELETED,deletedItems)}
-function getDeletedDaysLeft(dt){const d=new Date(dt);const now=new Date();const diff=Math.ceil((now-d)/(1000*60*60*24));return Math.max(0,15-diff)}
-function purgeOldDeleted(){const b=deletedItems.length;deletedItems=deletedItems.filter(d=>getDeletedDaysLeft(d.deletedAt)>0);if(deletedItems.length!==b)save(KEY_DELETED,deletedItems)}
-function recoverDeleted(id){
-  const d=deletedItems.find(x=>x.id===id);if(!d)return;
-  if(d.type==="product"){products.push(d.data);save(KEY_PRODUCTS,products)}
-  else if(d.type==="customer"){customers.push(d.data);save(KEY_CUSTOMERS,customers)}
-  else if(d.type==="invoice"){invoices.push(d.data);save(KEY_INVOICES,invoices)}
-  else if(d.type==="purchase"){purchases.push(d.data);save(KEY_PURCHASES,purchases)}
-  else if(d.type==="expense"){expenses.push(d.data);save(KEY_EXPENSES,expenses)}
-  deletedItems=deletedItems.filter(x=>x.id!==id);save(KEY_DELETED,deletedItems);
-  logAudit("restore",d.type,d.originalId,"রিকভার");
-  refreshAll();renderDeletedList();alert("✅ রিকভার।");
-}
-function clearOldDeleted(){if(!confirm("১৫ দিনের পুরনো মুছবেন?"))return;const b=deletedItems.length;purgeOldDeleted();renderDeletedList();alert("✅ "+(b-deletedItems.length)+"টি মুছে ফেলা হয়েছে।")}
-function setDeletedFilter(f,btn){currentDeletedFilter=f;document.querySelectorAll("#deletedSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderDeletedList()}
-function renderDeletedList(){
-  purgeOldDeleted();
-  const inf=document.getElementById("deletedInfo");
-  let f=deletedItems.slice().reverse();
-  if(currentDeletedFilter!=="all")f=f.filter(x=>x.type===currentDeletedFilter);
-  if(inf)inf.textContent=`মোট ${f.length}টি`;
-  const el=document.getElementById("deletedList");if(!el)return;
-  if(f.length===0){el.innerHTML='<div class="empty-state"><div class="big">🗑️</div><p>খালি</p></div>';return}
-  el.innerHTML=f.map(d=>{
-    const days=getDeletedDaysLeft(d.deletedAt);
-    let nm="—";
-    if(d.type==="product")nm=d.data.name||"—";
-    else if(d.type==="customer")nm=d.data.name||"—";
-    else if(d.type==="invoice")nm=(d.data.invoiceNo||"")+" — "+(d.data.buyerName||"");
-    else if(d.type==="purchase")nm=d.data.name||"—";
-    else if(d.type==="expense")nm=d.data.category||"—";
-    return `<div class="deleted-row"><div class="dr-info"><b>${escapeHtml(nm)}</b><br><span class="small">${escapeHtml(d.type)} — ${new Date(d.deletedAt).toLocaleString("bn-BD")}</span></div><div class="dr-days">${days} দিন বাকি</div><button class="green" onclick="recoverDeleted('${d.id}')">♻️ রিকভার</button></div>`;
-  }).join("");
-}
-
+/* ===== AUDIT ===== */
 function logAudit(action,entity,entityId,detail){
   try{
-    auditLogs.push({id:uid(),time:nowISO(),userName:currentUser?"Admin":"Guest",action,entity,entityId:String(entityId||""),detail:String(detail||"").slice(0,400)});
+    auditLogs.push({id:uid(),time:nowISO(),userName:currentUser?currentUser.name:(guestMode?"Guest":"System"),action,entity,entityId:String(entityId||""),detail:String(detail||"").slice(0,400)});
     if(auditLogs.length>5000)auditLogs=auditLogs.slice(-3000);
     save(KEY_AUDIT,auditLogs);
   }catch(e){}
 }
-function renderAuditLog(){
-  const list=document.getElementById("auditLogList");if(!list)return;
-  const af=document.getElementById("auditActionFilter")?.value||"";
-  const s=(document.getElementById("auditSearch")?.value||"").toLowerCase();
-  let f=auditLogs.slice().reverse();
-  if(currentAuditFilter==='today'){const t=today();f=f.filter(l=>(l.time||"").slice(0,10)===t)}
-  else if(currentAuditFilter==='week'){const d=new Date();d.setDate(d.getDate()-6);const ds=d.toISOString().slice(0,10);f=f.filter(l=>(l.time||"").slice(0,10)>=ds)}
-  else if(currentAuditFilter==='month'){const m=today().slice(0,7);f=f.filter(l=>(l.time||"").slice(0,7)===m)}
-  if(af)f=f.filter(l=>l.entity===af);
-  if(s)f=f.filter(l=>(l.detail||"").toLowerCase().includes(s));
-  const inf=document.getElementById("auditInfo");if(inf)inf.textContent=`মোট ${f.length}টি`;
-  if(f.length===0){list.innerHTML='<div class="empty-state">কোনো লগ নেই</div>';return}
-  list.innerHTML=f.slice(0,200).map(l=>{const t=new Date(l.time);return `<div class="audit-row"><b>${escapeHtml(l.userName)}</b> — <span style="color:#ef8b00">${escapeHtml(l.action)}</span> — ${escapeHtml(l.detail)}<br><span class="small">${t.toLocaleString("bn-BD")}</span></div>`}).join("");
-}
-function setAuditFilter(f,btn){currentAuditFilter=f;document.querySelectorAll("#auditSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderAuditLog()}
 
+/* ===== SOFT DELETE ===== */
+function softDelete(type,id,dataObj){deletedItems.push({id:uid(),type,originalId:id,data:dataObj,deletedAt:nowISO()});save(KEY_DELETED,deletedItems)}
+function getDeletedDaysLeft(dt){const d=new Date(dt);const now=new Date();const diff=Math.ceil((now-d)/(1000*60*60*24));return Math.max(0,15-diff)}
+function purgeOldDeleted(){const b=deletedItems.length;deletedItems=deletedItems.filter(d=>getDeletedDaysLeft(d.deletedAt)>0);if(deletedItems.length!==b)save(KEY_DELETED,deletedItems)}
+
+/* ===== WAREHOUSE HELPERS ===== */
 function getDefaultWarehouse(){return warehouses.find(w=>w.isDefault)||warehouses[0]}
 function getWarehouse(id){return warehouses.find(w=>w.id===id)}
 function getStockIn(p,wid){if(!p.stockByWarehouse)p.stockByWarehouse={};return Number(p.stockByWarehouse[wid]||0)}
 function setStockIn(p,wid,qty){if(!p.stockByWarehouse)p.stockByWarehouse={};p.stockByWarehouse[wid]=Math.max(0,Number(qty||0));p.stock=Object.values(p.stockByWarehouse).reduce((a,b)=>a+Number(b||0),0)}
+
+/* ===== MODAL ===== */
+function openModal(id){document.getElementById(id).classList.remove("hidden")}
+function closeModal(id){document.getElementById(id).classList.add("hidden")}
+
+/* ===== SECTION NAV ===== */
+function showSection(id){
+  const sections=["dashboardSection","warehousePickerSection","stockSection","purchaseSection","invoiceSection","salesSection","customerSection","reportSection","cashbookSection","expenseSection","warehouseSection","stockAdjustSection","transferSection","deletedSection","auditSection","settingsSection"];
+  sections.forEach(s=>{const el=document.getElementById(s);if(el)el.classList.add("hidden")});
+  if(isEmployee()){
+    const allowed=["dashboardSection","warehousePickerSection","stockSection","invoiceSection","salesSection","customerSection"];
+    if(!allowed.includes(id)){alert("❌ আপনার এই অংশে অ্যাক্সেস নেই।");id="dashboardSection"}
+  }
+  const el=document.getElementById(id);if(el)el.classList.remove("hidden");
+  try{refreshAll()}catch(e){}
+  try{updateWhBars()}catch(e){}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== ADMIN SYSTEM ===== */
+function hasAdmin(){return !!(adminAccount&&adminAccount.userId&&adminAccount.password)}
+function generateRecoveryCode(){
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  function seg(){let s="";for(let i=0;i<4;i++)s+=chars[Math.floor(Math.random()*chars.length)];return s}
+  return "3A-REC-"+seg()+"-"+seg();
+}
+function renderAdminSetupQuestions(){
+  const box=document.getElementById("setupQuestions");
+  if(!box)return;
+  let html="";
+  for(let i=0;i<3;i++){
+    html+=`<div class="sec-q-box"><label>প্রশ্ন ${i+1}</label><select id="setupQ${i}" onchange="onSetupQChange()">${SEC_QUESTIONS.map(q=>`<option value="${escapeHtml(q)}">${escapeHtml(q)}</option>`).join("")}</select><input id="setupA${i}" placeholder="উত্তর" autocomplete="off"></div>`;
+  }
+  box.innerHTML=html;
+  onSetupQChange();
+}
+function onSetupQChange(){
+  const sels=[0,1,2].map(i=>document.getElementById("setupQ"+i));
+  const used=new Set();
+  sels.forEach((s,i)=>{
+    if(!s)return;
+    Array.from(s.options).forEach(opt=>{opt.disabled=used.has(opt.value)});
+    if(s.value)used.add(s.value);
+  });
+}
+function renderAdminStatus(){
+  const box=document.getElementById("adminStatusBox");
+  const setupF=document.getElementById("adminSetupForm");
+  const loggedF=document.getElementById("adminLoggedForm");
+  if(!box)return;
+  setupF.classList.add("hidden");loggedF.classList.add("hidden");
+  if(!hasAdmin()){
+    box.innerHTML='<div class="admin-logged" style="background:#fff0c2;color:#8a5b00;border-color:#ef8b00;">⚠️ অ্যাডমিন সেট করা হয়নি — অ্যাপ Guest মোডে চলছে</div>';
+    setupF.classList.remove("hidden");
+    renderAdminSetupQuestions();
+  }else if(isAdmin()){
+    box.innerHTML='<div class="admin-logged">✅ অ্যাডমিন লগইন অবস্থায় আছেন — '+escapeHtml(adminAccount.userId)+'</div>';
+    loggedF.classList.remove("hidden");
+  }else{
+    box.innerHTML='<div class="admin-logged" style="background:#ffe0e0;color:#c62828;border-color:#c62828;">🔒 অ্যাডমিন সেটআপ সম্পন্ন — এই সেশনে অ্যাক্সেস নেই</div>';
+  }
+}
+function createAdmin(){
+  const userId=document.getElementById("setupUserId").value.trim();
+  const p1=document.getElementById("setupPassword").value;
+  const p2=document.getElementById("setupPassword2").value;
+  const err=document.getElementById("setupError");
+  err.style.display="none";
+  if(!userId){err.textContent="ইউজার আইডি দিন";err.style.display="block";return}
+  if(!p1||p1.length<4){err.textContent="পাসওয়ার্ড কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
+  if(p1!==p2){err.textContent="পাসওয়ার্ড মিলছে না";err.style.display="block";return}
+  const qs=[0,1,2].map(i=>({q:document.getElementById("setupQ"+i).value,a:document.getElementById("setupA"+i).value.trim()}));
+  for(let i=0;i<3;i++){if(!qs[i].a){err.textContent=`প্রশ্ন ${i+1}-এর উত্তর দিন`;err.style.display="block";return}}
+  const qSet=new Set(qs.map(x=>x.q));
+  if(qSet.size<3){err.textContent="৩টি আলাদা প্রশ্ন বেছে নিন";err.style.display="block";return}
+  const recCode=generateRecoveryCode();
+  adminAccount={userId,password:p1,securityQuestions:qs,recoveryCode:recCode,createdAt:nowISO()};
+  save(KEY_ADMIN,adminAccount);
+  currentUser={id:"admin_main",userId,name:"Admin",role:"admin",warehouseIds:warehouses.map(w=>w.id)};
+  save(KEY_SESSION,currentUser);
+  guestMode=false;
+  logAudit("create","user","admin","অ্যাডমিন তৈরি: "+userId);
+  applyRoleUI();renderAdminStatus();refreshAll();
+  alert("✅ অ্যাডমিন তৈরি হয়েছে!\n\n🔐 রিকভারি কোড:\n"+recCode+"\n\n⚠️ এটি নিরাপদে লিখে রাখুন! পাসওয়ার্ড ভুলে গেলে এটিই একমাত্র উপায়।");
+}
+function openChangePasswordModal(){
+  if(!isAdmin()){alert("শুধু অ্যাডমিন");return}
+  ["cpOld","cpNew","cpNew2","cpNewUserId"].forEach(i=>document.getElementById(i).value="");
+  document.getElementById("cpError").style.display="none";
+  openModal("changePwdModal");
+}
+function changeAdminCredentials(){
+  if(!adminAccount||!isAdmin())return;
+  const oldP=document.getElementById("cpOld").value;
+  const newUid=document.getElementById("cpNewUserId").value.trim();
+  const np=document.getElementById("cpNew").value;
+  const np2=document.getElementById("cpNew2").value;
+  const err=document.getElementById("cpError");
+  err.style.display="none";
+  if(oldP!==adminAccount.password){err.textContent="❌ পুরনো পাসওয়ার্ড ভুল";err.style.display="block";return}
+  if(!np||np.length<4){err.textContent="নতুন পাসওয়ার্ড কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
+  if(np!==np2){err.textContent="পাসওয়ার্ড মিলছে না";err.style.display="block";return}
+  if(newUid&&newUid!==adminAccount.userId){
+    if(users.some(u=>u.userId===newUid)){err.textContent="এই আইডি অন্য কর্মচারীর";err.style.display="block";return}
+    adminAccount.userId=newUid;
+    currentUser.userId=newUid;
+  }
+  adminAccount.password=np;
+  save(KEY_ADMIN,adminAccount);save(KEY_SESSION,currentUser);
+  logAudit("update","user","admin","পাসওয়ার্ড/আইডি পরিবর্তন");
+  closeModal("changePwdModal");renderAdminStatus();
+  alert("✅ আপডেট হয়েছে।");
+}
+function disableAdminMode(){
+  if(!isAdmin())return;
+  if(!confirm("🔒 অ্যাডমিন মোড বন্ধ করবেন?\n\nএরপর Guest মোডে ফিরে যাবেন এবং সব ডেটা স্বাভাবিকভাবে কাজ করবে।\n\n(অ্যাডমিন সেটআপ থাকবে, পরে আবার লগইন করতে পারবেন)"))return;
+  currentUser=null;guestMode=true;save(KEY_SESSION,null);
+  logAudit("logout","user","admin","অ্যাডমিন মোড বন্ধ");
+  applyRoleUI();refreshAll();
+  showSection('dashboardSection');
+  alert("✅ অ্যাডমিন মোড বন্ধ। এখন Guest মোডে কাজ করতে পারবেন।");
+}
+function showRecoveryCode(){
+  if(!hasAdmin()){alert("অ্যাডমিন সেট করা হয়নি");return}
+  const box=document.getElementById("recoveryCodeBox");
+  box.innerHTML=`<div class="rec-code-box"><div class="rc-label">আপনার রিকভারি কোড</div><div class="rc-code">${escapeHtml(adminAccount.recoveryCode)}</div></div>`;
+}
+function copyRecoveryCode(){
+  if(!hasAdmin())return;
+  const code=adminAccount.recoveryCode;
+  if(navigator.clipboard)navigator.clipboard.writeText(code).then(()=>alert("✅ কপি হয়েছে")).catch(()=>alert("কোড: "+code));
+  else alert("কোড: "+code);
+}
+
+/* ===== LOGIN ===== */
+function doLogin(){
+  const userId=document.getElementById("loginUserId").value.trim();
+  const pass=document.getElementById("loginPassword").value;
+  const err=document.getElementById("loginError");
+  err.style.display="none";
+  if(!userId||!pass){err.textContent="ইউজার আইডি ও পাসওয়ার্ড দিন";err.style.display="block";return}
+  if(adminAccount&&userId===adminAccount.userId&&pass===adminAccount.password){
+    currentUser={id:"admin_main",userId,name:"Admin",role:"admin",warehouseIds:warehouses.map(w=>w.id)};
+    save(KEY_SESSION,currentUser);
+    guestMode=false;
+    logAudit("login","user","admin","অ্যাডমিন লগইন");
+    document.getElementById("loginUserId").value="";document.getElementById("loginPassword").value="";
+    document.getElementById("loginOverlay").classList.add("hidden");
+    applyRoleUI();refreshAll();alert("✅ স্বাগতম, Admin");
+    return;
+  }
+  const u=users.find(x=>x.userId===userId&&x.password===pass);
+  if(u){
+    currentUser={id:u.id,userId:u.userId,name:u.name,role:"employee",warehouseIds:u.warehouseIds||[]};
+    save(KEY_SESSION,currentUser);
+    guestMode=false;
+    if(u.warehouseIds&&u.warehouseIds.length>0)activeWarehouseId=u.warehouseIds[0];
+    logAudit("login","user",u.id,"কর্মচারী লগইন: "+u.name);
+    document.getElementById("loginUserId").value="";document.getElementById("loginPassword").value="";
+    document.getElementById("loginOverlay").classList.add("hidden");
+    applyRoleUI();refreshAll();alert("✅ স্বাগতম, "+u.name);
+    return;
+  }
+  err.textContent="❌ ভুল ইউজার আইডি বা পাসওয়ার্ড";err.style.display="block";
+}
+function showForgotForm(){
+  if(!hasAdmin()){alert("অ্যাডমিন সেট করা হয়নি");return}
+  const box=document.getElementById("forgotQuestionsBox");
+  box.innerHTML=adminAccount.securityQuestions.map((sq,i)=>`<div class="sec-q-box"><label>${escapeHtml(sq.q)}</label><input id="forgotA${i}" placeholder="উত্তর" autocomplete="off"></div>`).join("");
+  document.getElementById("forgotRecCode").value="";
+  document.getElementById("forgotError").style.display="none";
+  document.getElementById("loginOverlay").classList.add("hidden");
+  document.getElementById("forgotOverlay").classList.remove("hidden");
+}
+function hideForgot(){
+  document.getElementById("forgotOverlay").classList.add("hidden");
+  document.getElementById("loginOverlay").classList.remove("hidden");
+}
+function verifySecurityAnswers(){
+  const err=document.getElementById("forgotError");
+  err.style.display="none";
+  let correct=0;
+  adminAccount.securityQuestions.forEach((sq,i)=>{
+    const ans=document.getElementById("forgotA"+i).value;
+    if(normAnswer(ans)===normAnswer(sq.a))correct++;
+  });
+  if(correct<2){err.textContent=`❌ ${correct}/3 সঠিক। কমপক্ষে ২টি সঠিক হতে হবে।`;err.style.display="block";return}
+  recoveryVerified=true;
+  document.getElementById("forgotOverlay").classList.add("hidden");
+  showResetForm();
+}
+function verifyRecoveryCode(){
+  const err=document.getElementById("forgotError");
+  err.style.display="none";
+  const code=document.getElementById("forgotRecCode").value.trim().toUpperCase();
+  if(code!==String(adminAccount.recoveryCode||"").toUpperCase()){err.textContent="❌ ভুল রিকভারি কোড";err.style.display="block";return}
+  recoveryVerified=true;
+  document.getElementById("forgotOverlay").classList.add("hidden");
+  showResetForm();
+}
+function showResetForm(){
+  document.getElementById("resetUserId").value=adminAccount.userId;
+  document.getElementById("resetPassword").value="";
+  document.getElementById("resetPassword2").value="";
+  document.getElementById("resetError").style.display="none";
+  document.getElementById("resetOverlay").classList.remove("hidden");
+}
+function hideReset(){
+  document.getElementById("resetOverlay").classList.add("hidden");
+  document.getElementById("loginOverlay").classList.remove("hidden");
+}
+function doResetPassword(){
+  if(!recoveryVerified){alert("প্রথমে যাচাই করুন");return}
+  const nuid=document.getElementById("resetUserId").value.trim();
+  const np=document.getElementById("resetPassword").value;
+  const np2=document.getElementById("resetPassword2").value;
+  const err=document.getElementById("resetError");
+  err.style.display="none";
+  if(!nuid){err.textContent="ইউজার আইডি দিন";err.style.display="block";return}
+  if(!np||np.length<4){err.textContent="পাসওয়ার্ড কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
+  if(np!==np2){err.textContent="পাসওয়ার্ড মিলছে না";err.style.display="block";return}
+  if(nuid!==adminAccount.userId&&users.some(u=>u.userId===nuid)){err.textContent="এই আইডি অন্য কর্মচারীর";err.style.display="block";return}
+  adminAccount.userId=nuid;adminAccount.password=np;
+  save(KEY_ADMIN,adminAccount);
+  logAudit("update","user","admin","পাসওয়ার্ড রিকভারি");
+  recoveryVerified=false;
+  document.getElementById("resetOverlay").classList.add("hidden");
+  document.getElementById("loginOverlay").classList.remove("hidden");
+  alert("✅ পাসওয়ার্ড/আইডি রিসেট হয়েছে। এখন নতুন তথ্য দিয়ে লগইন করুন।");
+}
+
+/* ===== USER MANAGEMENT ===== */
+function renderUserList(){
+  const box=document.getElementById("userListBox");if(!box)return;
+  if(!isAdmin()){box.innerHTML="";return}
+  let html="";
+  if(users.length===0)html+=`<p class="small">কোনো কর্মচারী নেই</p>`;
+  else{
+    html+=`<div class="table-wrap"><table><thead><tr><th>নাম</th><th>আইডি</th><th>দোকান</th><th>অ্যাকশন</th></tr></thead><tbody>`;
+    users.forEach(u=>{
+      const whNames=(u.warehouseIds||[]).map(id=>getWarehouse(id)?.name||"").join(", ");
+      html+=`<tr><td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.userId)}</td><td>${escapeHtml(whNames||"—")}</td><td><button class="blue" onclick="openUserModal('${u.id}')">✏️</button><button class="danger" onclick="deleteUser('${u.id}')">🗑</button></td></tr>`;
+    });
+    html+=`</tbody></table></div>`;
+  }
+  box.innerHTML=html;
+}
+function openUserModal(id){
+  if(!isAdmin()){alert("শুধু অ্যাডমিন");return}
+  editingUserId=id||null;
+  const u=id?users.find(x=>x.id===id):null;
+  document.getElementById("userModalTitle").textContent=id?"কর্মচারী এডিট":"নতুন কর্মচারী";
+  document.getElementById("uName").value=u?u.name:"";
+  document.getElementById("uUserId").value=u?u.userId:"";
+  document.getElementById("uPassword").value=u?u.password:"";
+  const whList=document.getElementById("uWhList");
+  whList.innerHTML=warehouses.map(w=>`<label style="display:block;padding:4px;"><input type="checkbox" class="u-wh-check" value="${w.id}" ${u&&u.warehouseIds&&u.warehouseIds.includes(w.id)?"checked":""} style="width:auto;margin-right:6px;"> ${escapeHtml(w.name)}</label>`).join("");
+  document.getElementById("uError").style.display="none";
+  openModal("userModal");
+}
+function saveUser(){
+  if(!isAdmin())return;
+  const name=document.getElementById("uName").value.trim();
+  const userId=document.getElementById("uUserId").value.trim();
+  const password=document.getElementById("uPassword").value;
+  const err=document.getElementById("uError");
+  err.style.display="none";
+  if(!name||!userId||!password){err.textContent="সব ঘর পূরণ করুন";err.style.display="block";return}
+  if(password.length<4){err.textContent="পাসওয়ার্ড কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
+  const whIds=Array.from(document.querySelectorAll(".u-wh-check:checked")).map(c=>c.value);
+  if(whIds.length===0){err.textContent="কমপক্ষে একটি দোকান সিলেক্ট করুন";err.style.display="block";return}
+  if(adminAccount&&userId===adminAccount.userId){err.textContent="এই আইডি অ্যাডমিনের";err.style.display="block";return}
+  if(users.some(u=>u.userId===userId&&u.id!==editingUserId)){err.textContent="এই আইডি ইতিমধ্যে ব্যবহৃত";err.style.display="block";return}
+  if(editingUserId){
+    const u=users.find(x=>x.id===editingUserId);if(!u)return;
+    u.name=name;u.userId=userId;u.password=password;u.warehouseIds=whIds;
+  }else{
+    users.push({id:uid(),userId,name,password,role:"employee",warehouseIds:whIds,createdAt:nowISO()});
+  }
+  save(KEY_USERS,users);
+  closeModal("userModal");editingUserId=null;
+  renderUserList();alert("✅");
+}
+function deleteUser(id){
+  if(!isAdmin())return;
+  const u=users.find(x=>x.id===id);if(!u)return;
+  if(!confirm(`"${u.name}" মুছবেন?`))return;
+  users=users.filter(x=>x.id!==id);save(KEY_USERS,users);
+  renderUserList();alert("✅");
+}
+
+/* ===== INIT LOGIN ===== */
+function initLogin(){
+  if(hasAdmin()&&!currentUser){
+    document.getElementById("loginOverlay").classList.remove("hidden");
+    guestMode=false;
+  }else if(!currentUser){
+    guestMode=true;
+    document.getElementById("loginOverlay").classList.add("hidden");
+  }else{
+    document.getElementById("loginOverlay").classList.add("hidden");
+    guestMode=false;
+  }
+}
+
+/* ===== DASHBOARD ===== */
 function openWarehousePicker(action){
   pendingAction=action;
   const titles={stock:"স্টক",purchase:"পণ্য ক্রয়",invoice:"চালান",sales:"বিক্রয়",customer:"গ্রাহক",report:"রিপোর্ট",cashbook:"ক্যাশ বুক",adjust:"স্টক সমন্বয়",summary:"সারসংক্ষেপ"};
   document.getElementById("whPickerTitle").textContent="🏭 "+(titles[action]||"দোকান")+" — দোকান নির্বাচন";
-  document.getElementById("whPickerSubtitle").textContent="যে দোকানের হিসাব দেখতে চান সেটি বেছে নিন";
   const el=document.getElementById("whPickerList");
-  el.innerHTML=warehouses.map(w=>{
+  const allowed=guestMode?warehouses:warehouses.filter(w=>canAccessWarehouse(w.id));
+  if(allowed.length===0){el.innerHTML='<div class="empty-state">কোনো দোকান অ্যাক্সেস নেই</div>';showSection("warehousePickerSection");return}
+  el.innerHTML=allowed.map(w=>{
     let pCount=0,sValue=0,sQty=0;
     products.forEach(p=>{const s=getStockIn(p,w.id);if(s>0){pCount++;sQty+=s;sValue+=s*Number(p.buy||0)}});
     const wi=invoices.filter(i=>i.warehouseId===w.id&&i.delivered);
@@ -1243,6 +1573,7 @@ function openWarehousePicker(action){
   showSection("warehousePickerSection");
 }
 function enterWarehouse(id){
+  if(!guestMode&&!canAccessWarehouse(id)){alert("❌ এই দোকানে অ্যাক্সেস নেই");return}
   activeWarehouseId=id;
   const action=pendingAction;
   const routeMap={stock:"stockSection",purchase:"purchaseSection",invoice:"invoiceSection",sales:"salesSection",customer:"customerSection",report:"reportSection",cashbook:"cashbookSection",adjust:"stockAdjustSection",summary:null};
@@ -1252,131 +1583,10 @@ function enterWarehouse(id){
 function switchWarehouseQuick(currentSection){const map={stock:"stock",purchase:"purchase",invoice:"invoice",sales:"sales",customer:"customer",report:"report",cashbook:"cashbook",adjust:"adjust"};openWarehousePicker(map[currentSection]||"stock")}
 function updateWhBars(){
   const w=getWarehouse(activeWarehouseId)||getDefaultWarehouse();
-  [["stockWhName"],["purchaseWhName"],["invoiceWhName"],["salesWhName"],["customerWhName"],["cashbookWhName"],["reportWhName"],["adjustWhName"]].forEach(([id])=>{const el=document.getElementById(id);if(el)el.textContent=w?.name||"—"});
-}
-function renderWarehouseTable(){
-  const t=document.getElementById("warehouseTable");if(!t)return;
-  t.innerHTML="";
-  if(warehouses.length===0){t.innerHTML='<tr><td colspan="8"><div class="empty-state">কোনো দোকান নেই</div></td></tr>';return}
-  warehouses.forEach(w=>{
-    let pc=0,tv=0;products.forEach(p=>{const s=getStockIn(p,w.id);if(s>0){pc++;tv+=s*Number(p.buy||0)}});
-    t.innerHTML+=`<tr><td><b>${escapeHtml(w.name)}</b></td><td>${escapeHtml(w.address||"—")}</td><td>${escapeHtml(w.manager||"—")}</td><td>${escapeHtml(w.phone||"—")}</td><td>${pc}</td><td>${money(tv)}</td><td>${w.isDefault?'✔':''}</td><td><button class="blue" onclick="openWarehouseModal('${w.id}')">✏️</button>${!w.isDefault?`<button class="secondary" onclick="setDefaultWarehouse('${w.id}')">ডিফল্ট</button>`:''}${warehouses.length>1?`<button class="danger" onclick="deleteWarehouse('${w.id}')">🗑</button>`:''}</td></tr>`;
-  });
-}
-function openWarehouseModal(id){
-  editingWarehouseId=id||null;
-  if(id){
-    const w=getWarehouse(id);if(!w)return;
-    document.getElementById("warehouseModalTitle").textContent="দোকান এডিট";
-    document.getElementById("whName").value=w.name||"";
-    document.getElementById("whAddress").value=w.address||"";
-    document.getElementById("whManager").value=w.manager||"";
-    document.getElementById("whPhone").value=w.phone||"";
-    document.getElementById("whIsDefault").checked=!!w.isDefault;
-  }else{
-    document.getElementById("warehouseModalTitle").textContent="নতুন দোকান";
-    ["whName","whAddress","whManager","whPhone"].forEach(i=>document.getElementById(i).value="");
-    document.getElementById("whIsDefault").checked=false;
-  }
-  openModal("warehouseModal");
-}
-function saveWarehouse(){
-  const name=document.getElementById("whName").value.trim();
-  if(!name){alert("নাম দিন।");return}
-  const data={name,address:document.getElementById("whAddress").value.trim(),manager:document.getElementById("whManager").value.trim(),phone:document.getElementById("whPhone").value.trim(),isDefault:document.getElementById("whIsDefault").checked};
-  if(data.isDefault)warehouses.forEach(w=>w.isDefault=false);
-  if(editingWarehouseId){const w=getWarehouse(editingWarehouseId);Object.assign(w,data)}
-  else{warehouses.push({id:uid(),...data,createdAt:nowISO()})}
-  if(!warehouses.find(w=>w.isDefault))warehouses[0].isDefault=true;
-  save(KEY_WAREHOUSES,warehouses);
-  closeModal("warehouseModal");editingWarehouseId=null;
-  logAudit("update","warehouse","","দোকান সংরক্ষণ");
-  renderWarehouseTable();renderWhSelects();refreshAll();
-  alert("✅");
-}
-function setDefaultWarehouse(id){warehouses.forEach(w=>w.isDefault=w.id===id);save(KEY_WAREHOUSES,warehouses);renderWarehouseTable();refreshAll()}
-function deleteWarehouse(id){
-  const w=getWarehouse(id);if(!w)return;
-  const has=products.some(p=>getStockIn(p,id)>0);
-  if(has){alert("❌ স্টক আছে।");return}
-  if(!confirm(`"${w.name}" মুছবেন?`))return;
-  warehouses=warehouses.filter(x=>x.id!==id);
-  if(w.isDefault&&warehouses.length>0)warehouses[0].isDefault=true;
-  if(activeWarehouseId===id)activeWarehouseId=warehouses[0].id;
-  save(KEY_WAREHOUSES,warehouses);
-  renderWarehouseTable();renderWhSelects();refreshAll();
-}
-function renderWhSelects(){
-  const fill=(sel)=>{if(!sel)return;const cur=sel.value;sel.innerHTML=warehouses.map(w=>`<option value="${w.id}">${escapeHtml(w.name)}</option>`).join("");if(cur&&warehouses.find(w=>w.id===cur))sel.value=cur};
-  fill(document.getElementById("trFrom"));fill(document.getElementById("trTo"));
+  ["stockWhName","purchaseWhName","invoiceWhName","salesWhName","customerWhName","cashbookWhName","reportWhName","adjustWhName"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=w?.name||"—"});
 }
 
-window.addEventListener("beforeinstallprompt",(e)=>{e.preventDefault();deferredInstallPrompt=e});
-function installApp(){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.then(c=>{if(c.outcome==="accepted")alert("✅");deferredInstallPrompt=null})}else alert("📱 Chrome মেনু → 'Add to Home screen'")}
-
-function showSection(id){
-  ["dashboardSection","warehousePickerSection","stockSection","purchaseSection","invoiceSection","salesSection","customerSection","reportSection","cashbookSection","expenseSection","warehouseSection","stockAdjustSection","transferSection","deletedSection","auditSection","settingsSection"].forEach(s=>{const el=document.getElementById(s);if(el)el.classList.add("hidden")});
-  const el=document.getElementById(id);if(el)el.classList.remove("hidden");
-  try{refreshAll()}catch(e){}
-  try{updateWhBars()}catch(e){}
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function closeModal(id){document.getElementById(id).classList.add("hidden")}
-function openModal(id){document.getElementById(id).classList.remove("hidden")}
-
-function getLowStockForWarehouse(wid){
-  const list=[];
-  products.forEach(p=>{
-    const min=Number(p.min||0);
-    if(min<=0)return;
-    const s=getStockIn(p,wid);
-    if(s<=min || s===0)list.push({product:p,stock:s,min,warehouseId:wid});
-  });
-  return list;
-}
-function getAllLowStock(){
-  const list=[];
-  products.forEach(p=>{
-    const min=Number(p.min||0);
-    if(min<=0)return;
-    warehouses.forEach(w=>{
-      const s=getStockIn(p,w.id);
-      if(s<=min || s===0)list.push({product:p,warehouse:w,stock:s,min});
-    });
-  });
-  return list;
-}
-function renderLowStockAlert(){
-  const card=document.getElementById("lowStockAlertCard");
-  const ul=document.getElementById("lowStockAlertList");
-  if(!card||!ul)return;
-  if(lowStockDismissed.date===today()&&lowStockDismissed.dismissed){card.classList.add("hidden");return}
-  const list=getAllLowStock();
-  if(list.length===0){card.classList.add("hidden");return}
-  card.classList.remove("hidden");
-  ul.innerHTML=list.slice(0,20).map(it=>`<li><b>${escapeHtml(it.product.name)}${it.product.size?" ("+escapeHtml(it.product.size)+")":""}</b> — <span class="wh-tag">${escapeHtml(it.warehouse.name)}</span> — ${it.stock<=0?'<span class="red">স্টক শেষ!</span>':'স্টক: '+it.stock+' (মিন: '+it.min+')'}</li>`).join("")+(list.length>20?`<li>...আরও ${list.length-20}টি</li>`:"");
-}
-function dismissLowStockAlert(){lowStockDismissed={date:today(),dismissed:true};save(KEY_LOWSTOCK_DISMISS,lowStockDismissed);renderLowStockAlert()}
-function openLowStockModal(){
-  const list=getLowStockForWarehouse(activeWarehouseId);
-  const w=getWarehouse(activeWarehouseId);
-  const el=document.getElementById("lowStockModalContent");
-  if(list.length===0){el.innerHTML='<div class="empty-state"><div class="big">✅</div><p>এই দোকানে লো স্টক নেই</p></div>';openModal("lowStockModal");return}
-  el.innerHTML=`<div class="hint">দোকান: <b>${escapeHtml(w?.name||"")}</b> — ${list.length}টি</div><div class="table-wrap"><table><thead><tr><th>পণ্য</th><th>সাইজ</th><th>স্টক</th><th>মিন</th><th></th></tr></thead><tbody>${list.map(it=>`<tr class="${it.stock<=0?'low-stock-row':''}"><td>${escapeHtml(it.product.name)}</td><td>${escapeHtml(it.product.size||"")}</td><td class="${it.stock<=0?'red':'orange'}"><b>${it.stock}</b></td><td>${it.min}</td><td><button class="blue" onclick="closeModal('lowStockModal');openProductModal('${it.product.id}')">✏️</button></td></tr>`).join("")}</tbody></table></div>`;
-  openModal("lowStockModal");
-}
-function buildLowStockText(){
-  const list=getAllLowStock();if(list.length===0)return "সব ঠিক ✅";
-  const nm=settings.companyName||"3A Shop";
-  let txt=`🏪 ${nm}\n⚠️ লো স্টক\n${new Date().toLocaleString("bn-BD")}\n\nমোট ${list.length}টি:\n\n`;
-  list.forEach((it,i)=>{txt+=`${i+1}. ${it.product.name}${it.product.size?" ("+it.product.size+")":""}\n   🏭 ${it.warehouse.name} — স্টক: ${it.stock} (মিন: ${it.min})\n`});
-  return txt;
-}
-function sendLowStockWhatsApp(){window.open("https://wa.me/?text="+encodeURIComponent(buildLowStockText()),"_blank")}
-function sendLowStockSMS(){window.location.href="sms:?body="+encodeURIComponent(buildLowStockText())}
-function copyLowStockList(){const txt=buildLowStockText();if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert("✅ কপি")).catch(()=>fallbackCopy(txt));else fallbackCopy(txt)}
-function fallbackCopy(txt){const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");alert("✅")}catch(e){alert("❌")}document.body.removeChild(ta)}
-
+/* ===== PRODUCTS ===== */
 function getAllCategories(){const s=new Set();products.forEach(p=>{if(p.category&&p.category.trim())s.add(p.category.trim())});return Array.from(s).sort()}
 function renderCategoryFilter(){
   const sel=document.getElementById("stockCategoryFilter");if(!sel)return;
@@ -1435,8 +1645,7 @@ function saveProduct(){
     products.push(np);
   }
   save(KEY_PRODUCTS,products);closeModal("productModal");editingProductId=null;
-  logAudit("save","product","",n);refreshAll();
-  alert("✅");
+  logAudit("save","product","",n);refreshAll();alert("✅");
 }
 function renderStock(){
   renderCategoryFilter();
@@ -1448,8 +1657,8 @@ function renderStock(){
     const m2=!cat||(p.category||"")===cat;
     return m1&&m2;
   });
-  const tbody=document.getElementById("stockTable");tbody.innerHTML="";
-  if(list.length===0){tbody.innerHTML=`<tr><td colspan="13"><div class="empty-state"><div class="big">📦</div><p>কোনো পণ্য নেই।</p></div></td></tr>`;return}
+  const tbody=document.getElementById("stockTable");if(!tbody)return;tbody.innerHTML="";
+  if(list.length===0){tbody.innerHTML=`<tr><td colspan="13"><div class="empty-state">কোনো পণ্য নেই</div></td></tr>`;return}
   list.forEach((p,i)=>{
     const s=getStockIn(p,wid);
     const tt=s*Number(p.buy||0);
@@ -1461,13 +1670,13 @@ function renderStock(){
 }
 function deleteProduct(id){
   const p=products.find(x=>x.id===id);if(!p)return;
-  if(!confirm(`"${p.name}" ডিলিট?\n(১৫ দিনে রিকভার)`))return;
+  if(!confirm(`"${p.name}" ডিলিট?`))return;
   softDelete("product",id,JSON.parse(JSON.stringify(p)));
   products=products.filter(x=>x.id!==id);save(KEY_PRODUCTS,products);
-  logAudit("delete","product",id,p.name);
-  refreshAll();
+  logAudit("delete","product",id,p.name);refreshAll();
 }
 
+/* ===== PURCHASE ===== */
 function renderPurchaseProductSelect(){const s=document.getElementById("purProductSelect");if(!s)return;s.innerHTML=`<option value="">-- নতুন পণ্য --</option>`+products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}${p.size?" ("+escapeHtml(p.size)+")":""} - স্টক ${getStockIn(p,activeWarehouseId)}</option>`).join("")}
 function onPurProductSelect(){
   const pid=document.getElementById("purProductSelect").value;
@@ -1500,7 +1709,7 @@ function addPurchaseItemToCart(){
 function removePurchaseCartItem(id){purchaseCart=purchaseCart.filter(x=>x.id!==id);renderPurchaseCart()}
 function clearPurchaseCart(){if(!confirm("পরিষ্কার?"))return;purchaseCart=[];document.getElementById("purExtraCost").value="0";document.getElementById("purExtraNote").value="";renderPurchaseCart()}
 function renderPurchaseCart(){
-  const tbody=document.getElementById("purchaseCartTable");tbody.innerHTML="";
+  const tbody=document.getElementById("purchaseCartTable");if(!tbody)return;tbody.innerHTML="";
   let rt=0,rq=0;purchaseCart.forEach(it=>{rt+=it.total;rq+=Number(it.qty||0)});
   const ec=Number(document.getElementById("purExtraCost").value||0);
   purchaseCart.forEach(it=>{
@@ -1547,18 +1756,17 @@ function savePurchaseAll(){
   purchaseCart=[];
   ["supName","supPhone","supAddress","purExtraNote"].forEach(i=>document.getElementById(i).value="");
   document.getElementById("purExtraCost").value="0";
-  renderPurchaseCart();refreshAll();
-  alert("✅");
+  renderPurchaseCart();refreshAll();alert("✅");
 }
 function renderPurchases(){
   const s=(document.getElementById("purchaseSearch")?.value||"").toLowerCase();
-  const tbody=document.getElementById("purchaseTable");tbody.innerHTML="";
+  const tbody=document.getElementById("purchaseTable");if(!tbody)return;tbody.innerHTML="";
   const wid=activeWarehouseId||getDefaultWarehouse().id;
   const list=purchases.filter(p=>p.warehouseId===wid).slice().reverse().filter(p=>String(p.supName||"").toLowerCase().includes(s)||String(p.name||"").toLowerCase().includes(s));
   if(list.length===0){tbody.innerHTML='<tr><td colspan="10"><div class="empty-state">ক্রয় নেই</div></td></tr>';return}
   list.forEach(p=>{
     const phone=p.supPhone||"";
-    const cb=phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(phone)}')">📞</button><button class="wa-btn" onclick="waSupplier('${escapeHtml(phone)}','${escapeHtml(p.supName||"")}')">📱</button>`:'—';
+    const cb=phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(phone)}')">📞</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(phone)}')">💬</button><button class="wa-btn" onclick="waSupplier('${escapeHtml(phone)}','${escapeHtml(p.supName||"")}')">📱</button>`:'—';
     tbody.innerHTML+=`<tr><td>${escapeHtml(p.date)}</td><td><b>${escapeHtml(p.supName||"")}</b></td><td>${escapeHtml(phone||"—")}</td><td>${escapeHtml(p.supAddress||"—")}</td><td>${escapeHtml(p.name)}${p.size?" ("+escapeHtml(p.size)+")":""}</td><td>${p.qty} ${escapeHtml(p.unit||"")}</td><td>${money(p.total)}</td><td>${p.netTotal!=null?money(p.netTotal):"—"}</td><td>${cb}</td><td><button class="danger" onclick="deletePurchase('${p.id}')">🗑</button></td></tr>`;
   });
 }
@@ -1570,8 +1778,10 @@ function deletePurchase(id){
   logAudit("delete","purchase",id,p.name);refreshAll();
 }
 function callPhone(p){if(!p){alert("নম্বর নেই।");return}window.location.href="tel:"+String(p).replace(/[^0-9+]/g,'')}
+function smsPhone(p){if(!p){alert("নম্বর নেই।");return}window.location.href="sms:"+String(p).replace(/[^0-9+]/g,'')}
 function waSupplier(phone,name){const c=String(phone).replace(/[^0-9]/g,"");const full=c.length>=11?"88"+c.slice(-11):c;const msg=`আসসালামু আলাইকুম ${name},\n\n${settings.companyName||"3A Shop"} থেকে যোগাযোগ করছি।`;window.open("https://wa.me/"+full+"?text="+encodeURIComponent(msg),"_blank")}
 
+/* ===== INVOICE ===== */
 function setInvoiceTab(t){
   document.getElementById("invTabCreate").classList.toggle("active",t==='create');
   document.getElementById("invTabHistory").classList.toggle("active",t==='history');
@@ -1584,30 +1794,6 @@ function setInvoiceTab(t){
   if(t==='summary')renderInvoiceSummary();
   if(t==='payments')renderPaymentHistory();
   if(t==='history')renderInvoiceHistory();
-}
-function setCustomerTab(t){
-  currentCustomerTab=t;
-  document.getElementById("custTabList").classList.toggle("active",t==='list');
-  document.getElementById("custTabRoutes").classList.toggle("active",t==='routes');
-  document.getElementById("custTabTop").classList.toggle("active",t==='top');
-  document.getElementById("custTabListContent").classList.toggle("hidden",t!=='list');
-  document.getElementById("custTabRoutesContent").classList.toggle("hidden",t!=='routes');
-  document.getElementById("custTabTopContent").classList.toggle("hidden",t!=='top');
-  if(t==='routes'){renderRoutes();closeRouteDetail()}
-  if(t==='top')renderTopReports();
-}
-function setReportTab(t){
-  document.getElementById("repTabGeneral").classList.toggle("active",t==='general');
-  document.getElementById("repTabProduct").classList.toggle("active",t==='product');
-  document.getElementById("repTabSupplier").classList.toggle("active",t==='supplier');
-  document.getElementById("repTabDead").classList.toggle("active",t==='dead');
-  document.getElementById("repTabGeneralContent").classList.toggle("hidden",t!=='general');
-  document.getElementById("repTabProductContent").classList.toggle("hidden",t!=='product');
-  document.getElementById("repTabSupplierContent").classList.toggle("hidden",t!=='supplier');
-  document.getElementById("repTabDeadContent").classList.toggle("hidden",t!=='dead');
-  if(t==='product')renderPerProductProfit();
-  if(t==='supplier')renderSupplierReport();
-  if(t==='dead')renderDeadStockReport();
 }
 function nextInvoiceNo(){const wid=activeWarehouseId||"";let m=0;invoices.filter(inv=>inv.warehouseId===wid).forEach(inv=>{const x=String(inv.invoiceNo||"").match(/(\d+)$/);if(x)m=Math.max(m,Number(x[1]))});return "3A-"+String(m+1).padStart(4,"0")}
 function renderInvoiceProductSelect(){
@@ -1675,16 +1861,6 @@ function addInvoiceItem(){
   document.getElementById("invoiceQty").value="";document.getElementById("invoiceSalePrice").value="";document.getElementById("invoiceProduct").value="";
   renderInvoiceItems();
 }
-function tryAddPendingItem(){
-  const pid=document.getElementById("invoiceProduct").value;
-  const q=Number(document.getElementById("invoiceQty").value||0);
-  const sp=Number(document.getElementById("invoiceSalePrice").value||0);
-  const wid=activeWarehouseId||getDefaultWarehouse().id;
-  if(!pid||q<=0)return false;
-  const ok=addInvoiceItemCore(pid,q,sp,wid);
-  if(ok){document.getElementById("invoiceQty").value="";document.getElementById("invoiceSalePrice").value="";document.getElementById("invoiceProduct").value="";renderInvoiceItems()}
-  return ok;
-}
 function removeInvoiceItem(id){currentInvoiceItems=currentInvoiceItems.filter(i=>i.id!==id);renderInvoiceItems()}
 function calcInvoiceTotals(){
   let st=0;currentInvoiceItems.forEach(it=>{st+=it.qty*it.salePrice});
@@ -1693,7 +1869,7 @@ function calcInvoiceTotals(){
   return{subTotal:st,discount:d,delivery:dl,grandTotal:Math.max(0,st-d+dl)};
 }
 function renderInvoiceItems(){
-  const tbody=document.getElementById("invoiceItems");tbody.innerHTML="";
+  const tbody=document.getElementById("invoiceItems");if(!tbody)return;tbody.innerHTML="";
   currentInvoiceItems.forEach(item=>{
     const lt=item.qty*item.salePrice;
     tbody.innerHTML+=`<tr><td>${escapeHtml(item.productName)}${item.size?" ("+escapeHtml(item.size)+")":""}</td><td>${item.qty} ${escapeHtml(item.unit)}</td><td>${money(item.buy)}</td><td>${money(item.salePrice)}</td><td>${money(lt)}</td><td><button class="remove-btn" onclick="removeInvoiceItem('${item.id}')">X</button></td></tr>`;
@@ -1737,7 +1913,6 @@ function restoreStockFIFO(items){
   });
 }
 function saveInvoice(){
-  tryAddPendingItem();
   const bn=document.getElementById("buyerName").value.trim();
   const ba=document.getElementById("buyerAddress").value.trim();
   const bp=document.getElementById("buyerPhone").value.trim();
@@ -1766,7 +1941,7 @@ function saveInvoice(){
   logAudit("create","invoice",inv2.id,inv+" — "+bn);
   const ni=JSON.parse(JSON.stringify(inv2));
   prepareNewInvoice();refreshAll();showInvoice(ni);
-  alert("✅ চালান তৈরি।");
+  alert("✅ চালান তৈরি।\n\nমোট: "+money(t.grandTotal)+"\n(ছাড় "+money(t.discount)+" বাকিতে যোগ হবে না)");
 }
 function editInvoice(id){
   const inv=invoices.find(i=>i.id===id);if(!inv)return;
@@ -1789,25 +1964,21 @@ function editInvoice(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function cancelInvoiceEdit(){if(!confirm("বাতিল?"))return;prepareNewInvoice()}
-function newInvoiceForCustomer(cid){
-  const c=customers.find(x=>x.id===cid);if(!c)return;
-  closeModal("customerDetailModal");prepareNewInvoice();
-  document.getElementById("buyerName").value=c.name||"";
-  document.getElementById("buyerPhone").value=c.phone||"";
-  document.getElementById("buyerAddress").value=c.address||"";
-  document.getElementById("invoiceRoute").value=c.route||"";
-  showSection('invoiceSection');setInvoiceTab('create');
+function deleteInvoice(id){
+  const inv=invoices.find(i=>i.id===id);if(!inv)return;
+  if(inv.delivered){alert("ডেলিভারি।");return}
+  if(!confirm("ডিলিট?"))return;
+  softDelete("invoice",id,JSON.parse(JSON.stringify(inv)));
+  restoreStockFIFO(inv.items);save(KEY_PRODUCTS,products);
+  invoices=invoices.filter(i=>i.id!==id);save(KEY_INVOICES,invoices);
+  logAudit("delete","invoice",id,inv.invoiceNo);refreshAll();
 }
 function setInvoiceListView(v){
   currentInvoiceListView=v;
   const m={today:'invListBtnToday',week:'invListBtnWeek',month:'invListBtnMonth',custom:'invListBtnCustom',all:'invListBtnAll'};
   Object.keys(m).forEach(k=>{const b=document.getElementById(m[k]);if(!b)return;b.classList.remove('active');if(k===v){b.classList.add('active');b.classList.remove('secondary')}else b.classList.add('secondary')});
   const cb=document.getElementById("invListCustomBox");
-  if(v==='custom'){
-    cb.classList.remove("hidden");
-    if(!document.getElementById("invListFrom").value)document.getElementById("invListFrom").value=today();
-    if(!document.getElementById("invListTo").value)document.getElementById("invListTo").value=today();
-  }else cb.classList.add("hidden");
+  if(v==='custom'){cb.classList.remove("hidden");if(!document.getElementById("invListFrom").value)document.getElementById("invListFrom").value=today();if(!document.getElementById("invListTo").value)document.getElementById("invListTo").value=today()}else cb.classList.add("hidden");
   renderInvoiceHistory();
 }
 function getDateRangeForView(view){
@@ -1820,7 +1991,7 @@ function getDateRangeForView(view){
 }
 function renderInvoiceHistory(){
   const s=(document.getElementById("invoiceSearch")?.value||"").toLowerCase();
-  const tbody=document.getElementById("invoiceHistory");tbody.innerHTML="";
+  const tbody=document.getElementById("invoiceHistory");if(!tbody)return;tbody.innerHTML="";
   const wid=activeWarehouseId||getDefaultWarehouse().id;
   const range=getDateRangeForView(currentInvoiceListView);
   let f=invoices.filter(inv=>inv.warehouseId===wid&&(inv.date||'')>=range.start&&(inv.date||'')<=range.end);
@@ -1840,16 +2011,6 @@ function renderInvoiceHistory(){
     tbody.innerHTML+=`<tr><td><button class="blue" onclick="showInvoiceById('${inv.id}')">${escapeHtml(inv.invoiceNo)}</button></td><td>${escapeHtml(inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${escapeHtml(inv.route||"—")}</td><td>${money(inv.total)}</td><td class="green">${money(inv.paid)}</td><td class="red">${money(cd)}</td><td>${st}</td><td>${!inv.delivered?`<button onclick="openDelivery('${inv.id}')">ডেলিভারি</button><button class="warning" onclick="editInvoice('${inv.id}')">✏️</button><button class="danger" onclick="deleteInvoice('${inv.id}')">🗑</button>`:`<button class="secondary" onclick="showInvoiceById('${inv.id}')">দেখুন</button>`}</td></tr>`;
   });
   tbody.innerHTML+=`<tr class="summary-total-row"><td colspan="4" style="text-align:right;">সর্বমোট (${f.length})</td><td>${money(ta)}</td><td>${money(tp)}</td><td>${money(td)}</td><td colspan="2"></td></tr>`;
-}
-function deleteInvoice(id){
-  const inv=invoices.find(i=>i.id===id);if(!inv)return;
-  if(inv.delivered){alert("ডেলিভারি।");return}
-  if(!confirm("ডিলিট? (১৫ দিন রিকভারি)"))return;
-  softDelete("invoice",id,JSON.parse(JSON.stringify(inv)));
-  restoreStockFIFO(inv.items);save(KEY_PRODUCTS,products);
-  invoices=invoices.filter(i=>i.id!==id);save(KEY_INVOICES,invoices);
-  logAudit("delete","invoice",id,inv.invoiceNo);
-  refreshAll();
 }
 function setSummaryPeriod(p){
   currentSummaryPeriod=p;
@@ -1917,7 +2078,7 @@ function renderPaymentHistory(){
   tbody.innerHTML=html;
 }
 
-/* ---- INVOICE VIEW (PDF-like layout enforced) ---- */
+/* ===== INVOICE VIEW ===== */
 function showInvoiceById(id){const inv=invoices.find(x=>x.id===id);if(inv)showInvoice(inv)}
 function showInvoice(inv){
   const cn=(inv.myCompany&&inv.myCompany.name)||settings.companyName||"প্রতিষ্ঠানের নাম";
@@ -1950,7 +2111,7 @@ function showInvoice(inv){
   if(inv.delivered){
     summaryHtml=`<div class="inv-summary-full">
       <p><b>পণ্যের মোট:</b> ${money(inv.subTotal||inv.total)}</p>
-      ${inv.discount>0?`<p><b>ডিসকাউন্ট:</b> - ${money(inv.discount)}</p>`:""}
+      ${inv.discount>0?`<p><b>ডিসকাউন্ট:</b> - ${money(inv.discount)} <span style="color:#888;font-size:11px;">(বাকিতে যোগ হয়নি)</span></p>`:""}
       ${inv.deliveryCharge>0?`<p><b>ডেলিভারি:</b> + ${money(inv.deliveryCharge)}</p>`:""}
       <p><b>চালানের মোট:</b> ${money(inv.total)}</p>
       <p><b>কথায়:</b> ${escapeHtml(words)}</p>
@@ -1961,14 +2122,12 @@ function showInvoice(inv){
       <p><b>গ্রাহকের সর্বমোট বাকি:</b> ${money(inv.finalCustomerDue||0)}</p>
       ${inv.dueDate?`<p><b>📅 পরিশোধের তারিখ:</b> ${escapeHtml(inv.dueDate)}</p>`:""}
     </div>${payHistoryHtml}`;
-    if(fullyPaid){
-      paidStamp=`<div class="inv-paid-stamp-box"><span class="paid-stamp">✅ PAID</span></div>`;
-    }
+    if(fullyPaid){paidStamp=`<div class="inv-paid-stamp-box"><span class="paid-stamp">✅ PAID</span></div>`;}
     if(inv.returnedTotal>0)summaryHtml+=`<p style="color:#c62828;margin-top:6px;"><b>↩️ ফেরত:</b> ${money(inv.returnedTotal)}</p>`;
   }else{
     summaryHtml=`<div class="inv-summary-full">
       <p><b>পণ্যের মোট:</b> ${money(inv.subTotal||inv.total)}</p>
-      ${inv.discount>0?`<p><b>ডিসকাউন্ট:</b> - ${money(inv.discount)}</p>`:""}
+      ${inv.discount>0?`<p><b>ডিসকাউন্ট:</b> - ${money(inv.discount)} <span style="color:#888;font-size:11px;">(বাকিতে যোগ হয়নি)</span></p>`:""}
       ${inv.deliveryCharge>0?`<p><b>ডেলিভারি:</b> + ${money(inv.deliveryCharge)}</p>`:""}
       <p><b>চালানের মোট:</b> ${money(inv.total)}</p>
       <p><b>কথায়:</b> ${escapeHtml(words)}</p>
@@ -2008,8 +2167,16 @@ function showInvoice(inv){
   document.getElementById("pdfStatus").textContent="";
   openModal("invoiceViewModal");
 }
+function numberToBanglaWords(num){
+  num=Math.round(Number(num||0));
+  if(num===0)return "শূন্য টাকা মাত্র";
+  const ones=["","এক","দুই","তিন","চার","পাঁচ","ছয়","সাত","আট","নয়","দশ","এগারো","বারো","তেরো","চৌদ্দ","পনেরো","ষোলো","সতেরো","আঠারো","ঊনিশ"];
+  const tens=["","","বিশ","ত্রিশ","চল্লিশ","পঞ্চাশ","ষাট","সত্তর","আশি","নব্বই"];
+  function tw(n){if(n===0)return "";if(n<20)return ones[n];if(n<100)return tens[Math.floor(n/10)]+(n%10?" "+ones[n%10]:"");if(n<1000)return ones[Math.floor(n/100)]+"শত"+(n%100?" "+tw(n%100):"");if(n<100000)return tw(Math.floor(n/1000))+" হাজার"+(n%1000?" "+tw(n%1000):"");if(n<10000000)return tw(Math.floor(n/100000))+" লক্ষ"+(n%100000?" "+tw(n%100000):"");return tw(Math.floor(n/10000000))+" কোটি"+(n%10000000?" "+tw(n%10000000):"")}
+  return tw(num)+" টাকা মাত্র";
+}
 
-/* ---- PDF ---- */
+/* ===== PDF ===== */
 async function generateInvoicePDFBlob(){
   const el=document.getElementById("printArea");
   if(!el||!el.innerHTML.trim()){alert("চালান নেই।");return null}
@@ -2021,17 +2188,7 @@ async function generateInvoicePDFBlob(){
   if(bEl&&bEl.value)buyer=bEl.value.replace(/[^A-Za-z0-9\u0980-\u09FF]/g,"").slice(0,20);
   const fileName=`3A-${invNo}${buyer?"-"+buyer:""}-${today()}.pdf`;
   const clone=el.cloneNode(true);
-  clone.style.position="fixed";
-  clone.style.left="-99999px";
-  clone.style.top="0";
-  clone.style.width="800px";
-  clone.style.minWidth="800px";
-  clone.style.maxWidth="800px";
-  clone.style.background="white";
-  clone.style.color="#111";
-  clone.style.padding="20px";
-  clone.style.fontFamily='Arial,"Noto Sans Bengali",sans-serif';
-  // 🔥 Force desktop layout even on mobile
+  clone.style.position="fixed";clone.style.left="-99999px";clone.style.top="0";clone.style.width="800px";clone.style.minWidth="800px";clone.style.maxWidth="800px";clone.style.background="white";clone.style.color="#111";clone.style.padding="20px";clone.style.fontFamily='Arial,"Noto Sans Bengali",sans-serif';
   clone.querySelectorAll(".inv-top-box").forEach(x=>{x.style.display="flex";x.style.flexDirection="row";x.style.gap="12px";x.style.flexWrap="nowrap"});
   clone.querySelectorAll(".inv-box-left").forEach(x=>{x.style.flex="1.1"});
   clone.querySelectorAll(".inv-box-right").forEach(x=>{x.style.flex="1.3"});
@@ -2051,39 +2208,22 @@ async function generateInvoicePDFBlob(){
   finally{document.body.removeChild(clone)}
 }
 async function saveInvoicePDF(){
-  const st=document.getElementById("pdfStatus");
-  st.textContent="⏳ তৈরি...";
+  const st=document.getElementById("pdfStatus");st.textContent="⏳ তৈরি...";
   const res=await generateInvoicePDFBlob();
   if(!res){st.textContent="";return}
   try{
-    if(window.showSaveFilePicker){
-      try{
-        const h=await window.showSaveFilePicker({suggestedName:res.fileName,types:[{description:"PDF",accept:{"application/pdf":[".pdf"]}}]});
-        const w=await h.createWritable();await w.write(res.blob);await w.close();
-        st.textContent="✅ সেভ: "+res.fileName;
-        alert("✅ PDF সেভ হয়েছে!");
-        return;
-      }catch(err){if(err.name==="AbortError"){st.textContent="";return}}
-    }
-    const file=new File([res.blob],res.fileName,{type:"application/pdf"});
-    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],title:res.fileName});st.textContent="✅ শেয়ার হয়েছে";return}
-      catch(e){if(e.name==="AbortError"){st.textContent="";return}}
-    }
     const url=URL.createObjectURL(res.blob);
     const a=document.createElement("a");a.href=url;a.download=res.fileName;
     document.body.appendChild(a);a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},8000);
     st.textContent="✅ ডাউনলোড: "+res.fileName;
-    setTimeout(()=>alert("✅ PDF ডাউনলোড।\n\n📁 "+res.fileName+"\n\nChrome → ⋮ → Downloads"),300);
-  }catch(e){if(e.name==="AbortError"){st.textContent="";return}console.error(e);alert("❌ সেভ ব্যর্থ।")}
+  }catch(e){console.error(e);alert("❌ সেভ ব্যর্থ।")}
 }
 async function shareViaWhatsApp(){
   const buyerPhone=document.getElementById("buyerPhone")?.value||"";
   const buyerName=document.getElementById("buyerName")?.value||"";
   const invNo=document.getElementById("invoiceNo")?.value||"";
-  const st=document.getElementById("pdfStatus");
-  st.textContent="⏳...";
+  const st=document.getElementById("pdfStatus");st.textContent="⏳...";
   const res=await generateInvoicePDFBlob();
   if(!res){st.textContent="";return}
   const file=new File([res.blob],res.fileName,{type:"application/pdf"});
@@ -2093,7 +2233,7 @@ async function shareViaWhatsApp(){
   }
   const clean=buyerPhone.replace(/[^0-9]/g,"");
   const full=clean.length>=11?"88"+clean.slice(-11):clean;
-  const msg=`আসসালামু আলাইকুম,\n\nচালান ${invNo} — ${settings.companyName||""}\nমোট: ${money(currentInvoiceTotal())}\n\nPDF সংযুক্ত করা হলো।`;
+  const msg=`আসসালামু আলাইকুম,\n\nচালান ${invNo} — ${settings.companyName||""}\nমোট: ${money(currentInvoiceTotal())}`;
   const url=URL.createObjectURL(res.blob);
   const a=document.createElement("a");a.href=url;a.download=res.fileName;
   document.body.appendChild(a);a.click();
@@ -2146,6 +2286,7 @@ async function shareToOwnWhatsApp(){
 }
 function printInvoice(){window.print()}
 
+/* ===== DELIVERY ===== */
 function openDelivery(id){
   const inv=invoices.find(x=>x.id===id);if(!inv)return;
   if(inv.delivered){alert("ডেলিভারি।");return}
@@ -2158,6 +2299,7 @@ function openDelivery(id){
   document.getElementById("deliveryPreviousDue").textContent=money(pd);
   document.getElementById("deliveryGrandTotal").textContent=money(gt);
   document.getElementById("deliveryCash").value=ct;
+  document.getElementById("deliveryDiscount").value="0";
   document.getElementById("deliveryDueDate").value="";
   document.getElementById("deliveryMethod").value="নগদ";
   document.getElementById("returnItemsList").innerHTML=inv.items.map(it=>`<div class="return-item"><div class="pname">${escapeHtml(it.productName)}${it.size?" ("+escapeHtml(it.size)+")":""}</div><div style="text-align:center;font-size:12px;">মোট: <b>${it.qty}</b> ${escapeHtml(it.unit)}</div><input type="number" min="0" max="${it.qty}" step="0.01" value="0" placeholder="ফেরত" oninput="onReturnChange('${it.id}', this.value)"></div>`).join("");
@@ -2178,13 +2320,16 @@ function getDeliveryTotals(){
 function calculateDeliveryPayment(){
   const t=getDeliveryTotals();if(!t)return;
   const{invoice,deliveredTotal}=t;
+  const discount=Math.max(0,Number(document.getElementById("deliveryDiscount").value||0));
+  const finalTotal=Math.max(0,deliveredTotal-discount);
   const c=findCustomer(invoice);const pd=c?Number(c.due||0):0;
-  const gt=pd+deliveredTotal;
-  document.getElementById("deliveryCurrentTotal").textContent=money(deliveredTotal);
+  const gt=pd+finalTotal;
+  document.getElementById("deliveryCurrentTotal").textContent=money(finalTotal);
   document.getElementById("deliveryGrandTotal").textContent=money(gt);
   const ci=document.getElementById("deliveryCash");let cash=Number(ci.value||0);
   if(cash<0)cash=0;if(cash>gt){cash=gt;ci.value=gt}
-  const cd=Math.max(0,deliveredTotal-cash);const eo=Math.max(0,cash-deliveredTotal);
+  const cd=Math.max(0,finalTotal-cash);
+  const eo=Math.max(0,cash-finalTotal);
   const gd=Math.max(0,pd-eo)+cd;
   document.getElementById("deliveryCurrentDue").textContent=money(cd);
   document.getElementById("deliveryGrandDue").textContent=money(gd);
@@ -2192,7 +2337,10 @@ function calculateDeliveryPayment(){
 function confirmDelivery(){
   if(!deliveryInvoiceId)return;
   const t=getDeliveryTotals();if(!t)return;
-  const{invoice,deliveredTotal,deliveredProfit,returnedValue,returnedCount}=t;
+  const{invoice,deliveredTotal,returnedValue,returnedCount}=t;
+  const discount=Math.max(0,Number(document.getElementById("deliveryDiscount").value||0));
+  const finalTotal=Math.max(0,deliveredTotal-discount);
+  const finalProfit=deliveredTotal-t.invoice.items.reduce((s,it)=>s+Number(returnQuantities[it.id]||0)*Number(it.buy||0),0)-discount;
   invoice.items.forEach(item=>{
     const p=products.find(x=>x.id===item.productId);
     if(p){const r=Number(returnQuantities[item.id]||0);if(r>0){const wid=item.warehouseId||"main";if(!Array.isArray(p.batches))p.batches=[];if(item.fifoBatches)item.fifoBatches.forEach(b=>p.batches.push({qty:Number(b.qty||0),netPrice:Number(b.netPrice||0),date:today(),batchId:uid(),warehouseId:wid}));setStockIn(p,wid,getStockIn(p,wid)+r)}}
@@ -2200,21 +2348,21 @@ function confirmDelivery(){
   const c=findCustomer(invoice);const pd=c?Number(c.due||0):0;
   let cash=Number(document.getElementById("deliveryCash").value||0);
   const method=document.getElementById("deliveryMethod").value||"নগদ";
-  const gt=pd+deliveredTotal;if(cash<0)cash=0;if(cash>gt)cash=gt;
-  const cid=Math.max(0,deliveredTotal-cash);
-  const eo=Math.max(0,cash-deliveredTotal);
+  const gt=pd+finalTotal;if(cash<0)cash=0;if(cash>gt)cash=gt;
+  const cid=Math.max(0,finalTotal-cash);
+  const eo=Math.max(0,cash-finalTotal);
   const odr=Math.max(0,pd-eo);const fd=odr+cid;
   invoice.items.forEach(item=>{const r=Number(returnQuantities[item.id]||0);item.returnedQty=r;item.deliveredQty=Number(item.qty||0)-r});
   const ddi=document.getElementById("deliveryDueDate").value;
   if(!invoice.paymentHistory)invoice.paymentHistory=[];
   if(cash>0)invoice.paymentHistory.push({date:today(),amount:cash,method:method,note:"ডেলিভারি নগদ"});
-  Object.assign(invoice,{paid:cash,deliveryPaid:cash,laterPaid:0,previousDue:pd,due:cid,currentInvoiceDue:cid,finalCustomerDue:fd,delivered:true,status:returnedCount>0?"partially-returned":"delivered",deliveryDate:today(),dueDate:ddi||"",returnedTotal:returnedValue,deliveredTotal,deliveredProfit,total:deliveredTotal,profit:deliveredProfit});
+  Object.assign(invoice,{paid:cash,deliveryPaid:cash,laterPaid:0,previousDue:pd,due:cid,currentInvoiceDue:cid,finalCustomerDue:fd,delivered:true,status:returnedCount>0?"partially-returned":"delivered",deliveryDate:today(),dueDate:ddi||"",returnedTotal:returnedValue,deliveredTotal:finalTotal,deliveredProfit:finalProfit,total:finalTotal,profit:finalProfit,deliveryDiscount:discount});
   if(cash>0){payments.push({id:uid(),customerId:c?c.id:"",customerName:invoice.buyerName,invoiceId:invoice.id,invoiceNo:invoice.invoiceNo,amount:cash,date:today(),method,note:"ডেলিভারি",warehouseId:invoice.warehouseId});save(KEY_PAYMENTS,payments)}
   save(KEY_PRODUCTS,products);save(KEY_INVOICES,invoices);
   updateCustomer(invoice,fd);
   logAudit("deliver","invoice",invoice.id,"ডেলিভারি: "+invoice.invoiceNo);
   closeModal("deliveryModal");deliveryInvoiceId=null;returnQuantities={};refreshAll();
-  alert("✅ ডেলিভারি সম্পন্ন।\n\nনগদ: "+money(cash)+"\nচালানের বাকি: "+money(cid)+"\nমোট বাকি: "+money(fd));
+  alert("✅ ডেলিভারি সম্পন্ন।\n\nছাড়: "+money(discount)+"\nনগদ: "+money(cash)+"\nচালানের বাকি: "+money(cid)+"\nমোট বাকি: "+money(fd));
   showInvoice(invoice);
 }
 function getCustomerByPhone(p){if(!p)return null;return customers.find(c=>String(c.phone||"").trim()===String(p).trim())||null}
@@ -2228,6 +2376,7 @@ function updateCustomer(invoice,cd){
   save(KEY_CUSTOMERS,customers);
 }
 
+/* ===== SALES ===== */
 function getDelivered(){return invoices.filter(inv=>inv.delivered)}
 function renderSalesToday(){
   const t=today();
@@ -2238,7 +2387,7 @@ function renderSalesToday(){
   document.getElementById("salesTodaySales").textContent=money(s);
   document.getElementById("salesTodayProfit").textContent=money(p);
   const inf=document.getElementById("salesTodayInfo");if(inf)inf.textContent=`আজ — ${tl.length}টি | নগদ: ${money(c)} | বাকি: ${money(d)}`;
-  const tbody=document.getElementById("salesTodayTable");tbody.innerHTML="";
+  const tbody=document.getElementById("salesTodayTable");if(!tbody)return;tbody.innerHTML="";
   if(tl.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">আজ বিক্রয় নেই</td></tr>';return}
   tl.slice().reverse().forEach(inv=>{tbody.innerHTML+=`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td><td>${money(inv.paid)}</td><td>${money(inv.currentInvoiceDue??inv.due??0)}</td><td class="ach-amt">${money(inv.profit)}</td></tr>`});
   tbody.innerHTML+=`<tr class="summary-total-row"><td colspan="2" style="text-align:right;">সর্বমোট</td><td>${money(s)}</td><td>${money(c)}</td><td>${money(d)}</td><td style="color:#ffcc80!important;">${money(p)}</td></tr>`;
@@ -2252,7 +2401,7 @@ function renderSales(){
   document.getElementById("salesCash").textContent=money(c);
   document.getElementById("salesDue").textContent=money(d);
   document.getElementById("salesProfit").textContent=money(p);
-  const tbody=document.getElementById("salesTable");tbody.innerHTML="";
+  const tbody=document.getElementById("salesTable");if(!tbody)return;tbody.innerHTML="";
   list.slice().reverse().forEach(inv=>{tbody.innerHTML+=`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.deliveryDate||inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td><td>${money(inv.paid)}</td><td>${money(inv.currentInvoiceDue??inv.due??0)}</td><td>${money(inv.profit)}</td></tr>`});
   renderSalesToday();renderRecentSales();
 }
@@ -2276,8 +2425,8 @@ function openDetailModal(type,title){
     html=`<div class="table-wrap"><table><thead><tr><th>তারিখ</th><th>গ্রাহক</th><th>চালান</th><th>পরিমাণ</th><th>মাধ্যম</th></tr></thead><tbody>${list.map(p=>`<tr><td>${escapeHtml(p.date)}</td><td>${escapeHtml(p.customerName||"")}</td><td>${escapeHtml(p.invoiceNo||"")}</td><td>${money(p.amount)}</td><td>${escapeHtml(p.method||"")}</td></tr>`).join("")}</tbody></table></div>`;
   }else{
     let sum=0,sumP=0;list.forEach(inv=>{sum+=Number(inv.total||0);sumP+=Number(inv.profit||0)});
-    html=`<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px;"><div class="stat">মোট<b>${money(sum)}</b></div><div class="stat">লাভ<b>${money(sumP)}</b></div></div>`;
-    html+=`<div class="table-wrap"><table><thead><tr><th>চালান</th><th>তারিখ</th><th>গ্রাহক</th><th>মোট</th><th>লাভ</th></tr></thead><tbody>${list.slice().reverse().map(inv=>`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.deliveryDate||inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td><td>${money(inv.profit)}</td></tr>`).join("")}</tbody></table></div>`;
+    html=`<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px;"><div class="stat">মোট<b>${money(sum)}</b></div>${canSeeProfit()?`<div class="stat">লাভ<b>${money(sumP)}</b></div>`:""}</div>`;
+    html+=`<div class="table-wrap"><table><thead><tr><th>চালান</th><th>তারিখ</th><th>গ্রাহক</th><th>মোট</th>${canSeeProfit()?"<th>লাভ</th>":""}</tr></thead><tbody>${list.slice().reverse().map(inv=>`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.deliveryDate||inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td>${canSeeProfit()?`<td>${money(inv.profit)}</td>`:""}</tr>`).join("")}</tbody></table></div>`;
   }
   document.getElementById("detailModalContent").innerHTML=html;
   openModal("detailModal");
@@ -2290,6 +2439,7 @@ function calcProfitRange(s,e){
   return{profit:p,sales:sa,count:c,list};
 }
 function openProfitModal(){
+  if(!canSeeProfit()){alert("❌ আপনার লাভ দেখার অ্যাক্সেস নেই");return}
   const n=new Date(),t=today();
   const tD=calcProfitRange(t,t);
   const s=new Date(n);s.setDate(n.getDate()-6);const ws=s.toISOString().slice(0,10);
@@ -2306,7 +2456,7 @@ function openProfitModal(){
   document.getElementById("pfMonth").textContent=money(mD.profit);
   document.getElementById("pfYear").textContent=money(yD.profit);
   document.getElementById("pfFrom").value=ms;document.getElementById("pfTo").value=me;
-  document.getElementById("profitCustomResult").innerHTML="";document.getElementById("profitBreakdown").innerHTML="";
+  document.getElementById("profitCustomResult").innerHTML="";
   openModal("profitModal");
 }
 function calculateCustomProfit(){
@@ -2316,6 +2466,18 @@ function calculateCustomProfit(){
   document.getElementById("profitCustomResult").innerHTML=`<div class="profit-card"><div class="pc-label">${escapeHtml(f)} — ${escapeHtml(to)}</div><div class="pc-value">${money(d.profit)}</div><div class="pc-range">${d.count}টি • ${money(d.sales)}</div></div>`;
 }
 
+/* ===== CUSTOMERS ===== */
+function setCustomerTab(t){
+  currentCustomerTab=t;
+  document.getElementById("custTabList").classList.toggle("active",t==='list');
+  document.getElementById("custTabRoutes").classList.toggle("active",t==='routes');
+  document.getElementById("custTabTop").classList.toggle("active",t==='top');
+  document.getElementById("custTabListContent").classList.toggle("hidden",t!=='list');
+  document.getElementById("custTabRoutesContent").classList.toggle("hidden",t!=='routes');
+  document.getElementById("custTabTopContent").classList.toggle("hidden",t!=='top');
+  if(t==='routes'){renderRoutes();closeRouteDetail()}
+  if(t==='top')renderTopReports();
+}
 function openCustomerModal(id){
   editingCustomerId=id||null;
   if(id){
@@ -2349,7 +2511,7 @@ function saveCustomer(){
 }
 function deleteCustomer(id){
   const c=customers.find(x=>x.id===id);if(!c)return;
-  if(!confirm("ডিলিট? (১৫ দিন রিকভারি)"))return;
+  if(!confirm("ডিলিট?"))return;
   softDelete("customer",id,JSON.parse(JSON.stringify(c)));
   customers=customers.filter(x=>x.id!==id);save(KEY_CUSTOMERS,customers);
   logAudit("delete","customer",id,c.name);refreshAll();
@@ -2358,13 +2520,23 @@ function viewCustomer(id){
   const c=customers.find(x=>x.id===id);if(!c)return;
   const mi=invoices.filter(inv=>(inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||(!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||(inv.buyerName===c.name));
   let ts=0,tp=0;mi.forEach(inv=>{ts+=Number(inv.total||0);tp+=Number(inv.paid||0)});
+  const contactBtns=c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞 কল</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(c.phone)}')">💬 SMS</button><button class="wa-btn" onclick="sendWhatsAppReminder('${c.id}')">📱 WhatsApp</button>`:'';
   document.getElementById("customerDetailContent").innerHTML=`
     <div class="cust-info-row"><p><b>নাম:</b> ${escapeHtml(c.name)}</p><p><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</p><p><b>রুট:</b> ${escapeHtml(c.route||"—")}</p><p><b>ঠিকানা:</b> ${escapeHtml(c.address||"—")}</p></div>
     <div class="stats" style="grid-template-columns:repeat(3,1fr)"><div class="stat">বিক্রয়<b>${money(ts)}</b></div><div class="stat">নগদ<b>${money(tp)}</b></div><div class="stat">বাকি<b class="${Number(c.due)>0?'red':'green'}">${money(c.due)}</b></div></div>
-    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">${c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button><button class="wa-btn" onclick="sendWhatsAppReminder('${c.id}')">📱</button>`:''}<button onclick="newInvoiceForCustomer('${c.id}')">📝 চালান</button><button class="warning" onclick="closeModal('customerDetailModal');editCustomer('${c.id}')">✏️</button></div>`;
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">${contactBtns}<button onclick="closeModal('customerDetailModal');newInvoiceForCustomer('${c.id}')">📝 চালান</button><button class="warning" onclick="closeModal('customerDetailModal');editCustomer('${c.id}')">✏️</button></div>`;
   openModal("customerDetailModal");
 }
 function editCustomer(id){openCustomerModal(id)}
+function newInvoiceForCustomer(cid){
+  const c=customers.find(x=>x.id===cid);if(!c)return;
+  closeModal("customerDetailModal");prepareNewInvoice();
+  document.getElementById("buyerName").value=c.name||"";
+  document.getElementById("buyerPhone").value=c.phone||"";
+  document.getElementById("buyerAddress").value=c.address||"";
+  document.getElementById("invoiceRoute").value=c.route||"";
+  showSection('invoiceSection');setInvoiceTab('create');
+}
 function sendWhatsAppReminder(cid){
   const c=customers.find(x=>x.id===cid);if(!c||!c.phone)return;
   const phone=String(c.phone).replace(/[^0-9]/g,"");
@@ -2374,13 +2546,14 @@ function sendWhatsAppReminder(cid){
 }
 function renderCustomers(){
   const s=(document.getElementById("customerSearch")?.value||"").toLowerCase();
-  const tbody=document.getElementById("customerTable");tbody.innerHTML="";
+  const tbody=document.getElementById("customerTable");if(!tbody)return;tbody.innerHTML="";
   const l=customers.filter(c=>String(c.name||"").toLowerCase().includes(s)||String(c.phone||"").toLowerCase().includes(s)||String(c.route||"").toLowerCase().includes(s));
   if(l.length===0){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state">গ্রাহক নেই।</div></td></tr>';return}
   l.forEach(c=>{
     const m=invoices.filter(inv=>(inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||(!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||(inv.buyerName===c.name));
     let ts=0;m.forEach(inv=>ts+=Number(inv.total||0));
-    tbody.innerHTML+=`<tr><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.phone||"—")}</td><td>${escapeHtml(c.route||"—")}</td><td>${money(ts)}</td><td class="${Number(c.due||0)>0?"red":"green"}">${money(c.due)}</td><td><div class="cust-actions">${c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button>`:''}<button class="blue" onclick="viewCustomer('${c.id}')">👁</button><button onclick="newInvoiceForCustomer('${c.id}')">📝</button>${Number(c.due||0)>0?`<button class="warning" onclick="openDuePayment('${c.id}')">💰</button>`:''}<button class="secondary" onclick="editCustomer('${c.id}')">✏️</button><button class="danger" onclick="deleteCustomer('${c.id}')">🗑</button></div></td></tr>`;
+    const cb=c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(c.phone)}')">💬</button><button class="wa-btn" onclick="sendWhatsAppReminder('${c.id}')">📱</button>`:'';
+    tbody.innerHTML+=`<tr><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.phone||"—")}</td><td>${escapeHtml(c.route||"—")}</td><td>${money(ts)}</td><td class="${Number(c.due||0)>0?"red":"green"}">${money(c.due)}</td><td><div class="cust-actions">${cb}<button class="blue" onclick="viewCustomer('${c.id}')">👁</button><button onclick="newInvoiceForCustomer('${c.id}')">📝</button>${Number(c.due||0)>0?`<button class="warning" onclick="openDuePayment('${c.id}')">💰</button>`:''}<button class="secondary" onclick="editCustomer('${c.id}')">✏️</button><button class="danger" onclick="deleteCustomer('${c.id}')">🗑</button></div></td></tr>`;
   });
 }
 function getAllRoutes(){
@@ -2400,7 +2573,7 @@ function openRouteDetail(rn){
   let td=0,ts=0;l.forEach(c=>{td+=Number(c.due||0);const m=invoices.filter(inv=>(inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||(!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||(inv.buyerName===c.name));m.forEach(inv=>ts+=Number(inv.total||0))});
   document.getElementById("routeDetailInfo").textContent=`${rn} — ${l.length}জন | বিক্রয়: ${money(ts)} | বাকি: ${money(td)}`;
   const tbody=document.getElementById("routeCustomersTable");tbody.innerHTML="";
-  l.forEach(c=>{const m=invoices.filter(inv=>(inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||(!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||(inv.buyerName===c.name));let s=0;m.forEach(inv=>s+=Number(inv.total||0));tbody.innerHTML+=`<tr><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.phone||"—")}</td><td>${money(s)}</td><td class="${Number(c.due||0)>0?'red':'green'}">${money(c.due)}</td><td><div class="cust-actions">${c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button>`:''}<button class="blue" onclick="viewCustomer('${c.id}')">👁</button></div></td></tr>`});
+  l.forEach(c=>{const m=invoices.filter(inv=>(inv.buyerPhone&&c.phone&&inv.buyerPhone===c.phone)||(!inv.buyerPhone&&!c.phone&&inv.buyerName===c.name)||(inv.buyerName===c.name));let s=0;m.forEach(inv=>s+=Number(inv.total||0));tbody.innerHTML+=`<tr><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.phone||"—")}</td><td>${money(s)}</td><td class="${Number(c.due||0)>0?'red':'green'}">${money(c.due)}</td><td><div class="cust-actions">${c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(c.phone)}')">💬</button>`:''}<button class="blue" onclick="viewCustomer('${c.id}')">👁</button></div></td></tr>`});
 }
 function closeRouteDetail(){document.getElementById("routeDetailBox").classList.add("hidden");document.querySelector("#custTabRoutesContent .card").classList.remove("hidden");renderRoutes()}
 function renderTopReports(){
@@ -2420,7 +2593,8 @@ function openDueListModal(){
   const td=l.reduce((s,c)=>s+Number(c.due||0),0);
   let html="";
   l.forEach(c=>{
-    html+=`<div class="due-row"><div class="due-head"><div class="due-name">${escapeHtml(c.name)} ${c.route?'| '+escapeHtml(c.route):''}</div><div class="due-amount">${money(c.due)}</div></div><div class="due-detail"><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">${c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button><button class="wa-btn" onclick="sendWhatsAppReminder('${c.id}')">📱</button>`:''}<button onclick="closeModal('dueListModal');openDuePayment('${c.id}')">💰</button></div></div>`;
+    const contact=c.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(c.phone)}')">📞</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(c.phone)}')">💬</button><button class="wa-btn" onclick="sendWhatsAppReminder('${c.id}')">📱</button>`:'';
+    html+=`<div class="due-row"><div class="due-head"><div class="due-name">${escapeHtml(c.name)} ${c.route?'| '+escapeHtml(c.route):''}</div><div class="due-amount">${money(c.due)}</div></div><div class="due-detail"><b>মোবাইল:</b> ${escapeHtml(c.phone||"—")}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">${contact}<button onclick="closeModal('dueListModal');openDuePayment('${c.id}')">💰</button></div></div>`;
   });
   if(l.length===0){document.getElementById("dueListContent").innerHTML=`<div class="empty-state"><div class="big">✅</div><p>বাকি নেই।</p></div>`;openModal("dueListModal");return}
   document.getElementById("dueListContent").innerHTML=`<div class="due-alert" style="background:#d7f5e9;border-left-color:#087f6d;color:#075e54;"><b>মোট বাকি:</b> ${money(td)} — ${l.length}জন</div>${html}`;
@@ -2476,6 +2650,7 @@ function confirmDuePayment(){
   alert("✅ পরিশোধ: "+money(a)+"\nবাকি: "+money(c.due));
 }
 
+/* ===== CASHBOOK ===== */
 function setCashBookQuick(t,btn){
   document.querySelectorAll("#cashbookSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});
   btn.classList.add('active');btn.classList.remove('secondary');
@@ -2504,7 +2679,7 @@ function renderCashBook(){
   ins.forEach(p=>txs.push({date:p.date,desc:(p.customerName||"—")+" — "+(p.invoiceNo||""),type:"in",method:p.method||"নগদ",amount:Number(p.amount||0),invoiceId:p.invoiceId,invoiceNo:p.invoiceNo}));
   outs.forEach(e=>txs.push({date:e.date,desc:e.category||"খরচ",type:"out",method:e.method||"নগদ",amount:-Number(e.amount||0)}));
   txs.sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-  const tbody=document.getElementById("cashbookTable");tbody.innerHTML="";
+  const tbody=document.getElementById("cashbookTable");if(!tbody)return;tbody.innerHTML="";
   if(txs.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">কোনো লেনদেন নেই</td></tr>';return}
   let html="";
   txs.forEach(t=>{
@@ -2516,6 +2691,8 @@ function renderCashBook(){
   html+=`<tr class="summary-total-row"><td colspan="4" style="text-align:right;">মোট: ${money(totalIn)} - ${money(totalOut)}</td><td colspan="2">ব্যালেন্স: ${money(totalIn-totalOut)}</td></tr>`;
   tbody.innerHTML=html;
 }
+
+/* ===== EXPENSES ===== */
 function renderExpenseCategoryDatalist(){
   const dl=document.getElementById("expenseCategoryList");if(!dl)return;
   const set=new Set();
@@ -2547,8 +2724,7 @@ function deleteExpense(id){
   if(!confirm("ডিলিট?"))return;
   softDelete("expense",id,JSON.parse(JSON.stringify(e)));
   expenses=expenses.filter(x=>x.id!==id);save(KEY_EXPENSES,expenses);
-  logAudit("delete","expense",id,e.category);
-  refreshAll();
+  logAudit("delete","expense",id,e.category);refreshAll();
 }
 function getExpenseRange(){
   const n=new Date(),t=today();
@@ -2563,12 +2739,27 @@ function renderExpenses(){
   const list=expenses.filter(e=>{const d=e.date||'';return d>=start&&d<=end}).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   let total=0;list.forEach(e=>total+=Number(e.amount||0));
   if(inf)inf.textContent=`${label} — ${money(total)} (${list.length}টি)`;
-  const tbody=document.getElementById("expenseTable");tbody.innerHTML="";
+  const tbody=document.getElementById("expenseTable");if(!tbody)return;tbody.innerHTML="";
   if(list.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">খরচ নেই</td></tr>';return}
   let html="";
   list.forEach(e=>{html+=`<tr><td>${escapeHtml(e.date)}</td><td>${escapeHtml(e.category)}</td><td>${escapeHtml(e.method||"নগদ")}</td><td class="red"><b>${money(e.amount)}</b></td><td>${escapeHtml(e.note||"")}</td><td><button class="danger" onclick="deleteExpense('${e.id}')">🗑</button></td></tr>`});
   html+=`<tr class="summary-total-row"><td colspan="3" style="text-align:right;">সর্বমোট</td><td>${money(total)}</td><td colspan="2"></td></tr>`;
   tbody.innerHTML=html;
+}
+
+/* ===== REPORTS ===== */
+function setReportTab(t){
+  document.getElementById("repTabGeneral").classList.toggle("active",t==='general');
+  document.getElementById("repTabProduct").classList.toggle("active",t==='product');
+  document.getElementById("repTabSupplier").classList.toggle("active",t==='supplier');
+  document.getElementById("repTabDead").classList.toggle("active",t==='dead');
+  document.getElementById("repTabGeneralContent").classList.toggle("hidden",t!=='general');
+  document.getElementById("repTabProductContent").classList.toggle("hidden",t!=='product');
+  document.getElementById("repTabSupplierContent").classList.toggle("hidden",t!=='supplier');
+  document.getElementById("repTabDeadContent").classList.toggle("hidden",t!=='dead');
+  if(t==='product')renderPerProductProfit();
+  if(t==='supplier')renderSupplierReport();
+  if(t==='dead')renderDeadStockReport();
 }
 function setReportPeriod(p){
   currentReportPeriod=p;
@@ -2612,11 +2803,10 @@ function renderReports(){
   document.getElementById("reportProfit").textContent=money(p);
   document.getElementById("reportExpense").textContent=money(totalExp);
   document.getElementById("reportNetProfit").textContent=money(p-totalExp);
-  const tbody=document.getElementById('reportTableBody');if(tbody){
-    tbody.innerHTML='';
-    if(list.length===0)tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#999;padding:15px;">ডেলিভারি নেই</td></tr>';
-    else list.slice().reverse().forEach(inv=>{tbody.innerHTML+=`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.deliveryDate||inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td><td>${money(inv.paid)}</td><td>${money(inv.currentInvoiceDue??inv.due??0)}</td><td>${money(inv.profit)}</td></tr>`});
-  }
+  const tbody=document.getElementById('reportTableBody');if(!tbody)return;
+  tbody.innerHTML='';
+  if(list.length===0)tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#999;padding:15px;">ডেলিভারি নেই</td></tr>';
+  else list.slice().reverse().forEach(inv=>{tbody.innerHTML+=`<tr><td>${escapeHtml(inv.invoiceNo)}</td><td>${escapeHtml(inv.deliveryDate||inv.date)}</td><td>${escapeHtml(inv.buyerName)}</td><td>${money(inv.total)}</td><td>${money(inv.paid)}</td><td>${money(inv.currentInvoiceDue??inv.due??0)}</td><td>${money(inv.profit)}</td></tr>`});
 }
 function setProductProfitPeriod(p){
   currentProductProfitPeriod=p;
@@ -2665,7 +2855,7 @@ function renderSupplierReport(){
   const inf=document.getElementById("supReportInfo");if(inf)inf.textContent='মোট '+list.length+'টি';
   if(list.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#999;padding:15px;">নেই</td></tr>';return}
   let total=0;
-  let html=list.map((s,i)=>{total+=s.total;const c=s.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(s.phone)}')">📞</button><button class="wa-btn" onclick="waSupplier('${escapeHtml(s.phone)}','${escapeHtml(s.name)}')">📱</button>`:'—';return `<tr><td>${i+1}</td><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.phone||"—")}</td><td><b>${money(s.total)}</b></td><td>${s.count}</td><td>${c}</td></tr>`}).join("");
+  let html=list.map((s,i)=>{total+=s.total;const c=s.phone?`<button class="call-btn" onclick="callPhone('${escapeHtml(s.phone)}')">📞</button><button class="sms-btn" onclick="smsPhone('${escapeHtml(s.phone)}')">💬</button><button class="wa-btn" onclick="waSupplier('${escapeHtml(s.phone)}','${escapeHtml(s.name)}')">📱</button>`:'—';return `<tr><td>${i+1}</td><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.phone||"—")}</td><td><b>${money(s.total)}</b></td><td>${s.count}</td><td>${c}</td></tr>`}).join("");
   html+=`<tr class="summary-total-row"><td colspan="3" style="text-align:right;">সর্বমোট</td><td>${money(total)}</td><td colspan="2"></td></tr>`;
   tbody.innerHTML=html;
 }
@@ -2682,13 +2872,14 @@ function renderDeadStockReport(){
   tbody.innerHTML=dead.map((p,i)=>{const ls=lastSale[p.id]||"এখনো বিক্রি হয়নি";return `<tr><td>${i+1}</td><td>${escapeHtml(p.code||"")}</td><td>${escapeHtml(p.name)}</td><td>${escapeHtml(p.size||"")}</td><td>${getStockIn(p,wid)}</td><td>${money(getStockIn(p,wid)*Number(p.buy||0))}</td><td class="red">${escapeHtml(ls)}</td></tr>`}).join("");
 }
 
-function renderAdjProductSelect(){const s=document.getElementById("adjProduct");if(!s)return;s.innerHTML='<option value="">পণ্য</option>'+products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}${p.size?" ("+escapeHtml(p.size)+")":""}</option>`).join("")}
+/* ===== STOCK ADJUST ===== */
 function setAdjustType(t){
   adjustType=t;
   const inc=document.getElementById("adjBtnInc"),dec=document.getElementById("adjBtnDec");
-  if(t==='inc'){inc.classList.add("active-inc");dec.classList.remove("active-dec");dec.classList.remove("active-inc")}
-  else{dec.classList.add("active-dec");inc.classList.remove("active-dec");inc.classList.remove("active-inc")}
+  if(t==='inc'){inc.classList.add("active-inc");dec.classList.remove("active-dec")}
+  else{dec.classList.add("active-dec");inc.classList.remove("active-inc")}
 }
+function renderAdjProductSelect(){const s=document.getElementById("adjProduct");if(!s)return;s.innerHTML='<option value="">পণ্য</option>'+products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}${p.size?" ("+escapeHtml(p.size)+")":""}</option>`).join("")}
 function updateAdjCurrentStock(){
   const pid=document.getElementById("adjProduct").value;
   const el=document.getElementById("adjCurrentStock");if(!el)return;
@@ -2713,7 +2904,7 @@ function saveStockAdjustment(){
   if(delta>0){p.batches.push({qty:qty,netPrice:Number(p.buy||0),date:today(),batchId:uid(),adjustment:true,warehouseId:wid})}
   else{let r=qty;const sr=p.batches.filter(b=>(b.warehouseId||"main")===wid).sort((a,b)=>(a.date||"").localeCompare(b.date||""));for(const b of sr){if(r<=0)break;const q=Number(b.qty||0);if(q<=0)continue;const tk=Math.min(r,q);b.qty=q-tk;r-=tk}p.batches=p.batches.filter(b=>Number(b.qty||0)>0.0001)}
   setStockIn(p,wid,newStock);p.updatedAt=nowISO();
-  adjustments.push({id:uid(),date:today(),productName:p.name,productSize:p.size||"",unit:p.unit||"",warehouseName:getWarehouse(wid)?.name||"",before:cur,after:newStock,delta,reason,note,userName:currentUser?"Admin":"Guest"});
+  adjustments.push({id:uid(),date:today(),productName:p.name,productSize:p.size||"",unit:p.unit||"",warehouseName:getWarehouse(wid)?.name||"",before:cur,after:newStock,delta,reason,note,userName:currentUser?currentUser.name:"Guest"});
   save(KEY_PRODUCTS,products);save(KEY_ADJUSTMENTS,adjustments);
   logAudit("adjust","stock",p.id,`${p.name}: ${delta>0?'+':''}${delta} — ${reason}`);
   document.getElementById("adjQty").value="";document.getElementById("adjNote").value="";
@@ -2729,9 +2920,15 @@ function renderAdjustmentHistory(){
   else if(currentAdjustFilter==='month')filtered=filtered.filter(a=>(a.date||"").slice(0,7)===t.slice(0,7));
   if(inf)inf.textContent=`${filtered.length}টি`;
   if(filtered.length===0){list.innerHTML='<div class="empty-state">নেই</div>';return}
-  list.innerHTML=filtered.slice(0,100).map(a=>{const cls=a.delta>0?"qty-in":"qty-out";return `<div class="adjust-history-row"><b>${escapeHtml(a.productName)}</b> — <span class="qty-badge ${cls}">${a.delta>0?'+':''}${a.delta}</span><br><span class="small">${escapeHtml(a.warehouseName||"")} | ${escapeHtml(a.date)} | ${escapeHtml(a.reason)}</span></div>`}).join("");
+  list.innerHTML=filtered.slice(0,100).map(a=>{return `<div style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px;margin-bottom:6px;"><b>${escapeHtml(a.productName)}</b> — <span class="${a.delta>0?'green':'red'}">${a.delta>0?'+':''}${a.delta}</span><br><span class="small">${escapeHtml(a.warehouseName||"")} | ${escapeHtml(a.date)} | ${escapeHtml(a.reason)}</span></div>`}).join("");
 }
 function setAdjustFilter(f,btn){currentAdjustFilter=f;document.querySelectorAll("#stockAdjustSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderAdjustmentHistory()}
+
+/* ===== TRANSFER ===== */
+function renderWhSelects(){
+  const fill=(sel)=>{if(!sel)return;const cur=sel.value;sel.innerHTML=warehouses.map(w=>`<option value="${w.id}">${escapeHtml(w.name)}</option>`).join("");if(cur&&warehouses.find(w=>w.id===cur))sel.value=cur};
+  fill(document.getElementById("trFrom"));fill(document.getElementById("trTo"));
+}
 function renderTransferProductSelect(){const s=document.getElementById("trProduct");if(!s)return;s.innerHTML='<option value="">পণ্য</option>'+products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}${p.size?" ("+escapeHtml(p.size)+")":""}</option>`).join("")}
 function updateTransferStock(){const pid=document.getElementById("trProduct").value;const fromWid=document.getElementById("trFrom").value;const el=document.getElementById("trCurrentStock");if(!el)return;if(!pid||!fromWid){el.textContent="—";return}const p=products.find(x=>x.id===pid);if(!p)return;el.textContent=`সোর্স (${getWarehouse(fromWid)?.name||""}): ${getStockIn(p,fromWid)} ${p.unit||""}`}
 function saveStockTransfer(){
@@ -2751,7 +2948,7 @@ function saveStockTransfer(){
   p.batches=p.batches.filter(b=>Number(b.qty||0)>0.0001);
   setStockIn(p,fromWid,src-qty);setStockIn(p,toWid,getStockIn(p,toWid)+qty);
   p.batches.push({qty,netPrice:Number(p.buy||0),date,batchId:uid(),warehouseId:toWid});
-  transfers.push({id:uid(),date,productName:p.name,fromName:getWarehouse(fromWid)?.name||"",toName:getWarehouse(toWid)?.name||"",qty,note,userName:currentUser?"Admin":"Guest"});
+  transfers.push({id:uid(),date,productName:p.name,fromName:getWarehouse(fromWid)?.name||"",toName:getWarehouse(toWid)?.name||"",qty,note,userName:currentUser?currentUser.name:"Guest"});
   save(KEY_PRODUCTS,products);save(KEY_TRANSFERS,transfers);
   logAudit("transfer","stock",p.id,`${p.name}: ${qty}`);
   document.getElementById("trQty").value="";document.getElementById("trNote").value="";
@@ -2767,11 +2964,171 @@ function renderTransferHistory(){
   else if(currentTransferFilter==='month')filtered=filtered.filter(a=>(a.date||"").slice(0,7)===t.slice(0,7));
   if(inf)inf.textContent=`${filtered.length}টি`;
   if(filtered.length===0){list.innerHTML='<div class="empty-state">নেই</div>';return}
-  list.innerHTML=filtered.slice(0,100).map(a=>`<div class="transfer-history-row"><b>${escapeHtml(a.productName)}</b> — <span class="qty-badge qty-in">${a.qty}</span><br><span class="small">${escapeHtml(a.fromName)} → ${escapeHtml(a.toName)} | ${escapeHtml(a.date)}</span></div>`).join("");
+  list.innerHTML=filtered.slice(0,100).map(a=>`<div style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px;margin-bottom:6px;"><b>${escapeHtml(a.productName)}</b> — <span class="green">${a.qty}</span><br><span class="small">${escapeHtml(a.fromName)} → ${escapeHtml(a.toName)} | ${escapeHtml(a.date)}</span></div>`).join("");
 }
 function setTransferFilter(f,btn){currentTransferFilter=f;document.querySelectorAll("#transferSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderTransferHistory()}
 
+/* ===== WAREHOUSE TABLE ===== */
+function renderWarehouseTable(){
+  const t=document.getElementById("warehouseTable");if(!t)return;
+  t.innerHTML="";
+  if(warehouses.length===0){t.innerHTML='<tr><td colspan="8"><div class="empty-state">কোনো দোকান নেই</div></td></tr>';return}
+  warehouses.forEach(w=>{
+    let pc=0,tv=0;products.forEach(p=>{const s=getStockIn(p,w.id);if(s>0){pc++;tv+=s*Number(p.buy||0)}});
+    t.innerHTML+=`<tr><td><b>${escapeHtml(w.name)}</b></td><td>${escapeHtml(w.address||"—")}</td><td>${escapeHtml(w.manager||"—")}</td><td>${escapeHtml(w.phone||"—")}</td><td>${pc}</td><td>${money(tv)}</td><td>${w.isDefault?'✔':''}</td><td><button class="blue" onclick="openWarehouseModal('${w.id}')">✏️</button>${!w.isDefault?`<button class="secondary" onclick="setDefaultWarehouse('${w.id}')">ডিফল্ট</button>`:''}${warehouses.length>1?`<button class="danger" onclick="deleteWarehouse('${w.id}')">🗑</button>`:''}</td></tr>`;
+  });
+}
+function openWarehouseModal(id){
+  editingWarehouseId=id||null;
+  if(id){
+    const w=getWarehouse(id);if(!w)return;
+    document.getElementById("warehouseModalTitle").textContent="দোকান এডিট";
+    document.getElementById("whName").value=w.name||"";
+    document.getElementById("whAddress").value=w.address||"";
+    document.getElementById("whManager").value=w.manager||"";
+    document.getElementById("whPhone").value=w.phone||"";
+    document.getElementById("whIsDefault").checked=!!w.isDefault;
+  }else{
+    document.getElementById("warehouseModalTitle").textContent="নতুন দোকান";
+    ["whName","whAddress","whManager","whPhone"].forEach(i=>document.getElementById(i).value="");
+    document.getElementById("whIsDefault").checked=false;
+  }
+  openModal("warehouseModal");
+}
+function saveWarehouse(){
+  const name=document.getElementById("whName").value.trim();
+  if(!name){alert("নাম দিন।");return}
+  const data={name,address:document.getElementById("whAddress").value.trim(),manager:document.getElementById("whManager").value.trim(),phone:document.getElementById("whPhone").value.trim(),isDefault:document.getElementById("whIsDefault").checked};
+  if(data.isDefault)warehouses.forEach(w=>w.isDefault=false);
+  if(editingWarehouseId){const w=getWarehouse(editingWarehouseId);Object.assign(w,data)}
+  else{warehouses.push({id:uid(),...data,createdAt:nowISO()})}
+  if(!warehouses.find(w=>w.isDefault))warehouses[0].isDefault=true;
+  save(KEY_WAREHOUSES,warehouses);
+  closeModal("warehouseModal");editingWarehouseId=null;
+  logAudit("update","warehouse","","দোকান সংরক্ষণ");
+  renderWarehouseTable();renderWhSelects();refreshAll();alert("✅");
+}
+function setDefaultWarehouse(id){warehouses.forEach(w=>w.isDefault=w.id===id);save(KEY_WAREHOUSES,warehouses);renderWarehouseTable();refreshAll()}
+function deleteWarehouse(id){
+  const w=getWarehouse(id);if(!w)return;
+  const has=products.some(p=>getStockIn(p,id)>0);
+  if(has){alert("❌ স্টক আছে।");return}
+  if(!confirm(`"${w.name}" মুছবেন?`))return;
+  warehouses=warehouses.filter(x=>x.id!==id);
+  if(w.isDefault&&warehouses.length>0)warehouses[0].isDefault=true;
+  if(activeWarehouseId===id)activeWarehouseId=warehouses[0].id;
+  save(KEY_WAREHOUSES,warehouses);
+  renderWarehouseTable();renderWhSelects();refreshAll();
+}
+
+/* ===== LOW STOCK ===== */
+function getLowStockForWarehouse(wid){
+  const list=[];
+  products.forEach(p=>{
+    const min=Number(p.min||0);
+    if(min<=0)return;
+    const s=getStockIn(p,wid);
+    if(s<=min || s===0)list.push({product:p,stock:s,min,warehouseId:wid});
+  });
+  return list;
+}
+function getAllLowStock(){
+  const list=[];
+  products.forEach(p=>{
+    const min=Number(p.min||0);
+    if(min<=0)return;
+    warehouses.forEach(w=>{
+      const s=getStockIn(p,w.id);
+      if(s<=min || s===0)list.push({product:p,warehouse:w,stock:s,min});
+    });
+  });
+  return list;
+}
+function renderLowStockAlert(){
+  const card=document.getElementById("lowStockAlertCard");
+  const ul=document.getElementById("lowStockAlertList");
+  if(!card||!ul)return;
+  if(lowStockDismissed.date===today()&&lowStockDismissed.dismissed){card.classList.add("hidden");return}
+  const list=getAllLowStock();
+  if(list.length===0){card.classList.add("hidden");return}
+  card.classList.remove("hidden");
+  ul.innerHTML=list.slice(0,20).map(it=>`<li><b>${escapeHtml(it.product.name)}${it.product.size?" ("+escapeHtml(it.product.size)+")":""}</b> — ${escapeHtml(it.warehouse.name)} — ${it.stock<=0?'<span class="red">স্টক শেষ!</span>':'স্টক: '+it.stock+' (মিন: '+it.min+')'}</li>`).join("")+(list.length>20?`<li>...আরও ${list.length-20}টি</li>`:"");
+}
+function dismissLowStockAlert(){lowStockDismissed={date:today(),dismissed:true};save(KEY_LOWSTOCK_DISMISS,lowStockDismissed);renderLowStockAlert()}
+function openLowStockModal(){
+  const list=getLowStockForWarehouse(activeWarehouseId);
+  const w=getWarehouse(activeWarehouseId);
+  const el=document.getElementById("lowStockModalContent");
+  if(list.length===0){el.innerHTML='<div class="empty-state"><div class="big">✅</div><p>এই দোকানে লো স্টক নেই</p></div>';openModal("lowStockModal");return}
+  el.innerHTML=`<div class="hint">দোকান: <b>${escapeHtml(w?.name||"")}</b> — ${list.length}টি</div><div class="table-wrap"><table><thead><tr><th>পণ্য</th><th>সাইজ</th><th>স্টক</th><th>মিন</th><th></th></tr></thead><tbody>${list.map(it=>`<tr class="${it.stock<=0?'low-stock-row':''}"><td>${escapeHtml(it.product.name)}</td><td>${escapeHtml(it.product.size||"")}</td><td class="${it.stock<=0?'red':'orange'}"><b>${it.stock}</b></td><td>${it.min}</td><td><button class="blue" onclick="closeModal('lowStockModal');openProductModal('${it.product.id}')">✏️</button></td></tr>`).join("")}</tbody></table></div>`;
+  openModal("lowStockModal");
+}
+function buildLowStockText(){
+  const list=getAllLowStock();if(list.length===0)return "সব ঠিক ✅";
+  const nm=settings.companyName||"3A Shop";
+  let txt=`🏪 ${nm}\n⚠️ লো স্টক\n${new Date().toLocaleString("bn-BD")}\n\nমোট ${list.length}টি:\n\n`;
+  list.forEach((it,i)=>{txt+=`${i+1}. ${it.product.name}${it.product.size?" ("+it.product.size+")":""}\n   🏭 ${it.warehouse.name} — স্টক: ${it.stock} (মিন: ${it.min})\n`});
+  return txt;
+}
+function sendLowStockWhatsApp(){window.open("https://wa.me/?text="+encodeURIComponent(buildLowStockText()),"_blank")}
+function sendLowStockSMS(){window.location.href="sms:?body="+encodeURIComponent(buildLowStockText())}
+function copyLowStockList(){const txt=buildLowStockText();if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert("✅ কপি")).catch(()=>fallbackCopy(txt));else fallbackCopy(txt)}
+function fallbackCopy(txt){const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");alert("✅")}catch(e){alert("❌")}document.body.removeChild(ta)}
+
+/* ===== DELETED ===== */
+function recoverDeleted(id){
+  const d=deletedItems.find(x=>x.id===id);if(!d)return;
+  if(d.type==="product"){products.push(d.data);save(KEY_PRODUCTS,products)}
+  else if(d.type==="customer"){customers.push(d.data);save(KEY_CUSTOMERS,customers)}
+  else if(d.type==="invoice"){invoices.push(d.data);save(KEY_INVOICES,invoices)}
+  else if(d.type==="purchase"){purchases.push(d.data);save(KEY_PURCHASES,purchases)}
+  else if(d.type==="expense"){expenses.push(d.data);save(KEY_EXPENSES,expenses)}
+  deletedItems=deletedItems.filter(x=>x.id!==id);save(KEY_DELETED,deletedItems);
+  logAudit("restore",d.type,d.originalId,"রিকভার");
+  refreshAll();renderDeletedList();alert("✅ রিকভার।");
+}
+function clearOldDeleted(){if(!confirm("১৫ দিনের পুরনো মুছবেন?"))return;const b=deletedItems.length;purgeOldDeleted();renderDeletedList();alert("✅ "+(b-deletedItems.length)+"টি মুছে ফেলা হয়েছে।")}
+function setDeletedFilter(f,btn){currentDeletedFilter=f;document.querySelectorAll("#deletedSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderDeletedList()}
+function renderDeletedList(){
+  purgeOldDeleted();
+  const inf=document.getElementById("deletedInfo");
+  let f=deletedItems.slice().reverse();
+  if(currentDeletedFilter!=="all")f=f.filter(x=>x.type===currentDeletedFilter);
+  if(inf)inf.textContent=`মোট ${f.length}টি`;
+  const el=document.getElementById("deletedList");if(!el)return;
+  if(f.length===0){el.innerHTML='<div class="empty-state"><div class="big">🗑️</div><p>খালি</p></div>';return}
+  el.innerHTML=f.map(d=>{
+    const days=getDeletedDaysLeft(d.deletedAt);
+    let nm="—";
+    if(d.type==="product")nm=d.data.name||"—";
+    else if(d.type==="customer")nm=d.data.name||"—";
+    else if(d.type==="invoice")nm=(d.data.invoiceNo||"")+" — "+(d.data.buyerName||"");
+    else if(d.type==="purchase")nm=d.data.name||"—";
+    else if(d.type==="expense")nm=d.data.category||"—";
+    return `<div class="deleted-row"><div class="dr-info"><b>${escapeHtml(nm)}</b><br><span class="small">${escapeHtml(d.type)} — ${new Date(d.deletedAt).toLocaleString("bn-BD")}</span></div><div class="dr-days">${days} দিন বাকি</div><button class="green" onclick="recoverDeleted('${d.id}')">♻️ রিকভার</button></div>`;
+  }).join("");
+}
+
+/* ===== AUDIT ===== */
+function renderAuditLog(){
+  const list=document.getElementById("auditLogList");if(!list)return;
+  const af=document.getElementById("auditActionFilter")?.value||"";
+  const s=(document.getElementById("auditSearch")?.value||"").toLowerCase();
+  let f=auditLogs.slice().reverse();
+  if(currentAuditFilter==='today'){const t=today();f=f.filter(l=>(l.time||"").slice(0,10)===t)}
+  else if(currentAuditFilter==='week'){const d=new Date();d.setDate(d.getDate()-6);const ds=d.toISOString().slice(0,10);f=f.filter(l=>(l.time||"").slice(0,10)>=ds)}
+  else if(currentAuditFilter==='month'){const m=today().slice(0,7);f=f.filter(l=>(l.time||"").slice(0,7)===m)}
+  if(af)f=f.filter(l=>l.entity===af);
+  if(s)f=f.filter(l=>(l.detail||"").toLowerCase().includes(s));
+  const inf=document.getElementById("auditInfo");if(inf)inf.textContent=`মোট ${f.length}টি`;
+  if(f.length===0){list.innerHTML='<div class="empty-state">কোনো লগ নেই</div>';return}
+  list.innerHTML=f.slice(0,200).map(l=>{const t=new Date(l.time);return `<div style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px;margin-bottom:6px;font-size:12.5px;"><b>${escapeHtml(l.userName)}</b> — <span style="color:#ef8b00">${escapeHtml(l.action)}</span> — ${escapeHtml(l.detail)}<br><span class="small">${t.toLocaleString("bn-BD")}</span></div>`}).join("");
+}
+function setAuditFilter(f,btn){currentAuditFilter=f;document.querySelectorAll("#auditSection .summary-filter button").forEach(b=>{b.classList.remove('active');b.classList.add('secondary')});btn.classList.add('active');btn.classList.remove('secondary');renderAuditLog()}
+
+/* ===== BUSINESS SUMMARY ===== */
 function openBusinessSummaryModal(){
+  if(!canSeeProfit()){alert("❌ শুধু অ্যাডমিন");return}
   const wid=activeWarehouseId||getDefaultWarehouse().id;
   const w=getWarehouse(wid);
   const d=getDelivered().filter(inv=>inv.warehouseId===wid);
@@ -2807,6 +3164,7 @@ function openBusinessSummaryModal(){
   openModal("businessSummaryModal");
 }
 
+/* ===== SETTINGS ===== */
 function loadSettingsForm(){
   document.getElementById("companyName").value=settings.companyName||"";
   document.getElementById("companyAddress").value=settings.companyAddress||"";
@@ -2820,119 +3178,9 @@ function saveSettings(){
   logAudit("update","settings","","তথ্য আপডেট");
   alert("✅");refreshAll();
 }
-function renderAdminStatus(){
-  const box=document.getElementById("adminStatusBox");
-  const setupF=document.getElementById("adminSetupForm");
-  const loggedF=document.getElementById("adminLoggedForm");
-  const guestF=document.getElementById("adminGuestForm");
-  if(!box)return;
-  setupF.classList.add("hidden");loggedF.classList.add("hidden");guestF.classList.add("hidden");
-  if(!settings.adminPassword){
-    box.innerHTML='<div class="admin-logged" style="background:#fff0c2;color:#8a5b00;border-color:#ef8b00;">🔓 পাসওয়ার্ড সেট করা হয়নি — অ্যাপ সবসময় খোলা</div>';
-    setupF.classList.remove("hidden");
-  }else if(currentUser){
-    box.innerHTML='<div class="admin-logged">✅ অ্যাডমিন লগইন অবস্থায় আছেন</div>';
-    loggedF.classList.remove("hidden");
-  }else{
-    box.innerHTML='<div class="admin-logged" style="background:#fff0c2;color:#8a5b00;border-color:#ef8b00;">👤 Guest মোড — সব ফিচার কাজ করছে</div>';
-    guestF.classList.remove("hidden");
-  }
-}
-function saveAdminSetup(){
-  const p=document.getElementById("setupPassword").value;
-  const p2=document.getElementById("setupPassword2").value;
-  const q=document.getElementById("setupQuestion").value;
-  const a=document.getElementById("setupAnswer").value.trim();
-  const err=document.getElementById("setupError");
-  err.style.display="none";
-  if(!p||p.length<4){err.textContent="পাসওয়ার্ড কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
-  if(p!==p2){err.textContent="পাসওয়ার্ড মিলছে না";err.style.display="block";return}
-  if(!a){err.textContent="সিকিউরিটি প্রশ্নের উত্তর দিন";err.style.display="block";return}
-  settings.adminPassword=p;settings.securityQuestion=q;settings.securityAnswer=a.toLowerCase();
-  save(KEY_SETTINGS,settings);
-  currentUser={id:"admin",name:"Admin",role:"admin"};save(KEY_SESSION,currentUser);
-  logAudit("create","user","admin","পাসওয়ার্ড সেট");
-  renderAdminStatus();
-  alert("✅ পাসওয়ার্ড সেট হয়েছে।\n\nএখন থেকে অ্যাপ খুললে পাসওয়ার্ড চাইবে।");
-}
-function removePassword(){
-  if(!confirm("পাসওয়ার্ড মুছে ফেলবেন?\n\nএরপর অ্যাপ সরাসরি খুলবে।"))return;
-  settings.adminPassword="";settings.securityQuestion="";settings.securityAnswer="";
-  save(KEY_SETTINGS,settings);
-  currentUser=null;save(KEY_SESSION,null);
-  logAudit("update","user","admin","পাসওয়ার্ড মুছে ফেলা");
-  renderAdminStatus();
-  alert("✅ পাসওয়ার্ড মুছে ফেলা হয়েছে।");
-}
-function changeAdminPassword(){
-  const o=document.getElementById("cpOld").value;
-  const n=document.getElementById("cpNew").value;
-  const n2=document.getElementById("cpNew2").value;
-  if(o!==settings.adminPassword){alert("❌ পুরনো ভুল।");return}
-  if(!n||n.length<4){alert("কমপক্ষে ৪ অক্ষর।");return}
-  if(n!==n2){alert("মিলছে না।");return}
-  settings.adminPassword=n;save(KEY_SETTINGS,settings);
-  logAudit("update","user","admin","পাসওয়ার্ড পরিবর্তন");
-  document.getElementById("cpOld").value="";document.getElementById("cpNew").value="";document.getElementById("cpNew2").value="";
-  alert("✅ পরিবর্তিত।");
-}
-function doAdminLogout(){
-  if(!confirm("লগআউট? (Guest মোডে যাবেন)"))return;
-  currentUser=null;save(KEY_SESSION,null);
-  logAudit("logout","user","admin","লগআউট");
-  renderAdminStatus();
-  alert("✅ Guest মোডে চলে গেছেন।");
-}
-function guestLogin(){
-  const p=document.getElementById("guestLoginPassword").value;
-  const err=document.getElementById("guestLoginError");
-  err.style.display="none";
-  if(p!==settings.adminPassword){err.textContent="❌ ভুল পাসওয়ার্ড";err.style.display="block";return}
-  currentUser={id:"admin",name:"Admin",role:"admin"};save(KEY_SESSION,currentUser);
-  logAudit("login","user","admin","Admin লগইন");
-  document.getElementById("guestLoginPassword").value="";
-  renderAdminStatus();
-  alert("✅ এখন অ্যাডমিন মোডে।");
-}
-function showLoginOverlay(){document.getElementById("loginOverlay").classList.remove("hidden");document.getElementById("loginPassword").value="";document.getElementById("loginError").style.display="none"}
-function hideLoginOverlay(){document.getElementById("loginOverlay").classList.add("hidden")}
-function doLogin(){
-  const p=document.getElementById("loginPassword").value;
-  const err=document.getElementById("loginError");
-  err.style.display="none";
-  if(p!==settings.adminPassword){err.textContent="❌ ভুল পাসওয়ার্ড";err.style.display="block";return}
-  currentUser={id:"admin",name:"Admin",role:"admin"};save(KEY_SESSION,currentUser);
-  logAudit("login","user","admin","Admin লগইন");
-  document.getElementById("loginPassword").value="";
-  hideLoginOverlay();
-  renderAdminStatus();
-  refreshAll();
-}
-function showForgotPassword(){
-  if(!settings.securityQuestion){alert("রিকভারি প্রশ্ন সেট নেই।");return}
-  document.getElementById("forgotQuestion").textContent=settings.securityQuestion;
-  document.getElementById("loginOverlay").classList.add("hidden");
-  document.getElementById("forgotOverlay").classList.remove("hidden");
-  document.getElementById("forgotAnswer").value="";document.getElementById("forgotNewPass").value="";document.getElementById("forgotNewPass2").value="";
-  document.getElementById("forgotError").style.display="none";
-}
-function hideForgot(){document.getElementById("forgotOverlay").classList.add("hidden");document.getElementById("loginOverlay").classList.remove("hidden")}
-function recoverPassword(){
-  const a=document.getElementById("forgotAnswer").value.trim().toLowerCase();
-  const np=document.getElementById("forgotNewPass").value;
-  const np2=document.getElementById("forgotNewPass2").value;
-  const err=document.getElementById("forgotError");
-  err.style.display="none";
-  if(a!==String(settings.securityAnswer||"").toLowerCase()){err.textContent="❌ উত্তর ভুল";err.style.display="block";return}
-  if(!np||np.length<4){err.textContent="কমপক্ষে ৪ অক্ষর";err.style.display="block";return}
-  if(np!==np2){err.textContent="মিলছে না";err.style.display="block";return}
-  settings.adminPassword=np;save(KEY_SETTINGS,settings);
-  currentUser={id:"admin",name:"Admin",role:"admin"};save(KEY_SESSION,currentUser);
-  logAudit("update","user","admin","পাসওয়ার্ড রিকভার");
-  hideForgot();hideLoginOverlay();renderAdminStatus();refreshAll();
-  alert("✅ পাসওয়ার্ড রিসেট। আপনি এখন লগইন।");
-}
+function installApp(){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.then(c=>{if(c.outcome==="accepted")alert("✅");deferredInstallPrompt=null})}else alert("📱 Chrome মেনু → 'Add to Home screen'")}
 
+/* ===== CSV ===== */
 function csvEscape(v){const s=String(v??"");if(s.includes(",")||s.includes('"')||s.includes("\n"))return '"'+s.replace(/"/g,'""')+'"';return s}
 function downloadCSV(fn,rows){const csv=rows.map(r=>r.map(csvEscape).join(",")).join("\n");const b=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=fn+".csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
 function exportCSV(t){
@@ -2947,15 +3195,16 @@ function exportCSV(t){
   }catch(e){alert("❌")}
 }
 
-function buildBackupObject(){return{version:"3A-8.1",date:nowISO(),products,purchases,customers,invoices,settings,payments,expenses,warehouses,adjustments,transfers,auditLogs,deletedItems}}
+/* ===== BACKUP ===== */
+function buildBackupObject(){return{version:"3A-11.0",date:nowISO(),products,purchases,customers,invoices,settings,payments,expenses,warehouses,adjustments,transfers,auditLogs,deletedItems,users,adminAccount}}
 function backupNoPin(type){
   if(type==='code'){
     try{
       const b=buildBackupObject();const j=JSON.stringify(b);const b64=btoa(unescape(encodeURIComponent(j)));
       const code="3A0"+b64;
       document.getElementById("backupCodeBox").value=code;
-      if(navigator.clipboard){navigator.clipboard.writeText(code).then(()=>showRestoreStatus("✅ কোড তৈরি ও কপি হয়েছে।<br>এখন কোথাও সেভ করে রাখুন।",false)).catch(()=>showRestoreStatus("✅ কোড তৈরি হয়েছে। নিচের বক্স থেকে কপি করুন।",false))}
-      else showRestoreStatus("✅ কোড তৈরি হয়েছে। নিচের বক্স থেকে কপি করুন।",false);
+      if(navigator.clipboard){navigator.clipboard.writeText(code).then(()=>showRestoreStatus("✅ কোড তৈরি ও কপি হয়েছে।",false)).catch(()=>showRestoreStatus("✅ কোড তৈরি হয়েছে।",false))}
+      else showRestoreStatus("✅ কোড তৈরি হয়েছে।",false);
     }catch(e){console.error(e);alert("❌ কোড তৈরি ব্যর্থ।")}
   }else if(type==='file'){
     try{
@@ -2981,21 +3230,7 @@ function shareBackupCode(){
   if(!b||!b.value){alert("আগে কোড তৈরি করুন।");return}
   const code=b.value;
   if(navigator.share){navigator.share({title:"3A Shop ব্যাকআপ",text:"3A Shop ব্যাকআপ কোড:\n\n"+code}).catch(()=>{});return}
-  const wa=confirm("WhatsApp-এ পাঠাবেন?\n\n• OK = WhatsApp খুলবে\n• Cancel = কপি হবে");
-  if(wa)window.open("https://wa.me/?text="+encodeURIComponent("3A Shop ব্যাকআপ কোড:\n\n"+code),"_blank");
-  else copyBackupCode();
-}
-function clearRestoreBox(){const box=document.getElementById("restoreInputBox");if(box)box.value=""}
-async function pasteFromClipboardToRestore(){
-  try{
-    if(navigator.clipboard&&navigator.clipboard.readText){
-      const txt=await navigator.clipboard.readText();
-      if(!txt){alert("ক্লিপবোর্ড খালি।");return}
-      const box=document.getElementById("restoreInputBox");
-      if(box)box.value=txt.trim();
-      showRestoreStatus("✅ ক্লিপবোর্ড থেকে পেস্ট হয়েছে।",false);
-    }else alert("ব্রাউজার ক্লিপবোর্ড পড়তে পারছে না। ম্যানুয়ালি পেস্ট করুন।");
-  }catch(e){console.error(e);alert("⚠️ ক্লিপবোর্ড পড়া যায়নি। ম্যানুয়ালি পেস্ট করুন।")}
+  window.open("https://wa.me/?text="+encodeURIComponent("3A Shop ব্যাকআপ কোড:\n\n"+code),"_blank");
 }
 function showRestoreStatus(msg,err){
   const el=document.getElementById("restoreStatus");if(!el)return;
@@ -3015,126 +3250,9 @@ function parseBackupCode(code){
   }
   try{const j=decodeURIComponent(escape(atob(code.replace(/\s+/g,""))));const d=JSON.parse(j);return{data:d}}catch(e){}
   if(code.startsWith("{")){try{const d=JSON.parse(code);return{data:d}}catch(e){}}
-  return{error:"❌ কোড পড়া যাচ্ছে না। সঠিক ব্যাকআপ কোড দিন।"};
+  return{error:"❌ কোড পড়া যাচ্ছে না।"};
 }
 function validateBackupData(d){if(!d||typeof d!=="object")return false;const keys=["products","purchases","customers","invoices","payments","expenses","warehouses","adjustments","transfers","settings"];return keys.some(k=>k in d)}
-function doRestoreFromPasted(){
-  const box=document.getElementById("restoreInputBox");
-  if(!box||!box.value.trim()){alert("আগে কোড পেস্ট করুন।");box&&box.focus();return}
-  const code=box.value.trim();
-  const r=parseBackupCode(code);
-  if(r.error){showRestoreStatus(r.error,true);return}
-  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
-  if(!confirm("⚠️ সতর্কতা\n\nবর্তমান সব ডেটা মুছে ব্যাকআপের ডেটা বসবে।\n\nআপনি নিশ্চিত?"))return;
-  try{applyData(r.data);box.value="";showRestoreStatus("✅ সফলভাবে রিস্টোর হয়েছে!<br>সব ডেটা পুনরুদ্ধার হয়েছে।",false);logAudit("restore","backup","","কোড থেকে রিস্টোর")}
-  catch(e){console.error(e);showRestoreStatus("❌ রিস্টোর ব্যর্থ: "+e.message,true)}
-}
-function doMergeFromPasted(){
-  const box=document.getElementById("restoreInputBox");
-  if(!box||!box.value.trim()){alert("আগে কোড পেস্ট করুন।");box&&box.focus();return}
-  const code=box.value.trim();
-  const r=parseBackupCode(code);
-  if(r.error){showRestoreStatus(r.error,true);return}
-  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
-  if(!confirm("🔀 মার্জ\n\nবর্তমান ডেটা থাকবে + নতুন ডেটা যোগ হবে।\n\n(একই ID থাকলে পুরনো থাকবে)\n\nআপনি নিশ্চিত?"))return;
-  try{
-    const added=mergeBackupData(r.data);
-    box.value="";
-    const summary=`✅ মার্জ সফল!<br><br>
-      🆕 নতুন পণ্য: <b>${added.products}</b><br>
-      🆕 নতুন গ্রাহক: <b>${added.customers}</b><br>
-      🆕 নতুন চালান: <b>${added.invoices}</b><br>
-      🆕 নতুন ক্রয়: <b>${added.purchases}</b><br>
-      🆕 নতুন পেমেন্ট: <b>${added.payments}</b><br>
-      🆕 নতুন খরচ: <b>${added.expenses}</b><br>
-      🆕 নতুন দোকান: <b>${added.warehouses}</b>`;
-    showRestoreStatus(summary,false);
-    logAudit("merge","backup","","কোড থেকে মার্জ");
-  }catch(e){console.error(e);showRestoreStatus("❌ মার্জ ব্যর্থ: "+e.message,true)}
-}
-function doRestoreFromFile(){
-  const f=document.getElementById("restoreFile")?.files[0];
-  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
-  if(!confirm("⚠️ সব ডেটা বদলে যাবে।\n\nআপনি নিশ্চিত?"))return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      const txt=String(e.target.result||"").trim();
-      let d;
-      if(txt.startsWith("{"))d=JSON.parse(txt);
-      else{const r=parseBackupCode(txt);if(r.error){showRestoreStatus(r.error,true);return}d=r.data}
-      if(!validateBackupData(d)){showRestoreStatus("❌ ফাইলের ডেটা সঠিক নয়।",true);return}
-      applyData(d);
-      showRestoreStatus("✅ ফাইল থেকে সফলভাবে রিস্টোর হয়েছে।",false);
-      logAudit("restore","backup","","ফাইল থেকে রিস্টোর");
-    }catch(err){console.error(err);showRestoreStatus("❌ ফাইল পড়া ব্যর্থ: "+err.message,true)}
-  };
-  reader.readAsText(f);
-}
-function doMergeFromFile(){
-  const f=document.getElementById("restoreFile")?.files[0];
-  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
-  if(!confirm("🔀 ফাইলের ডেটা যোগ হবে (মার্জ)।\n\nআপনি নিশ্চিত?"))return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      const txt=String(e.target.result||"").trim();
-      let d;
-      if(txt.startsWith("{"))d=JSON.parse(txt);
-      else{const r=parseBackupCode(txt);if(r.error){showRestoreStatus(r.error,true);return}d=r.data}
-      if(!validateBackupData(d)){showRestoreStatus("❌ ফাইলের ডেটা সঠিক নয়।",true);return}
-      const added=mergeBackupData(d);
-      const summary=`✅ মার্জ সফল!<br><br>
-        🆕 পণ্য: <b>${added.products}</b> | গ্রাহক: <b>${added.customers}</b> | চালান: <b>${added.invoices}</b><br>
-        🆕 ক্রয়: <b>${added.purchases}</b> | পেমেন্ট: <b>${added.payments}</b> | খরচ: <b>${added.expenses}</b> | দোকান: <b>${added.warehouses}</b>`;
-      showRestoreStatus(summary,false);
-      logAudit("merge","backup","","ফাইল থেকে মার্জ");
-    }catch(err){console.error(err);showRestoreStatus("❌ মার্জ ব্যর্থ: "+err.message,true)}
-  };
-  reader.readAsText(f);
-}
-function mergeBackupData(d){
-  const added={products:0,purchases:0,customers:0,invoices:0,payments:0,expenses:0,warehouses:0,adjustments:0,transfers:0,deletedItems:0};
-  function mergeArray(currentArr,newArr,idField="id"){
-    const existing=new Set(currentArr.map(x=>x[idField]));
-    let cnt=0;
-    (newArr||[]).forEach(item=>{
-      if(!item||!item[idField])return;
-      if(!existing.has(item[idField])){currentArr.push(item);existing.add(item[idField]);cnt++}
-    });
-    return cnt;
-  }
-  const exIds=new Set(products.map(p=>String(p.id)));
-  const exName=new Set(products.map(p=>String(p.name||"").trim()+"|"+String(p.size||"").trim()));
-  (d.products||[]).forEach(p=>{
-    if(!p||!p.id)return;
-    const key=String(p.name||"").trim()+"|"+String(p.size||"").trim();
-    if(exIds.has(String(p.id))||exName.has(key))return;
-    products.push(p);exIds.add(String(p.id));exName.add(key);added.products++;
-  });
-  added.customers=mergeArray(customers,d.customers||[]);
-  added.invoices=mergeArray(invoices,d.invoices||[]);
-  added.purchases=mergeArray(purchases,d.purchases||[]);
-  added.payments=mergeArray(payments,d.payments||[]);
-  added.expenses=mergeArray(expenses,d.expenses||[]);
-  added.warehouses=mergeArray(warehouses,d.warehouses||[]);
-  added.adjustments=mergeArray(adjustments,d.adjustments||[]);
-  added.transfers=mergeArray(transfers,d.transfers||[]);
-  added.deletedItems=mergeArray(deletedItems,d.deletedItems||[]);
-  save(KEY_PRODUCTS,products);save(KEY_PURCHASES,purchases);save(KEY_CUSTOMERS,customers);save(KEY_INVOICES,invoices);
-  save(KEY_PAYMENTS,payments);save(KEY_EXPENSES,expenses);save(KEY_WAREHOUSES,warehouses);
-  save(KEY_ADJUSTMENTS,adjustments);save(KEY_TRANSFERS,transfers);save(KEY_DELETED,deletedItems);
-  if(d.settings){
-    const kp=settings.adminPassword,kq=settings.securityQuestion,ka=settings.securityAnswer;
-    if(!settings.companyName&&d.settings.companyName)settings.companyName=d.settings.companyName;
-    if(!settings.companyAddress&&d.settings.companyAddress)settings.companyAddress=d.settings.companyAddress;
-    if(!settings.companyPhone&&d.settings.companyPhone)settings.companyPhone=d.settings.companyPhone;
-    settings.adminPassword=kp;settings.securityQuestion=kq;settings.securityAnswer=ka;
-    save(KEY_SETTINGS,settings);
-  }
-  migrateData();refreshAll();
-  return added;
-}
 function applyData(d){
   if(Array.isArray(d.products))products=d.products;
   if(Array.isArray(d.purchases))purchases=d.purchases;
@@ -3147,20 +3265,104 @@ function applyData(d){
   if(Array.isArray(d.transfers))transfers=d.transfers;
   if(Array.isArray(d.auditLogs))auditLogs=d.auditLogs;
   if(Array.isArray(d.deletedItems))deletedItems=d.deletedItems;
-  if(d.settings){
-    const kp=settings.adminPassword,kq=settings.securityQuestion,ka=settings.securityAnswer;
-    settings=d.settings;
-    if(!settings.adminPassword)settings.adminPassword=kp;
-    if(!settings.securityQuestion)settings.securityQuestion=kq;
-    if(!settings.securityAnswer)settings.securityAnswer=ka;
-  }
+  if(Array.isArray(d.users))users=d.users;
+  if(d.settings)settings=d.settings;
+  if(d.adminAccount)adminAccount=d.adminAccount;
   save(KEY_PRODUCTS,products);save(KEY_PURCHASES,purchases);save(KEY_CUSTOMERS,customers);save(KEY_INVOICES,invoices);
   save(KEY_PAYMENTS,payments);save(KEY_EXPENSES,expenses);save(KEY_WAREHOUSES,warehouses);
   save(KEY_ADJUSTMENTS,adjustments);save(KEY_TRANSFERS,transfers);save(KEY_AUDIT,auditLogs);
-  save(KEY_DELETED,deletedItems);save(KEY_SETTINGS,settings);
+  save(KEY_DELETED,deletedItems);save(KEY_SETTINGS,settings);save(KEY_USERS,users);save(KEY_ADMIN,adminAccount);
   migrateData();refreshAll();
 }
+function mergeBackupData(d){
+  const added={products:0,purchases:0,customers:0,invoices:0,payments:0,expenses:0,warehouses:0,adjustments:0,transfers:0,deletedItems:0,users:0};
+  function mergeArray(currentArr,newArr,idField="id"){
+    const existing=new Set(currentArr.map(x=>x[idField]));
+    let cnt=0;
+    (newArr||[]).forEach(item=>{
+      if(!item||!item[idField])return;
+      if(!existing.has(item[idField])){currentArr.push(item);existing.add(item[idField]);cnt++}
+    });
+    return cnt;
+  }
+  added.products=mergeArray(products,d.products||[]);
+  added.customers=mergeArray(customers,d.customers||[]);
+  added.invoices=mergeArray(invoices,d.invoices||[]);
+  added.purchases=mergeArray(purchases,d.purchases||[]);
+  added.payments=mergeArray(payments,d.payments||[]);
+  added.expenses=mergeArray(expenses,d.expenses||[]);
+  added.warehouses=mergeArray(warehouses,d.warehouses||[]);
+  added.adjustments=mergeArray(adjustments,d.adjustments||[]);
+  added.transfers=mergeArray(transfers,d.transfers||[]);
+  added.deletedItems=mergeArray(deletedItems,d.deletedItems||[]);
+  added.users=mergeArray(users,d.users||[]);
+  save(KEY_PRODUCTS,products);save(KEY_PURCHASES,purchases);save(KEY_CUSTOMERS,customers);save(KEY_INVOICES,invoices);
+  save(KEY_PAYMENTS,payments);save(KEY_EXPENSES,expenses);save(KEY_WAREHOUSES,warehouses);
+  save(KEY_ADJUSTMENTS,adjustments);save(KEY_TRANSFERS,transfers);save(KEY_DELETED,deletedItems);save(KEY_USERS,users);
+  migrateData();refreshAll();
+  return added;
+}
+function doRestoreFromPasted(){
+  const box=document.getElementById("restoreInputBox");
+  if(!box||!box.value.trim()){alert("আগে কোড পেস্ট করুন।");return}
+  const code=box.value.trim();
+  const r=parseBackupCode(code);
+  if(r.error){showRestoreStatus(r.error,true);return}
+  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+  if(!confirm("⚠️ সব ডেটা বদলে যাবে। নিশ্চিত?"))return;
+  try{applyData(r.data);box.value="";showRestoreStatus("✅ রিস্টোর সফল!",false);logAudit("restore","backup","","কোড থেকে রিস্টোর")}
+  catch(e){console.error(e);showRestoreStatus("❌ ব্যর্থ: "+e.message,true)}
+}
+function doMergeFromPasted(){
+  const box=document.getElementById("restoreInputBox");
+  if(!box||!box.value.trim()){alert("আগে কোড পেস্ট করুন।");return}
+  const code=box.value.trim();
+  const r=parseBackupCode(code);
+  if(r.error){showRestoreStatus(r.error,true);return}
+  if(!validateBackupData(r.data)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+  if(!confirm("🔀 মার্জ করবেন?"))return;
+  try{
+    const added=mergeBackupData(r.data);box.value="";
+    showRestoreStatus(`✅ মার্জ সফল!<br>পণ্য: ${added.products} | গ্রাহক: ${added.customers} | চালান: ${added.invoices}`,false);
+  }catch(e){console.error(e);showRestoreStatus("❌ ব্যর্থ: "+e.message,true)}
+}
+function doRestoreFromFile(){
+  const f=document.getElementById("restoreFile")?.files[0];
+  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
+  if(!confirm("⚠️ সব ডেটা বদলে যাবে।"))return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const txt=String(e.target.result||"").trim();
+      let d;
+      if(txt.startsWith("{"))d=JSON.parse(txt);
+      else{const r=parseBackupCode(txt);if(r.error){showRestoreStatus(r.error,true);return}d=r.data}
+      if(!validateBackupData(d)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+      applyData(d);showRestoreStatus("✅ ফাইল থেকে রিস্টোর সফল।",false);
+    }catch(err){console.error(err);showRestoreStatus("❌ ব্যর্থ: "+err.message,true)}
+  };
+  reader.readAsText(f);
+}
+function doMergeFromFile(){
+  const f=document.getElementById("restoreFile")?.files[0];
+  if(!f){alert("ফাইল সিলেক্ট করুন।");return}
+  if(!confirm("🔀 মার্জ করবেন?"))return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const txt=String(e.target.result||"").trim();
+      let d;
+      if(txt.startsWith("{"))d=JSON.parse(txt);
+      else{const r=parseBackupCode(txt);if(r.error){showRestoreStatus(r.error,true);return}d=r.data}
+      if(!validateBackupData(d)){showRestoreStatus("❌ ডেটা সঠিক নয়।",true);return}
+      const added=mergeBackupData(d);
+      showRestoreStatus(`✅ মার্জ সফল! পণ্য: ${added.products}, গ্রাহক: ${added.customers}`,false);
+    }catch(err){console.error(err);showRestoreStatus("❌ ব্যর্থ: "+err.message,true)}
+  };
+  reader.readAsText(f);
+}
 
+/* ===== REFRESH ===== */
 function refreshAll(){
   try{
     products=load(KEY_PRODUCTS,products);purchases=load(KEY_PURCHASES,purchases);
@@ -3170,6 +3372,8 @@ function refreshAll(){
     transfers=load(KEY_TRANSFERS,transfers);auditLogs=load(KEY_AUDIT,auditLogs);
     settings=load(KEY_SETTINGS,settings);deletedItems=load(KEY_DELETED,deletedItems);
     lowStockDismissed=load(KEY_LOWSTOCK_DISMISS,lowStockDismissed);
+    users=load(KEY_USERS,users);
+    adminAccount=load(KEY_ADMIN,adminAccount);
   }catch(e){}
   try{migrateData()}catch(e){}
   const s=fn=>{try{fn()}catch(e){console.error(e)}};
@@ -3178,7 +3382,7 @@ function refreshAll(){
   s(renderSales);s(renderCustomers);s(renderRoutes);s(renderTopReports);
   s(renderReports);s(renderPerProductProfit);s(renderSupplierReport);s(renderDeadStockReport);
   s(renderCashBook);s(renderExpenses);s(renderExpenseCategoryDatalist);s(renderBuyerNameDatalist);
-  s(loadSettingsForm);s(renderAdminStatus);s(renderWarehouseTable);s(renderWhSelects);
+  s(loadSettingsForm);s(renderAdminStatus);s(renderUserList);s(renderWarehouseTable);s(renderWhSelects);
   s(renderAdjProductSelect);s(updateAdjCurrentStock);s(renderAdjustmentHistory);
   s(renderTransferProductSelect);s(updateTransferStock);s(renderTransferHistory);
   s(renderDeletedList);s(renderAuditLog);s(updateWhBars);s(renderPaymentHistory);
@@ -3196,11 +3400,11 @@ function refreshAll(){
 
 function initApp(){
   try{migrateData()}catch(e){}
-  if(settings.adminPassword && !currentUser)showLoginOverlay();
-  else hideLoginOverlay();
+  initLogin();
+  applyRoleUI();
   try{refreshAll()}catch(e){}
   try{prepareNewInvoice()}catch(e){}
-  console.log("✅ 3A Shop ready");
+  console.log("✅ 3A Shop ready v11");
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initApp);
 else setTimeout(initApp,30);
@@ -3213,6 +3417,5 @@ document.addEventListener("change",function(e){
 window.addEventListener("storage",function(e){if(!e.key)return;try{refreshAll()}catch(err){}});
 window.addEventListener("beforeinstallprompt",(e)=>{e.preventDefault();deferredInstallPrompt=e});
 </script>
-
 </body>
 </html>
